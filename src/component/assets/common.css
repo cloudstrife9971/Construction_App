@@ -1,52 +1,159 @@
 .box {
-    padding-top: 100px;
-    padding-bottom: 100px;
+  padding-top: 100px;
+  padding-bottom: 100px;
 }
 
 .btn-mgn {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 .my-table {
-    margin-top: 40px;
-    margin-bottom: 25px;
+  margin-top: 40px;
+  margin-bottom: 25px;
 }
 .gtin-box {
-    border: 1px solid black;
-    text-align: center;
+  border: 1px solid black;
+  text-align: center;
 }
 
 /* --------------------------- */
 .sidenav {
-    height: 100%;
-    width: 278px;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    padding-top: 20px;
+  height: 100%;
+  width: 278px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  color: #818181;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.main {
+  margin-left: 278px; /* Same as the width of the sidenav */
+  /* font-size: 28px; Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
   }
-  
   .sidenav a {
-    padding: 6px 8px 6px 16px;
-    text-decoration: none;
-    font-size: 17px;
-    color: #818181;
-    display: block;
+    font-size: 18px;
   }
+}
+
+.custom-postiton {
+  position: relative;
+}
+.top-nav-container {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+}
+.top-nav {
+  border: 1px solid black;
+  /* width: 250px; */
+  /* margin: auto; */
+  padding: 11px 10px;
+  /* text-align: center; */
+  background-color: white;
+  transition: transform 0.1s;
+  border-radius: 8px;
+}
+.top-nav:hover {
+  transform: scale(2);
+}
+.top-nav h2 {
+  font-size: 23px;
+  text-align: center;
+  color: #3f6ad8;
+}
+.top-nav ul {
+list-style-type: none;
+padding: 0%;
+}
+.top-nav ul li {
+  border-radius: 4px;
   
-  .sidenav a:hover {
-    color: #f1f1f1;
-  }
-  
-  .main {
-    margin-left: 278px; /* Same as the width of the sidenav */
-    /* font-size: 28px; Increased text to enable scrolling */
-    padding: 0px 10px;
-  }
-  
-  @media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
-  }
+}
+.top-nav a {
+  text-decoration: none;
+  display: block;
+  color: #343a40;
+  padding-left: 6px;
+}
+.top-nav li a:hover {
+  background-color: #e0f3ff;
+}
+.dropdown {
+list-style-type: none;
+padding: 0%;
+padding-left: 30px;
+height: 0;
+overflow: hidden;
+}
+.top-nav >ul >li:hover .dropdown  {
+height: auto;
+}
+
+.dropdown::before {
+  content: "";
+  border: 1px solid #3f6ad8;
+  height: 100%;
+  position: absolute;
+  left: 24px;
+}
+.dropdown li {
+
+}
+.dropdown li a {
+display: block;
+}
+
+
+.icon {
+  margin-right: 6px;
+}
+.circle-box {
+  /* max-width: 500px; */
+}
+.circle {
+  border: 2px dashed black;
+  width: 50%;
+  border-radius: 50%;
+  /* height: 100vh;   */
+  /* border-radius: 360px; */
+  padding-bottom: 50%;
+  margin: auto;
+  margin-top: 26px;
+}
+.two-box-flex {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  top: 33%;
+  position: absolute;
+  padding: 0px 18%;
+
+  align-items: center;
+}
+.down-nav-container {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  bottom: 71px;
+}

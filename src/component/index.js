@@ -12,11 +12,12 @@ import CreateConsumptionOrder from "./foremen/CreateConsumptionOrder";
 import StockRelease from "./inventory_Manger/stockRealease";
 import Approval from "./regulator/approval";
 import DisplayStatus from "./foremen/displayStatus";
+import Homepage from "./homepage"
 export default class index extends Component {
   render() {
     return (
       <div>
-        <div class="sidenav">
+        {/* <div class="sidenav">
           <a href="/">Buyer Create New Order</a>
           <a href="/BuyerDisplayOrderStatus">Buyer Display Order Status</a>
           <a href="/SupplierReceivedOrders">Supplier Received Orders </a>
@@ -43,12 +44,12 @@ export default class index extends Component {
           </a>
           <a href="/Foremen Create Consumption Order">
             Foremen Create Consumption Order
-          </a>
+          </a> */}
           {/* <a href="/Foremen Display orders status">
             Foremen Display orders status
           </a> */}
-        </div>
-        <div class="main">
+        {/* </div> */}
+        {/* <div class="main"> */}
           {/* <Create />
           <Status />
           <Order />
@@ -62,7 +63,7 @@ export default class index extends Component {
           <DisplayStatus /> */}
           <BrowserRouter>
             <Switch>
-              <Route exact path="/" component={Create} />
+              <Route exact path="/" component={Homepage} />
               <Route path="/BuyerDisplayOrderStatus" component={Status} />
               <Route path="/SupplierReceivedOrders" component={Order} />
               <Route
@@ -97,7 +98,7 @@ export default class index extends Component {
               {/* <Route path="Foremen Display orders status" component={Post} /> */}
             </Switch>
           </BrowserRouter>
-        </div>
+        {/* </div> */}
       </div>
     );
   }

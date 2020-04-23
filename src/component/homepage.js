@@ -8,10 +8,23 @@ export default class homepage extends Component {
         <div className="top-nav-container">
           <div className="top-nav">
             <h2>Supplier company</h2>
-            <a href="">
-              <img src={icon} className="icon" alt="" />
-              Supplier
-            </a>
+            <ul>
+              <li>
+                {" "}
+                <a href="">
+                  <img src={icon} className="icon" alt="" />
+                  Supplier
+                </a>
+                <ul className="dropdown">
+                  <li>
+                    <a href="/SupplierReceivedOrders">Received Orders</a>
+                  </li>
+                  <li>
+                    <a href="/Supplier Create delivery Order">Create delivery Order</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
           </div>
         </div>
         <div className="circle"></div>
@@ -20,7 +33,7 @@ export default class homepage extends Component {
             <h2>Customer</h2>
             <a href="">
               <img src={icon} className="icon" alt="" />
-              Supplier
+              Customer
             </a>
           </div>
           <div className="top-nav">
@@ -29,38 +42,55 @@ export default class homepage extends Component {
               <li>
                 <a href="">
                   <img src={icon} className="icon" alt="" />
-                  Supplier
+                  Buyer
                 </a>
-              <ul className="dropdown">
-                <li>
-                  <a href="">
-                  Create New Order
-                  </a>
-                </li>
-                <li>
-                  <a href="">
-                  Display Order Status
-                  </a>
-                </li>
-              </ul>
+                <ul className="dropdown">
+                  <li>
+                    <a href="/CreateNewOrder">Create New Order</a>
+                  </li>
+                  <li>
+                    <a href="/BuyerDisplayOrderStatus">Display Order Status</a>
+                  </li>
+                </ul>
               </li>
               <li>
                 <a href="">
                   <img src={icon} className="icon" alt="" />
                   General Manage
                 </a>
+                <ul className="dropdown">
+                  <li>
+                    <a href="">Create New Order</a>
+                  </li>
+                </ul>
               </li>
               <li>
                 <a href="">
                   <img src={icon} className="icon" alt="" />
                   Inventory Manager
                 </a>
+                <ul className="dropdown">
+                  <li>
+                    <a href="/Inventory Manger Create goods receipt"> Inventory Manger Create goods receipt</a>
+                  </li>
+                  <li>
+                    <a href="/Inventory Manger Stock release"> Inventory Manger Stock release</a>
+                  </li>
+                </ul>
               </li>
               <li>
                 <a href="">
                   <img src={icon} className="icon" alt="" />
                   Foremen
                 </a>
+                <ul className="dropdown">
+                  <li>
+                    <a href="/Foremen Create Consumption Order">Foremen Create Consumption Order</a>
+                  </li>
+                  <li>
+                    <a href="">Foremen Display orders status</a>
+                  </li>
+                </ul>
               </li>
             </ul>
           </div>
@@ -87,6 +117,6 @@ export default class homepage extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }

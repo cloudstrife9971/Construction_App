@@ -65,6 +65,8 @@ export default class index extends Component {
             <Switch>
               <Route exact path="/" component={Homepage} />
               <Route path="/BuyerDisplayOrderStatus" component={Status} />
+              <Route path="/CreateNewOrder" component={Create} />
+              
               <Route path="/SupplierReceivedOrders" component={Order} />
               <Route
                 path="/Supplier Create delivery Order"

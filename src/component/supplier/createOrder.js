@@ -10,8 +10,9 @@ export default class CreateOrder extends Component {
 Cement Type
 10 F</td>
           <td>100</td>
-          <td><div className="gtin-box">10614141999996</div>
-              </td>
+          {/* <td><div className="gtin-box">10614141999996</div> */}
+          <td><input type="number" className="gtin-box"/></td>
+              {/* </td> */}
       </tr>
     return (
       <div className="container box">

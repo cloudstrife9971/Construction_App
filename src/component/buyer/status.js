@@ -1,7 +1,17 @@
 import React, { Component } from "react";
 import "../assets/common.css";
-
+import axios from 'axios';
 export default class Status extends Component {
+  state= {
+
+  }
+  componentDidMount=()=>{
+    axios.get(``)
+    .then(res => {
+      const persons = res.data;
+      // this.setState({ persons });
+    })
+  }
   render() {
     var a = (
       <tr>
@@ -16,7 +26,7 @@ export default class Status extends Component {
         <div className="table-responsive-md">
         <table className="table table-bordered ">
           <tr>
-            <th>Purchase Order numbe</th>
+            <th>Purchase Order number</th>
             <th colspan="2">Items</th>
             <th>Total</th>
           </tr>

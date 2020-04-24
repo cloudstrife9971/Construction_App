@@ -7,31 +7,51 @@ export default class Create extends Component {
     materials: [],
     POnumber: null,
     input: null,
-    material: null,
-    ItemNo: null,
-    description: null,
-    quantity: null,
-    unit_price: null,
+    material: [],
+    // ItemNo: null,
+    // description: null,
+    // quantity: null,
+    // unit_price: null,
     amount: null,
-    state: null,
+    state: "New Order",
     shipTo: null,
     deliveryDue: null,
     buyerID: null,
     supplierID: null,
+    dd: null,
+    mm: null,
+    yyyy: null,
   };
   handleChange = (e) => {
     this.setState({ [e.target.id]: e.target.value });
     // console.log(this.state);
   };
+  handleAmount = (e) => {
+    var id = e.target.id;
+    var value = e.target.value;
+    var updateMaterial = this.state.material;
+    updateMaterial[id].quantity = value;
+    this.setState({ material: updateMaterial });
+    console.log(this.state.material[id].quantity);
+  };
   handleClick = () => {
     var product = this.state.materials.find((data) => {
       return data.description === this.state.input;
     });
-    // console.log(product);
-    this.setState({
-      material: product,
-      amount: product.unit_price,
+    var check = this.state.material.find((data) => {
+      return data.ItemNo === product.ItemNo;
     });
+    if (check) {
+    } else {
+      product.quantity = 1;
+      var material = this.state.material;
+      material.push(product);
+      // console.log(product);
+      this.setState({
+        material: material,
+        // amount: product.unit_price,
+      });
+    }
   };
   totalPrice = (e) => {
     var value = parseFloat(this.state.material.unit_price);
@@ -45,11 +65,11 @@ export default class Create extends Component {
     var user = {
       POnumber: this.state.POnumber,
       material: {
-        ItemNo: this.state.ItemNo,
-        description: this.state.description,
-        quantity: this.state.quantity,
-        unit_price: this.state.unit_price,
-        amount: this.state.amount,
+        // ItemNo: this.state.ItemNo,
+        // description: this.state.description,
+        // quantity: this.state.quantity,
+        // unit_price: this.state.unit_price,
+        // amount: this.state.amount,
       },
       state: "xyz",
       shipTo: this.state.shipTo,
@@ -57,41 +77,65 @@ export default class Create extends Component {
       buyerID: this.state.buyerID,
       supplierID: this.state.supplierID,
     };
-    console.log(user);
+    // console.log(user);
     axios.post(`https://postman-echo.com/post`, { user }).then((res) => {
       // console.log(res);
       // console.log(res.data);
     });
   };
   componentDidMount = () => {
-    axios.get(`http://www.mocky.io/v2/5e9ccde730000049000a7fb1`).then((res) => {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, "0");
+    var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    var yyyy = today.getFullYear();
+    axios.get(`http://www.mocky.io/v2/5ea344484f0000cf6bd9f8d2`).then((res) => {
       const data = res.data;
-      this.setState({ materials: data, input: data[0].description });
+      this.setState({
+        materials: data,
+        input: data[0].description,
+        dd,
+        mm,
+        yyyy,
+      });
     });
   };
   render() {
-    // console.log(this.state)
+    // console.log(this.state.material)
+    var total = 0;
+    var totalAmount = this.state.material
+      ? this.state.material.map((data) => {
+          console.log(total);
+          return Math.floor((total = total + data.quantity * data.unit_price));
+        })
+      : 0;
+
     var selectData = this.state.materials.map((data, id) => {
       return <option key={id}>{data.description}</option>;
     });
 
-    var addRow = this.state.material ? (
-      <tr>
-        <td>{this.state.material.ItemNo}</td>
-        <td>{this.state.material.description}</td>
-        <td>
-          <input
-            type="number"
-            className="form-control"
-            id="quantity"
-            onClick={this.handleChange}
-            onChange={this.totalPrice}
-          />
-        </td>
-        <td>${this.state.material.unit_price}</td>
-        <td>${this.state.amount}</td>
-      </tr>
-    ) : null;
+    var addRow =
+      this.state.material !== []
+        ? this.state.material.map((data, id) => {
+            return (
+              <tr>
+                <td>{data.ItemNo}</td>
+                <td>{data.description}</td>
+                <td>
+                  <input
+                    type="number"
+                    min="1"
+                    className="form-control"
+                    id={id}
+                    onChange={this.handleAmount}
+                    // onChange={this.totalPrice}
+                  />
+                </td>
+                <td>${data.unit_price}</td>
+                <td>${Math.floor(data.quantity * data.unit_price)}</td>
+              </tr>
+            );
+          })
+        : null;
 
     return (
       <div className="container box">
@@ -100,7 +144,7 @@ export default class Create extends Component {
             <label htmlFor="" className="col-sm-2 col-form-label">
               Supplier ID:
             </label>
-            <div className="col-sm-6">
+            <div className="col-sm-4">
               <select
                 class="form-control"
                 onChange={this.handleChange}
@@ -118,7 +162,7 @@ export default class Create extends Component {
             <label htmlFor="" className="col-sm-2 col-form-label">
               Ship to:
             </label>
-            <div className="col-sm-6">
+            <div className="col-sm-4">
               <input
                 type="text"
                 id="shipTo"
@@ -131,7 +175,7 @@ export default class Create extends Component {
             <label htmlFor="" className="col-sm-2 col-form-label">
               Delivery Due:
             </label>
-            <div className="col-sm-6">
+            <div className="col-sm-4">
               <input
                 type="text"
                 id="deliveryDue"
@@ -151,9 +195,9 @@ export default class Create extends Component {
               </tr>
               <tr>
                 <td>XXX</td>
-                <td>New order</td>
-                <td colspan="2">Date and time</td>
-                <td>$2531.52</td>
+                <td>{this.state.state}</td>
+                <td colspan="2">{`${this.state.dd} /${this.state.mm} /${this.state.yyyy}`}</td>
+                <td>${totalAmount}</td>
               </tr>
               <tr>
                 <th>Select Item</th>
@@ -174,7 +218,7 @@ export default class Create extends Component {
                     }}
                     class="btn btn-success col"
                   >
-                    Success
+                    Add Item
                   </button>
                 </th>
                 <th>Unite price</th>

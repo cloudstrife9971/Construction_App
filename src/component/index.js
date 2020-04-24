@@ -12,12 +12,13 @@ import CreateConsumptionOrder from "./foremen/CreateConsumptionOrder";
 import StockRelease from "./inventory_Manger/stockRealease";
 import Approval from "./regulator/approval";
 import DisplayStatus from "./foremen/displayStatus";
-import Homepage from "./homepage"
+import Homepage from "./homepage";
+import Test from "./test";
 export default class index extends Component {
   render() {
     return (
       <div>
-        {/* <div class="sidenav">
+        <div class="sidenav">
           <a href="/">Buyer Create New Order</a>
           <a href="/BuyerDisplayOrderStatus">Buyer Display Order Status</a>
           <a href="/SupplierReceivedOrders">Supplier Received Orders </a>
@@ -27,60 +28,55 @@ export default class index extends Component {
           <a href="/Regulator Logistics approval">
             Regulator Logistics approval
           </a>
-          <a href="/Regulator Create goods receipt">
-            Regulator Create goods receipt
-          </a>
           <a href="Regulator Inventory approval">
             Regulator Inventory approval{" "}
           </a>
-          <a href="/Regulator consumption Approval">
+          <a href="/Inventory Manger Stock release">
             Regulator consumption Approval
           </a>
-          <a href="/Inventory Manger Create goods receipt">
+          <a href="/Regulator Create goods receipt">
             Inventory Manger Create goods receipt
           </a>
-          <a href="/Inventory Manger Stock release">
+          <a href="/Inventory Manger Create goods receipt">
             Inventory Manger Stock release
           </a>
+         
+          <a href="/Regulator consumption Approval">
+            Foreman create consumption order
+          </a>
           <a href="/Foremen Create Consumption Order">
-            Foremen Create Consumption Order
-          </a> */}
+          Foremen
+Display orders status
+          </a>
           {/* <a href="/Foremen Display orders status">
             Foremen Display orders status
           </a> */}
-        {/* </div> */}
-        {/* <div class="main"> */}
-          {/* <Create />
-          <Status />
-          <Order />
-          <CreateOrder />
-          <Logistic />
-          <CreateReciept />
-          <InventoryApproval />
-          <CreateConsumptionOrder />
-          <StockRelease />
-          <Approval />
-          <DisplayStatus /> */}
+        </div>
+        <div class="main">
           <BrowserRouter>
             <Switch>
-              <Route exact path="/" component={Homepage} />
+              <Route exact path="/" component={Create} />
               <Route path="/BuyerDisplayOrderStatus" component={Status} />
-              <Route path="/CreateNewOrder" component={Create} />
-              
+              {/* <Route path="/CreateNewOrder" component={Create} /> */}
+
               <Route path="/SupplierReceivedOrders" component={Order} />
               <Route
                 path="/Supplier Create delivery Order"
                 component={CreateOrder}
               />
-              <Route path="/Regulator Logistics approval" component={Logistic} />
               <Route
-                path="/Regulator Create goods receipt"
-                component={CreateReciept}
+                path="/Regulator Logistics approval"
+                component={Logistic}
               />
               <Route
                 path="/Regulator Inventory approval"
                 component={InventoryApproval}
               />
+              <Route
+                path="/Regulator Create goods receipt"
+                component={CreateReciept}
+              />
+
               <Route
                 path="/Regulator consumption Approval"
                 component={CreateConsumptionOrder}
@@ -97,10 +93,23 @@ export default class index extends Component {
                 path="/Foremen Create Consumption Order"
                 component={DisplayStatus}
               />
-              {/* <Route path="Foremen Display orders status" component={Post} /> */}
+              {/* <Route path="Foremen Display orders status" /> */}
             </Switch>
           </BrowserRouter>
-        {/* </div> */}
+          {/* <Homepage/> */}
+          {/* <Test/> */}
+          {/* <Create /> */}
+          {/* <Status /> */}
+          {/* <Order /> */}
+          {/* <CreateOrder /> */}
+          {/* <Logistic /> */}
+          {/* <CreateReciept /> */}
+          {/* <InventoryApproval /> */}
+          {/* <CreateConsumptionOrder /> */}
+          {/* <StockRelease /> */}
+          {/* <Approval /> */}
+          {/* <DisplayStatus /> */}
+        </div>
       </div>
     );
   }

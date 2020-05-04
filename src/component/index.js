@@ -8,12 +8,14 @@ import CreateOrder from "./supplier/createOrder";
 import Logistic from "./regulator/logistic";
 import CreateReciept from "./inventory_Manger/createReciept";
 import InventoryApproval from "./regulator/inventoryApproval";
+import OtherApproval from "./regulator/otherApproval";
 import CreateConsumptionOrder from "./foremen/CreateConsumptionOrder";
 import StockRelease from "./inventory_Manger/stockRealease";
 import Approval from "./regulator/approval";
 import DisplayStatus from "./foremen/displayStatus";
+import Customer from "./customer/customer";
+import GeneralManager from "./general-manager/generalManager";
 import Homepage from "./homepage";
-import Test from "./test";
 export default class index extends Component {
   render() {
     return (
@@ -31,6 +33,9 @@ export default class index extends Component {
           <a href="Regulator Inventory approval">
             Regulator Inventory approval{" "}
           </a>
+          <a href="Other Regulator Inventory approval">
+            Other Regulator Inventory approval{" "}
+          </a>
           <a href="/Inventory Manger Stock release">
             Regulator consumption Approval
           </a>
@@ -40,14 +45,15 @@ export default class index extends Component {
           <a href="/Inventory Manger Create goods receipt">
             Inventory Manger Stock release
           </a>
-         
+
           <a href="/Regulator consumption Approval">
             Foreman create consumption order
           </a>
           <a href="/Foremen Create Consumption Order">
-          Foremen
-Display orders status
+            Foremen Display orders status
           </a>
+          <a href="/Customer">Customer</a>
+          <a href="/GeneralManager">GeneralManager</a>
           {/* <a href="/Foremen Display orders status">
             Foremen Display orders status
           </a> */}
@@ -73,6 +79,10 @@ Display orders status
                 component={InventoryApproval}
               />
               <Route
+                path="/Other Regulator Inventory approval"
+                component={OtherApproval}
+              />
+              <Route
                 path="/Regulator Create goods receipt"
                 component={CreateReciept}
               />
@@ -93,6 +103,8 @@ Display orders status
                 path="/Foremen Create Consumption Order"
                 component={DisplayStatus}
               />
+              <Route path="/Customer" component={Customer} />
+              <Route path="/GeneralManager" component={GeneralManager} />
               {/* <Route path="Foremen Display orders status" /> */}
             </Switch>
           </BrowserRouter>

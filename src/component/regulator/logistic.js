@@ -13,6 +13,73 @@ export default class logistic extends Component {
   componentDidMount = () => {
     this.setState({ input: this.state.items[0] });
   };
+  conditionDisplay = () => {
+     switch (this.state.input) {
+      case "Cement":
+        return (
+      <div className="row form-group">
+        <label htmlFor="" className="col-sm-3 col-form-label">
+          Batch weight:
+        </label>
+        <div className="col-sm-3">
+          <input type="text" className="form-control" />
+        </div>
+      </div>
+        )
+      case "Pipe":
+        return (
+      <div>
+        <div className="row form-group">
+          <label htmlFor="" className="col-sm-3 col-form-label">
+            actual outside diameter:
+          </label>
+          <div className="col-sm-3">
+            <input type="text" className="form-control" />
+          </div>
+        </div>
+        <div className="row form-group">
+          <label htmlFor="" className="col-sm-3 col-form-label">
+            average inside diameter:
+          </label>
+          <div className="col-sm-3">
+            <input type="text" className="form-control" />
+          </div>
+        </div>
+        <div className="row form-group">
+          <label htmlFor="" className="col-sm-3 col-form-label">
+            pipe wall width thickness:
+          </label>
+          <div className="col-sm-3">
+            <input type="text" className="form-control" />
+          </div>
+        </div>
+        <div className="row form-group">
+          <label htmlFor="" className="col-sm-3 col-form-label">
+            pipe weight:
+          </label>
+          <div className="col-sm-3">
+            <input type="text" className="form-control" />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-sm-2">
+            <button type="button" class="btn btn-light col">
+              Confirm
+            </button>
+          </div>
+          <div className="col-sm-2">
+            <button class="btn btn-primary col" type="submit">
+              Dispute
+            </button>
+          </div>
+        </div>
+      </div>
+        )
+
+      default:
+        break;
+    }
+  };
   render() {
   
     // console.log(this.state.input)
@@ -27,7 +94,7 @@ export default class logistic extends Component {
         <td>10614141999996</td>
       </tr>
     );
-  
+
     return (
       <div className="container box">
         <div class="table-responsive-md my-table">
@@ -65,61 +132,7 @@ export default class logistic extends Component {
             </select>
           </div>
         </div>
-        <div className="row form-group">
-          <label htmlFor="" className="col-sm-3 col-form-label">
-            Batch weight:
-          </label>
-          <div className="col-sm-3">
-            <input type="text" className="form-control" />
-          </div>
-        </div>
-       
-        <div>
-          <div className="row form-group">
-            <label htmlFor="" className="col-sm-3 col-form-label">
-              actual outside diameter:
-            </label>
-            <div className="col-sm-3">
-              <input type="text" className="form-control" />
-            </div>
-          </div>
-          <div className="row form-group">
-            <label htmlFor="" className="col-sm-3 col-form-label">
-              average inside diameter:
-            </label>
-            <div className="col-sm-3">
-              <input type="text" className="form-control" />
-            </div>
-          </div>
-          <div className="row form-group">
-            <label htmlFor="" className="col-sm-3 col-form-label">
-              pipe wall width thickness:
-            </label>
-            <div className="col-sm-3">
-              <input type="text" className="form-control" />
-            </div>
-          </div>
-          <div className="row form-group">
-            <label htmlFor="" className="col-sm-3 col-form-label">
-              pipe weight:
-            </label>
-            <div className="col-sm-3">
-              <input type="text" className="form-control" />
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-sm-2">
-              <button type="button" class="btn btn-light col">
-                Confirm
-              </button>
-            </div>
-            <div className="col-sm-2">
-              <button class="btn btn-primary col" type="submit">
-                Dispute
-              </button>
-            </div>
-          </div>
-        </div>
+        <div>{this.conditionDisplay()}</div>
       </div>
     );
   }

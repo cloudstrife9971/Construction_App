@@ -1,5 +1,5 @@
 .box {
-  padding-top: 100px;
+  padding-top: 33px;
   padding-bottom: 100px;
 }
 
@@ -166,4 +166,8 @@
   justify-content: center;
   position: relative;
   bottom: 71px;
+}
+
+.alert {
+  margin-top: 20px;
 }

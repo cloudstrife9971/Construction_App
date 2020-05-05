@@ -137,7 +137,7 @@ export default class logisticForm extends Component {
         <div>{this.conditionDisplay()}</div>
         <div className="row">
           <div className="col-sm-2">
-          <button
+            <button
               type="button"
               onClick={this.handleSubmit}
               id="Confirm"
@@ -147,7 +147,6 @@ export default class logisticForm extends Component {
             </button>
           </div>
           <div className="col-sm-2">
-       
             <button
               class="btn btn-light col"
               onClick={this.handleSubmit}

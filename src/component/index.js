@@ -33,12 +33,13 @@ export default class index extends Component {
           <a href="Regulator Inventory approval">
             Regulator Inventory approval{" "}
           </a>
-          <a href="Other Regulator Inventory approval">
-            Other Regulator Inventory approval{" "}
-          </a>
           <a href="/Inventory Manger Stock release">
             Regulator consumption Approval
           </a>
+          <a href="Other Regulator Inventory approval">
+            Other Regulator Inventory approval{" "}
+          </a>
+       
           <a href="/Regulator Create goods receipt">
             Inventory Manger Create goods receipt
           </a>

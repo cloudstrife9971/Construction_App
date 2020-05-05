@@ -1,17 +1,71 @@
 import React, { Component } from "react";
 import "../assets/common.css";
+import axios from "axios";
 export default class CreateConsumptionOrder extends Component {
+  state = {
+    po:null,
+    current: null,
+    what_for:null,
+    desc:null
+  };
+  handleType =(e)=>{
+this.setState({[e.target.id]:e.target.value})
+console.log(this.state.what_for,this.state.desc )
+  }
+  handleChange=(e)=>{
+var value = e.target.value;
+var current = this.state.data.data.find((data)=>{
+  return data.PONumber === value
+})
+this.setState({current  })
+  }
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const user = {
+      po: this.state.current.PONumber,
+      dosts: "arrived",
+      posts: "inStock",
+      grsts: "received",
+      uts: "1540343442",
+    };
+    axios
+      .post(`https://jsonplaceholder.typicode.com/users`, { user })
+      .then((res) => {
+        // console.log(res);
+        // console.log(res.data);
+      });
+  };
+  componentDidMount = () => {
+    axios.get(`http://localhost:4000/api/alldata`).then((res) => {
+      const persons = res.data;
+      // console.log(persons.data[0]);
+      this.setState({
+        data: persons,
+        current: persons.data[0],
+        po: persons.data[0].PONumber,
+      });
+    });
+  };
   render() {
-    var a = (
+    // console.log(this.state)
+    var a  = this.state.data ? (
       <tr>
-        <td>268540</td>
-        <td>10614141999996</td>
-        <td>QUIKRETE 40kg Portland Cement Type 10 F</td>
+        <td>{this.state.current.ItemNumber}</td>
+        <td>{this.state.current.GTIN}</td>
+        <td>{this.state.current.Description}</td>
         <td>
-          <div className="gtin-box">50</div>
+          <input className="gtin-box col"/>
         </td>
       </tr>
-    );
+    ) : null;
+    var po_number = this.state.data ? ( this.state.data.data.map((data)=>{
+    return   <option>{data.PONumber}</option>
+    })):null
+    var InventoryManagerId = this.state.data ? ( this.state.data.data.map((data)=>{
+      return   <option>{data.InvMngId}</option>
+      
+      })):null
+      
     return (
       <div className="container box">
         <div className="row form-group">
@@ -19,7 +73,7 @@ export default class CreateConsumptionOrder extends Component {
             What for:
           </label>
           <div className="col-sm-6">
-            <input type="text" className="form-control" />
+            <input type="text" onChange={this.handleType} id="what_for" className="form-control" />
           </div>
         </div>
         <div className="row form-group">
@@ -27,7 +81,7 @@ export default class CreateConsumptionOrder extends Component {
             Description:
           </label>
           <div className="col-sm-6">
-            <input type="text" className="form-control" />
+            <input type="text" onChange={this.handleType} id="desc" className="form-control" />
           </div>
         </div>
         <div className="row form-group">
@@ -36,11 +90,7 @@ export default class CreateConsumptionOrder extends Component {
           </label>
           <div className="col-sm-6">
             <select class="form-control" id="exampleFormControlSelect1">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
+              {InventoryManagerId}
             </select>
           </div>
         </div>
@@ -60,12 +110,8 @@ export default class CreateConsumptionOrder extends Component {
               <th>Select Item</th>
               <th>GTIN:</th>
               <th>
-                <select class="form-control" id="exampleFormControlSelect1">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
+                <select class="form-control" onChange={this.handleChange}>
+               {po_number}
                 </select>
               </th>
               <th>
@@ -74,10 +120,14 @@ export default class CreateConsumptionOrder extends Component {
                 </button>
               </th>
             </tr>
-         {a}
+            {a}
           </table>
         </div>
-        <button class="btn btn-primary" type="submit">
+        <button
+          class="btn btn-primary"
+          onClick={this.handleSubmit}
+          type="submit"
+        >
           Submit
         </button>
       </div>

@@ -54,6 +54,8 @@ export default class index extends Component {
           </a>
           <a href="/Customer">Customer</a>
           <a href="/GeneralManager">GeneralManager</a>
+          
+          <a href="/Homepage">Homepage</a>
           {/* <a href="/Foremen Display orders status">
             Foremen Display orders status
           </a> */}
@@ -61,6 +63,7 @@ export default class index extends Component {
         <div class="main">
           <BrowserRouter>
             <Switch>
+            <Route exact path="/Homepage" component={Homepage} />
               <Route exact path="/" component={Create} />
               <Route path="/BuyerDisplayOrderStatus" component={Status} />
               {/* <Route path="/CreateNewOrder" component={Create} /> */}

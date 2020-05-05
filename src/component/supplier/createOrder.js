@@ -1,130 +1,95 @@
 import React, { Component } from "react";
 import "../assets/common.css";
+import axios from "axios";
 
 export default class CreateOrder extends Component {
   state = {
+    po: null,
     carrierID: [5968237138, 4924238572, 8479400671, 3224248701],
     ShipmentID: [5569817119, 1407232884, 2282578425, 6915980873],
-    regulatorID: [7777856284, 9354568715, 9513122318, 8546901869],
-    supplierID: null,
-    BuyerID: null,
     Truck_no: ["T001", "C041", "K301", "P314"],
-    GTIN: null,
-    target:null
+    regulatorID: [7777856284, 9354568715, 9513122318, 8546901869],
+    cid: null,
+    shid: null,
+    trno:null,
+    regid: null,
+    gtin: null,
+    target: null,
+    data: null,
+    order: null,
+    alert: false,
+    success: null,
   };
   componentDidMount = () => {
-    this.setState({
-      data: {
-        status: 200,
-        data: [
-          {
-            Quantity: null,
-            _id: "5eaa97ae0ea8032a278d7420",
-            ForemenUpdate: [
-              {
-                foreid: "FOOO1",
-                purps: null,
-                fdec: "same as desc",
-                ccorder: "ready to be poured",
-                conum: "0001",
-                pquanty: 4,
-                futs: "1540340000",
-                batchid: "b001",
-                weght: "1000",
-                density: "2.03",
-              },
-            ],
-            PONumber: "0361092279",
-            PoStatus: "inStock",
-            ItemNumber: "10001",
-            itemName: "Cement",
-            Description: "poatlad cement 40 kg",
-            Amount: "1000",
-            State: "Otawa",
-            ShipTo: "C-30",
-            DeliveryDue: "10-06-2020",
-            BuyerID: "B0001",
-            SupplierID: "S0001",
-            CreateTs: "1503412332",
-            UpdateTs: "1540343442",
-            __v: 1,
-            CarrierId: "S0001",
-            DoStatus: "arrived",
-            GTIN: "10614141999996",
-            RegulatorId: "R001",
-            ShipmentId: "DO0001",
-            Truckno: "T001",
-            ExpDate: "10-06-2020",
-            GoodReceipt: "pending",
-            InvMngId: "IM001",
-            StockLocation: "zone1",
-            GRStatus: "received",
-          },
-          {
-            Quantity: null,
-            _id: "5eabf498a5175f3d87a565bf",
-            ForemenUpdate: [
-              {
-                _id: "5eabf5cfa5175f3d87a565c0",
-                foreid: "FOOO1",
-                purps: "for concreate making",
-                fdec: "same as desc",
-                ccorder: "ready to be poured",
-                conum: "0001",
-                pquanty: 4,
-                futs: "1540340000",
-                batchid: "b001",
-                bweght: "1000",
-                density: "2.03",
-              },
-            ],
-            PONumber: "6966433878",
-            PoStatus: "inStock",
-            ItemNumber: "10002",
-            itemName: "Cement",
-            Description: "poatlad cement 40 kg",
-            Amount: "1000",
-            State: "Otawa",
-            ShipTo: "C-30",
-            DeliveryDue: "10-06-2020",
-            BuyerID: "B0001",
-            SupplierID: "S0001",
-            CreateTs: "1503412332",
-            UpdateTs: "1540343442",
-            __v: 1,
-            CarrierId: "S0001",
-            DoStatus: "arrived",
-            GTIN: "10614141999996",
-            RegulatorId: "R001",
-            ShipmentId: "DO0001",
-            Truckno: "T001",
-            ExpDate: "10-06-2020",
-            GoodReceipt: "pending",
-            InvMngId: "IM001",
-            StockLocation: "zone1",
-            GRStatus: "received",
-          },
-        ],
-      },
+    axios.get(`http://localhost:4000/api/alldata`).then((res) => {
+      const persons = res.data;
+      // console.log(persons);
+      this.setState({
+        data: persons,
+        order: persons.data[0],
+        po: persons.data[0].PONumber,
+        cid:this.state.carrierID[0],
+        shid:this.state.ShipmentID[0],
+        trno:this.state.Truck_no[0],
+        regid:this.state.regulatorID[0],
+      });
     });
   };
-  handleChange=(e)=>{
+  handleChange = (e) => {
+    // console.log(this.state);
+    this.setState({ [e.target.id]: e.target.value });
+  };
+  handlePoChange = (e) => {
+    // console.log(e.target.value);
+    var item = this.state.data.data.find((data) => {
+      return data.PONumber === e.target.value;
+    });
+    // console.log(item);
+    this.setState({ [e.target.id]: e.target.value, order: item });
+  };
+  handleSubmit = (e) => {
+    e.preventDefault();
 
-console.log("e.target")
-  }
+    const user = {
+      po: this.state.po,
+      cid: this.state.cid,
+      shid: this.state.shid,
+      trno: this.state.trno,
+      regid: this.state.regid,
+      dosts: "expecting confirmation from regulator",
+      gtin: this.state.gtin,
+      uts: "1540343442",
+    };
+
+    axios
+      .post(`https://jsonplaceholder.typicode.com/users`, { ...user })
+      .then((res) => {
+        // console.log(res);
+        console.log(res.data);
+        this.setState({ alert: true, success: true });
+      }).catch(
+        this.setState({ alert: true, success: false })
+        )
+  };
   render() {
-    var a = (
+    // console.log(this.state);
+    var a = this.state.order ? (
       <tr>
-        <td>268540</td>
-        <td>QUIKRETE 40kg Portland Cement Type 10 F</td>
-        <td>100</td>
+        <td>{this.state.order.ItemNumber}</td>
+        <td>{this.state.order.Description}</td>
+        <td>{this.state.order.Amount}</td>
         {/* <td><div className="gtin-box">10614141999996</div> */}
         <td>
-          <input type="number" className="gtin-box" />
+          <input
+            type="number"
+            onChange={this.handleChange}
+            id="gtin"
+            className="gtin-box"
+          />
         </td>
         {/* </td> */}
       </tr>
-    );
+    ) : null;
     var carrier_ids = this.state.carrierID.map((data) => {
       return <option>{data}</option>;
     });
@@ -137,20 +102,36 @@ console.log("e.target")
     var Truck_no_ids = this.state.Truck_no.map((data) => {
       return <option>{data}</option>;
     });
-    var po_numbers = this.state.data ? (
-      this.state.data.data.map((data)=>{
-      return <option>{data.PONumber}</option>
-      })
-    ):null
+    var po_numbers = this.state.data
+      ? this.state.data.data.map((data) => {
+          return <option>{data.PONumber}</option>;
+        })
+      : null;
+      var alert = this.state.alert ? (
+        this.state.success ? (
+          <div class="alert alert-success" role="alert">
+            Thank you your submission has been received
+          </div>
+        ) : (
+          <div class="alert alert-danger" role="alert">
+            Error - your submission has not been received
+          </div>
+        )
+      ) : null;
+  
     return (
       <div className="container box">
-        <form action="">
+        <form action="" onSubmit={this.handleSubmit}>
           <div className="row form-group">
             <label htmlFor="" className="col-sm-2 col-form-label">
               Carrier ID:
             </label>
             <div className="col-sm-6">
-              <select class="form-control" id="exampleFormControlSelect1">
+              <select
+                class="form-control"
+                onChange={this.handleChange}
+                id="cid"
+              >
                 {carrier_ids}
               </select>
             </div>
@@ -160,7 +141,11 @@ console.log("e.target")
               Shipment ID:
             </label>
             <div className="col-sm-6">
-              <select class="form-control" id="exampleFormControlSelect1">
+              <select
+                class="form-control"
+                onChange={this.handleChange}
+                id="shid"
+              >
                 {Shipment_ids}
               </select>
             </div>
@@ -170,7 +155,11 @@ console.log("e.target")
               Truck no:
             </label>
             <div className="col-sm-6">
-              <select class="form-control" id="exampleFormControlSelect1">
+              <select
+                class="form-control"
+                onChange={this.handleChange}
+                id="trno"
+              >
                 {Truck_no_ids}
               </select>
             </div>
@@ -180,7 +169,11 @@ console.log("e.target")
               Regulator ID:
             </label>
             <div className="col-sm-6">
-              <select class="form-control" id="exampleFormControlSelect1">
+              <select
+                class="form-control"
+                onChange={this.handleChange}
+                id="regid"
+              >
                 {regulatorID_ids}
               </select>
             </div>
@@ -189,9 +182,13 @@ console.log("e.target")
             <label htmlFor="" className="col-sm-2 col-form-label">
               PO Number:
             </label>
-            <div className="col-sm-6" >
-              <select class="form-control" onClick={this.handelChange}>
-              {po_numbers}
+            <div className="col-sm-6">
+              <select
+                class="form-control"
+                onChange={this.handlePoChange}
+                id="po"
+              >
+                {po_numbers}
               </select>
             </div>
           </div>
@@ -200,9 +197,7 @@ console.log("e.target")
               Buyer ID:
             </label>
             <div className="col-sm-6">
-              <select class="form-control" id="exampleFormControlSelect1">
-              
-              </select>
+              {this.state.order ? this.state.order.BuyerID : null}
             </div>
           </div>
           <div className="row form-group">
@@ -210,7 +205,7 @@ console.log("e.target")
               Location:
             </label>
             <div className="col-sm-6">
-              <input type="text" className="form-control" />
+              {this.state.order ? this.state.order.ShipTo : null}
             </div>
           </div>
           <div className="row form-group">
@@ -218,7 +213,7 @@ console.log("e.target")
               Delivery date:
             </label>
             <div className="col-sm-6">
-              <input type="email" className="form-control" />
+              {this.state.order ? this.state.order.DeliveryDue : null}
             </div>
           </div>
           <div className="table-responsive-md my-table">
@@ -245,6 +240,7 @@ console.log("e.target")
             Submit
           </button>
         </form>
+        {alert}
       </div>
     );
   }

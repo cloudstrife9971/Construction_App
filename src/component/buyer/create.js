@@ -14,16 +14,11 @@ export default class Create extends Component {
     dd: null,
     mm: null,
     yyyy: null,
-    posts: null,
-    itemNo: null,
-    itemname: null,
-    desc: null,
     quan: 1,
-    uprice: null,
     state: "New Order",
     addr: null,
-    delvry: null,
-    buyerid: null,
+    delvry: "10-06-2020",
+    buyerid: "null",
     suppid: null,
     cts: null,
     uts: null,
@@ -32,13 +27,13 @@ export default class Create extends Component {
     success: null,
   };
   handleDate = (date) => {
-    console.log(date);
+    // console.log(date);
     this.setState({
       startDate: date,
     });
   };
   handleChange = (e) => {
-    // console.log(this.state);
+    console.log(e.target.value);
     this.setState({ [e.target.id]: e.target.value });
   };
   handleClick = () => {
@@ -55,7 +50,7 @@ export default class Create extends Component {
     var value = parseFloat(this.state.material.uprice);
     // console.log(value);
     var totalPrice = Math.ceil(e.target.value * value);
-
+// var numToString = Number.String(totalPrice)
     this.setState({ amt: totalPrice });
   };
   handleSubmit = (e) => {
@@ -65,23 +60,23 @@ export default class Create extends Component {
       itemNo: this.state.material.itemNo,
       itemname: this.state.material.itemname,
       desc: this.state.material.desc,
-      quan: this.state.state.quan,
+      quan: this.state.quan,
       uprice: this.state.material.uprice,
       state: "Created",
       addr: this.state.addr,
       delvry: this.state.delvry,
-      buyerid: this.state.buyerid,
-      suppid: this.state.suppid,
-      cts: null,
-      uts: null,
+      buyerid: "B0001",
+      suppid: "S0001",
+      cts: "1503412332",
+      uts: "1503412332",
       amt: this.state.amt,
     };
-    // console.log(data);
+    console.log(data);
     axios
-      .post(`http://localhost:4000/api/purchaseOrder`, { data })
+      .post(`http://localhost:4000/api/purchaseOrder`, { ...data })
       .then((res) => {
         // console.log(res);
-        // console.log(res.data);
+        console.log(res.data);
         this.setState({ alert: true, success: true });
       })
       .catch(this.setState({ alert: true, success: false }));
@@ -92,7 +87,7 @@ export default class Create extends Component {
     var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
     var yyyy = today.getFullYear();
     var randomId = uuidv4();
-    axios.get(`http://www.mocky.io/v2/5eaf2d8c330000c9329f4358`).then((res) => {
+    axios.get(`http://www.mocky.io/v2/5eb06edb3300006100c68e4d`).then((res) => {
       const data = res.data;
       // console.log("data");
       // console.log(data);
@@ -106,7 +101,7 @@ export default class Create extends Component {
     });
   };
   render() {
-    console.log(this.state);
+    // console.log(this.state.quan);
     // const [startDate, setStartDate] = useState(new Date());
     // console.log(this.state.materials);
 
@@ -122,8 +117,11 @@ export default class Create extends Component {
             type="number"
             className="form-control"
             id="quan"
-            onClick={this.handleChange}
-            onChange={this.totalPrice}
+            onChange={(e) => {
+              this.handleChange(e);
+              this.totalPrice(e);
+            }}
+            // onClick={this.totalPrice}
           />
         </td>
         <td>${this.state.material.uprice}</td>

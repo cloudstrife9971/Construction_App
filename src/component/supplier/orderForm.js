@@ -4,12 +4,18 @@ export default class OrderForm extends Component {
   state = {
     posts: "inProgress",
     uts: "1540343442",
+    alert: false,
+    confirm: true,
+    chanceFinished:false
   };
   handleClick = (e) => {
+    if(this.state.chanceFinished){
+      return null
+    }
     if (e.target.id === "confirm") {
       this.handleSubmit();
     } else {
-      this.setState({ posts: "rejected" });
+      this.setState({ posts: "rejected" ,confirm:false });
       this.handleSubmit();
     }
   };
@@ -24,6 +30,7 @@ export default class OrderForm extends Component {
       .then((res) => {
         // console.log(res);
         // console.log(res.data);
+        this.setState({alert:true,chanceFinished:true});
       });
   };
 
@@ -55,6 +62,17 @@ export default class OrderForm extends Component {
         <td>XYZ</td>
       </tr>
     );
+    var alert = this.state.alert ? (
+      this.state.confirm ? (
+        <div class="alert alert-success" role="alert">
+          You have Confirmed the order
+        </div>
+      ) : (
+        <div class="alert alert-danger" role="alert">
+          You have Rejected the order
+        </div>
+      )
+    ) : null;
     return (
       <div className="container box">
         <dl class="row">
@@ -90,6 +108,7 @@ export default class OrderForm extends Component {
             {a}
           </table>
         </div>
+        {alert}
       </div>
     );
   }

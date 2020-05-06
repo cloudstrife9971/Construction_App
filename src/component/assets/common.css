@@ -1,5 +1,10 @@
 .box {
   padding-top: 33px;
+  padding-bottom: 33px;
+  border-bottom: 1px solid black;
+}
+.box_margin {
+  padding-top: 33px;
   padding-bottom: 100px;
 }
 

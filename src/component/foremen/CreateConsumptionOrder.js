@@ -67,7 +67,7 @@ this.setState({current  })
       })):null
       
     return (
-      <div className="container box">
+      <div className="container box_margin">
         <div className="row form-group">
           <label htmlFor="" className="col-sm-2 col-form-label">
             What for:

@@ -47,7 +47,7 @@ export default class displayStatus extends Component {
         })
       : null;
     return (
-      <div className="container box">
+      <div className="container box_margin">
         <div className="row form-group">
           <label htmlFor="" className="col-sm-2 col-form-label">
             Regulator ID:

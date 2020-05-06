@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import "../assets/common.css";
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 export default class Create extends Component {
   state = {
+    po: "XXX",
+    state: "New Order",
     startDate: new Date(),
     materials: [],
     input: null,
@@ -15,9 +16,8 @@ export default class Create extends Component {
     mm: null,
     yyyy: null,
     quan: 1,
-    state: "New Order",
     addr: null,
-    delvry: "10-06-2020",
+    delvry: null,
     buyerid: "null",
     suppid: null,
     cts: null,
@@ -25,15 +25,16 @@ export default class Create extends Component {
     amt: 0,
     alert: false,
     success: null,
+    empty: false,
   };
   handleDate = (date) => {
-    // console.log(date);
+    // console.log(this.state.startDate);
     this.setState({
       startDate: date,
     });
   };
   handleChange = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     this.setState({ [e.target.id]: e.target.value });
   };
   handleClick = () => {
@@ -50,11 +51,15 @@ export default class Create extends Component {
     var value = parseFloat(this.state.material.uprice);
     // console.log(value);
     var totalPrice = Math.ceil(e.target.value * value);
-// var numToString = Number.String(totalPrice)
+    // var numToString = Number.String(totalPrice)
     this.setState({ amt: totalPrice });
   };
   handleSubmit = (e) => {
     e.preventDefault();
+    if (this.state.material === null) {
+      return this.setState({empty:true})
+    }
+   
     var data = {
       posts: "create",
       itemNo: this.state.material.itemNo,
@@ -64,20 +69,26 @@ export default class Create extends Component {
       uprice: this.state.material.uprice,
       state: "Created",
       addr: this.state.addr,
-      delvry: this.state.delvry,
+      delvry: this.state.startDate,
       buyerid: "B0001",
       suppid: "S0001",
       cts: "1503412332",
       uts: "1503412332",
       amt: this.state.amt,
     };
-    console.log(data);
+    // console.log(data);
     axios
       .post(`http://localhost:4000/api/purchaseOrder`, { ...data })
       .then((res) => {
         // console.log(res);
-        console.log(res.data);
-        this.setState({ alert: true, success: true });
+        // console.log(res.data);
+        this.setState({
+          alert: true,
+          success: true,
+          po: res.data.data.po,
+          state: res.data.data.posts,
+          empty:false
+        });
       })
       .catch(this.setState({ alert: true, success: false }));
   };
@@ -86,7 +97,6 @@ export default class Create extends Component {
     var dd = String(today.getDate()).padStart(2, "0");
     var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
     var yyyy = today.getFullYear();
-    var randomId = uuidv4();
     axios.get(`http://www.mocky.io/v2/5eb06edb3300006100c68e4d`).then((res) => {
       const data = res.data;
       // console.log("data");
@@ -101,7 +111,7 @@ export default class Create extends Component {
     });
   };
   render() {
-    // console.log(this.state.quan);
+    // console.log(this.state.po);
     // const [startDate, setStartDate] = useState(new Date());
     // console.log(this.state.materials);
 
@@ -139,9 +149,15 @@ export default class Create extends Component {
         </div>
       )
     ) : null;
+    var empty =
+      this.state.empty === true ? (
+        <div class="alert alert-danger" role="alert">
+          Please add an item in the cart
+        </div>
+      ) : null;
 
     return (
-      <div className="container box">
+      <div className="container box_margin">
         <form action="" onSubmit={this.handleSubmit}>
           <div className="row form-group">
             <label htmlFor="" className="col-lg-2 col-form-label">
@@ -203,7 +219,7 @@ export default class Create extends Component {
                 <th>Total</th>
               </tr>
               <tr>
-                <td>{}</td>
+                <td>{this.state.po}</td>
                 <td>{this.state.state}</td>
                 <td>{`${this.state.dd} /${this.state.mm} /${this.state.yyyy}`}</td>
                 <td>${this.state.amt}</td>
@@ -250,6 +266,8 @@ export default class Create extends Component {
           </div>
         </form>
         {alert}
+        {empty}
+        
       </div>
     );
   }

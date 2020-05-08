@@ -5,6 +5,9 @@ export default class inventoryApprovalForm extends Component {
   state = {
     items: ["Cement", "Pipe"],
     input: null,
+    GRStatus: null,
+    alert: false,
+    success: null,
   };
   handleChange = (e) => {
     this.setState({ input: e.target.value });
@@ -12,21 +15,24 @@ export default class inventoryApprovalForm extends Component {
   };
   handleSubmit = (e) => {
     e.preventDefault();
-    var dost = e.target.id === "Confirm" ? "shipped" : "inDispute";
+    var grsts = e.target.id === "Confirm" ? "received" : "backorder";
 
     // console.log(dost);
     const user = {
       po: this.props.PONumber,
-      dosts: dost,
+      dosts: "arrived",
+      posts : "inStock",
+      grsts : grsts,
       uts: "1540343442",
     };
 
     axios
-      .post(`http://localhost:4000/api/inventoryApproval`, { user })
+      .post(`http://localhost:4000/api/inventoryApproval`, { ...user })
       .then((res) => {
         // console.log(res);
         // console.log(res.data);
-      });
+        this.setState({ dosts: res.data.dosts, alert: true, success: true,GRStatus:grsts });
+      }).catch(this.setState({ alert: true, success: false }))
   };
   conditionDisplay = () => {
     switch (this.state.input) {
@@ -84,32 +90,44 @@ export default class inventoryApprovalForm extends Component {
     }
   };
   componentDidMount = () => {
-    this.setState({ input: this.state.items[0] });
+    // console.log(this.props.DoStatus)
+    this.setState({ input: this.state.items[0],GRStatus:this.props.GRStatus  });
   };
   render() {
     var a = (
       <tr>
         <td>{this.props.ItemNumber}</td>
         <td>{this.props.Description}</td>
-        <td>{this.props.Amount}</td>
+        <td>{this.props.Quantity}</td>
         <td>{this.props.GTIN}</td>
       </tr>
     );
     var itemOptions = this.state.items.map((data) => {
       return <option>{data}</option>;
     });
+    var alert = this.state.alert ? (
+      this.state.success ? (
+        <div class="alert alert-success" role="alert">
+          You have Confirmed the order
+        </div>
+      ) : (
+        <div class="alert alert-danger" role="alert">
+          You have Rejected the order
+        </div>
+      )
+    ) : null;
     return (
-      <div className="container">
+      <div className="container box">
         <div className="table-responsive-md my-table">
           <table className="table table-bordered">
-            <tr>
+            <tr>  
               <td colspan="2">Goods Receipt number</td>
               <td colspan="2">
-                GO status: expecting confirmation from regulator
+              {`GO status: ${this.state.GRStatus}`}
               </td>
             </tr>
             <tr>
-              <td colspan="2">XXX</td>
+    <td colspan="2">{this.props.GoodReceipt}</td>
               <td colspan="2">Items receipt</td>
             </tr>
             <tr>
@@ -193,6 +211,7 @@ export default class inventoryApprovalForm extends Component {
             </button>
           </div>
         </div>
+        {alert}
       </div>
     );
   }

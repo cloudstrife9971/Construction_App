@@ -35,6 +35,10 @@ export default class Create extends Component {
   };
   handleChange = (e) => {
     // console.log(e.target.value);
+    if(e.target.id==="quan"){
+      var value = parseInt(e.target.value)
+    return  this.setState({ quan: value })
+    }
     this.setState({ [e.target.id]: e.target.value });
   };
   handleClick = () => {
@@ -50,8 +54,9 @@ export default class Create extends Component {
   totalPrice = (e) => {
     var value = parseFloat(this.state.material.uprice);
     // console.log(value);
-    var totalPrice = Math.ceil(e.target.value * value);
+    var totalPrice = Math.ceil(e.target.value * value) ;
     // var numToString = Number.String(totalPrice)
+
     this.setState({ amt: totalPrice });
   };
   handleSubmit = (e) => {
@@ -62,7 +67,7 @@ export default class Create extends Component {
    
     var data = {
       posts: "create",
-      itemNo: this.state.material.itemNo,
+      itemno: this.state.material.itemNo,
       itemname: this.state.material.itemname,
       desc: this.state.material.desc,
       quan: this.state.quan,
@@ -76,7 +81,7 @@ export default class Create extends Component {
       uts: "1503412332",
       amt: this.state.amt,
     };
-    // console.log(data);
+    console.log(data);
     axios
       .post(`http://localhost:4000/api/purchaseOrder`, { ...data })
       .then((res) => {

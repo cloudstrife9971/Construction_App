@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 export default class OrderForm extends Component {
   state = {
-    posts: "inProgress",
+    postsShow:null,
     uts: "1540343442",
     alert: false,
     confirm: true,
@@ -13,34 +13,35 @@ export default class OrderForm extends Component {
       return null
     }
     if (e.target.id === "confirm") {
-      this.handleSubmit();
+      this.handleSubmit("inProgress");
     } else {
-      this.setState({ posts: "rejected" ,confirm:false });
-      this.handleSubmit();
+      this.setState({ confirm:false });
+      this.handleSubmit("rejected");
     }
   };
-  handleSubmit = () => {
+  handleSubmit = (data) => {
     const user = {
       po: this.props.PONumber,
-      posts: this.state.posts,
-      uts: null,
+      posts: data,
+      uts: "1540343442",
     };
+    // console.log(user)
     axios
-      .post(`http://localhost:4000/api/recOrderbySupplier`, { user })
+      .post(`http://localhost:4000/api/recOrderbySupplier`, { ...                                                                                                                                                                                                                                                                                                                                                 user })
       .then((res) => {
         // console.log(res);
         // console.log(res.data);
-        this.setState({alert:true,chanceFinished:true});
+        this.setState({alert:true,chanceFinished:true,postsShow:data});
       });
   };
 
   render() {
-    console.log(this.props);
+    // console.log(this.state);
     var a = (
       <tr>
         <td>{this.props.ItemNumber}</td>
         <td>{this.props.Description}</td>
-        <td>{this.props.quantity}</td>
+        <td>{this.props.Quantity}</td>
         <td>{`$${this.props.Amount}`}</td>
         <td>
           <button
@@ -94,7 +95,8 @@ export default class OrderForm extends Component {
             </tr>
             <tr>
               <td colspan="2">{this.props.PONumber}</td>
-              <td colspan="2">PO Status: {this.props.PoStatus}</td>
+              {/* <td colspan="2">PO Status: {this.props.PoStatus}</td> */}
+              <td colspan="2">{`PO Status: ${this.state.postsShow ? this.state.postsShow : this.props.PoStatus}`}</td>
               <td colspan="2">{`$${this.props.Amount}`}</td>
             </tr>
             <tr>

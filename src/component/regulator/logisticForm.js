@@ -5,6 +5,9 @@ export default class logisticForm extends Component {
   state = {
     items: ["Cement", "Pipe"],
     input: null,
+    dosts: null,
+    alert: false,
+    success: null,
   };
   handleSubmit = (e) => {
     e.preventDefault();
@@ -18,18 +21,20 @@ export default class logisticForm extends Component {
     };
 
     axios
-      .post(`https://jsonplaceholder.typicode.com/users`, { user })
+      .post(`http://localhost:4000/api/logisticApproval`, { ...user })
       .then((res) => {
         // console.log(res);
         // console.log(res.data);
-      });
+        this.setState({ dosts: res.data.data.dosts, alert: true, success: true });
+      })
+      .catch(this.setState({ alert: true, success: false }));
   };
   handleChange = (e) => {
     this.setState({ input: e.target.value });
     // console.log(this.state.input);
   };
   componentDidMount = () => {
-    this.setState({ input: this.state.items[0] });
+    this.setState({ input: this.state.items[0],dosts:this.props.DoStatus });
   };
   conditionDisplay = () => {
     switch (this.state.input) {
@@ -96,23 +101,31 @@ export default class logisticForm extends Component {
       <tr>
         <td>{this.props.ItemNumber}</td>
         <td>{this.props.Description}</td>
-        <td>{this.props.Amount}</td>
+        <td>{this.props.Quantity}</td>
         <td>{this.props.GTIN}</td>
       </tr>
     );
-
+    var alert = this.state.alert ? (
+      this.state.success ? (
+        <div class="alert alert-success" role="alert">
+          You have Confirmed the order
+        </div>
+      ) : (
+        <div class="alert alert-danger" role="alert">
+          You have Rejected the order
+        </div>
+      )
+    ) : null;
     return (
       <div className="container box">
         <div class="table-responsive-md my-table">
           <table className="table table-bordered">
             <tr>
               <td colspan="2">Delivery Order number</td>
-              <td colspan="2">
-                DO status: expecting confirmation from regulator
-              </td>
+              <td colspan="2">{`DO status: ${this.state.dosts}`}</td>
             </tr>
             <tr>
-              <td colspan="2"> XXX</td>
+              <td colspan="2"> {this.props.DoNumber}</td>
               <td colspan="2">Items</td>
             </tr>
             <tr>
@@ -156,6 +169,7 @@ export default class logisticForm extends Component {
             </button>
           </div>
         </div>
+        {alert}
       </div>
     );
   }

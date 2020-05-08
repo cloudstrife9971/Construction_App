@@ -1,11 +1,22 @@
 import React, { Component } from "react";
 import "../assets/common.css";
 import axios from "axios";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 export default class CreateReciept extends Component {
   state = {
     po:null,
     current: null,
-    gis:null
+    gis:null,
+    startDate: new Date(),
+    grept:"XXX",
+    grst:"new order"
+  };
+  handleDate = (date) => {
+    // console.log(this.state.startDate);
+    this.setState({
+      startDate: date,
+    });
   };
   handleChange=(e)=>{
 this.setState({[e.target.id]:e.target.value})
@@ -17,7 +28,7 @@ this.setState({[e.target.id]:e.target.value})
       return data.PONumber === e.target.value;
     });
     // console.log(item);
-    this.setState({ [e.target.id]: e.target.value, current: item });
+    this.setState({ [e.target.id]: e.target.value, current: item});
   };
   handleSubmit=(e)=>{
     e.preventDefault();
@@ -25,17 +36,18 @@ this.setState({[e.target.id]:e.target.value})
     const user = {
       po:this.state.po,
       invmngid:"IM001",
-      expdate : "10-06-2020",
+      expdate : this.state.startDate,
       gis : this.state.gis,
       grept : "GRxxxxxx",
-      grsts : "expecting confirmation from regulator",
+      grsts : "expecting conformation from regulator",
       uts : "1540343442"
     };
 
-    axios.post(`https://jsonplaceholder.typicode.com/users`, { user })
+    axios.post(`http://localhost:4000/api/invManagerReceipt`, { ...user })
       .then(res => {
         console.log(res);
         console.log(res.data);
+        this.setState({grept:res.data.data.grept ,grst:"expecting conformation from regulator" })
       })
   }
   componentDidMount = () => {
@@ -45,6 +57,7 @@ this.setState({[e.target.id]:e.target.value})
         data: persons,
         current: persons.data[0],
         po: persons.data[0].PONumber,
+
       });
     });
   };
@@ -128,7 +141,12 @@ this.setState({[e.target.id]:e.target.value})
               Expected delivery data (same as delivery due at time of purchase):
             </label>
             <div className="col-sm-6">
-              <input type="text" className="form-control" />
+            <DatePicker
+                className="col"
+                placeholderText="Click to select a date"
+                selected={this.state.startDate}
+                onChange={this.handleDate}
+              />
             </div>
           </div>
           <div className="row form-group">
@@ -197,10 +215,10 @@ this.setState({[e.target.id]:e.target.value})
             <table className="table table-bordered">
               <tr>
                 <td colspan="2">Goods Receipt number</td>
-                <td colspan="2">GR status: new order</td>
+            <td colspan="2">{`GR status: ${this.state.grst}`}</td>
               </tr>
               <tr>
-                <td colspan="2">XXX</td>
+            <td colspan="2">{this.state.grept}</td>
                 <td colspan="2">Items receipt</td>
               </tr>
               <tr>

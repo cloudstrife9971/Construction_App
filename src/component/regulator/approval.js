@@ -12,7 +12,7 @@ export default class approval extends Component {
   })
 }
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     var list = this.state.data  ?( this.state.data.data.map((data) => {
           return <ApprovalForm {...data} />;
         })): null;

@@ -5,7 +5,8 @@ export default class approvalForm extends Component {
   state = {
     items: ["Cement", "Pipe"],
     input: null,
-    bweght:null
+    bweght: null,
+    ccorder: this.props.ForemenUpdate[0].ccorder,
   };
   handleChange = (e) => {
     this.setState({ input: e.target.value });
@@ -19,16 +20,17 @@ export default class approvalForm extends Component {
     const user = {
       po: this.props.PONumber,
       ccorder: "ready to use",
-      conum: "0001",
+      conum: this.props.ForemenUpdate[0].conum,
       bweght: "1000",
       futs: "1540340000",
     };
 
     axios
-      .post(`http://localhost:4000/api/consumptionApproval`, { user })
+      .post(`http://localhost:4000/api/consumptionApproval`, { ...user })
       .then((res) => {
         // console.log(res);
         // console.log(res.data);
+        this.setState({ ccorder: "ready to use" });
       });
   };
   conditionDisplay = () => {
@@ -86,10 +88,9 @@ export default class approvalForm extends Component {
         break;
     }
   };
-  componentDidMount = () => {
-    this.setState({ input: this.state.items[0] });
-  };
+
   render() {
+    // console.log(this.props.ForemenUpdate)
     var a = (
       <tr>
         <td>{this.props.ItemNumber}</td>
@@ -109,11 +110,12 @@ export default class approvalForm extends Component {
             <tr>
               <td>Consumption Order number</td>
               <td colspan="4">
-                CO status: Expecting confirmation from regulator
+                {` CO status: ${this.state.ccorder}`}
+                {/* {this.props.ForemenUpdate[0].conum} */}
               </td>
             </tr>
             <tr>
-              <td>XXX</td>
+              <td>{this.props.ForemenUpdate[0].conum}</td>
               <td colspan="4">items to be consumed</td>
             </tr>
             <tr>

@@ -15,7 +15,10 @@ export default class Order extends Component {
   render() {
     var list = this.state.data
       ? this.state.data.data.map((data) => {
+        // console.log(data.PoStatus)                                                                                                     
+        // if(data.PoStatus==="create"){
           return <OrderForm {...data} />;
+        // }
         })
       : null;
     return <div>{list}</div>;

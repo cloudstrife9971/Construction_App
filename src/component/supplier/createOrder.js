@@ -5,10 +5,10 @@ import axios from "axios";
 export default class CreateOrder extends Component {
   state = {
     po: null,
-    carrierID: [5968237138, 4924238572, 8479400671, 3224248701],
-    ShipmentID: [5569817119, 1407232884, 2282578425, 6915980873],
+    carrierID: ["S7138", "S8572", "S0671", "S8701"],
+    ShipmentID: ["DO7119", "DO2884", "DO8425", "DO0873"],
     Truck_no: ["T001", "C041", "K301", "P314"],
-    regulatorID: [7777856284, 9354568715, 9513122318, 8546901869],
+    regulatorID: ["R001", "S001", "W001", "V001"],
     cid: null,
     shid: null,
     trno:null,
@@ -16,9 +16,11 @@ export default class CreateOrder extends Component {
     gtin: null,
     target: null,
     data: null,
-    order: null,
+    current: null,
     alert: false,
     success: null,
+    dosts:"New Order",
+    donumber:"XXX"
   };
   componentDidMount = () => {
     axios.get(`http://localhost:4000/api/alldata`).then((res) => {
@@ -26,12 +28,13 @@ export default class CreateOrder extends Component {
       // console.log(persons);
       this.setState({
         data: persons,
-        order: persons.data[0],
+        current: persons.data[0],
         po: persons.data[0].PONumber,
         cid:this.state.carrierID[0],
         shid:this.state.ShipmentID[0],
         trno:this.state.Truck_no[0],
         regid:this.state.regulatorID[0],
+        
       });
     });
   };
@@ -44,8 +47,8 @@ export default class CreateOrder extends Component {
     var item = this.state.data.data.find((data) => {
       return data.PONumber === e.target.value;
     });
-    // console.log(item);
-    this.setState({ [e.target.id]: e.target.value, order: item });
+    // console.log(item); 
+    this.setState({ [e.target.id]: e.target.value, current: item,dosts:"New Order",donumber:"XXX", alert: false });
   };
   handleSubmit = (e) => {
     e.preventDefault();
@@ -62,22 +65,22 @@ export default class CreateOrder extends Component {
     };
 
     axios
-      .post(`https://jsonplaceholder.typicode.com/users`, { ...user })
+      .post(`http://localhost:4000/api/createOrderBySupplier`, { ...user })
       .then((res) => {
         // console.log(res);
         console.log(res.data);
-        this.setState({ alert: true, success: true });
+        this.setState({ alert: true, success: true,dosts:"expecting confirmation from regulator",donumber:res.data.data.donumber });
       }).catch(
         this.setState({ alert: true, success: false })
         )
   };
   render() {
     // console.log(this.state);
-    var a = this.state.order ? (
+    var a = this.state.current ? (
       <tr>
-        <td>{this.state.order.ItemNumber}</td>
-        <td>{this.state.order.Description}</td>
-        <td>{this.state.order.Amount}</td>
+        <td>{this.state.current.ItemNumber}</td>
+        <td>{this.state.current.Description}</td>
+        <td>{this.state.current.Quantity}</td>
         {/* <td><div className="gtin-box">10614141999996</div> */}
         <td>
           <input
@@ -118,8 +121,9 @@ export default class CreateOrder extends Component {
           </div>
         )
       ) : null;
-  
+  var DO_status = this.state.current ? (this.state.current.DoStatus ? this.state.current.DoStatus : this.state.dosts):this.state.dosts
     return (
+      
       <div className="container box_margin">
         <form action="" onSubmit={this.handleSubmit}>
           <div className="row form-group">
@@ -197,7 +201,7 @@ export default class CreateOrder extends Component {
               Buyer ID:
             </label>
             <div className="col-sm-6">
-              {this.state.order ? this.state.order.BuyerID : null}
+              {this.state.current ? this.state.current.BuyerID : null}
             </div>
           </div>
           <div className="row form-group">
@@ -205,7 +209,7 @@ export default class CreateOrder extends Component {
               Location:
             </label>
             <div className="col-sm-6">
-              {this.state.order ? this.state.order.ShipTo : null}
+              {this.state.current ? this.state.current.ShipTo : null}
             </div>
           </div>
           <div className="row form-group">
@@ -213,17 +217,17 @@ export default class CreateOrder extends Component {
               Delivery date:
             </label>
             <div className="col-sm-6">
-              {this.state.order ? this.state.order.DeliveryDue : null}
+              {this.state.current ? this.state.current.DeliveryDue : null}
             </div>
           </div>
           <div className="table-responsive-md my-table">
             <table className="table table-bordered">
               <tr>
                 <th>Delivery Order number</th>
-                <th colspan="3">DO status: new order</th>
+                <th colspan="3">{`DO status: ${DO_status}`}</th>
               </tr>
               <tr>
-                <td>XXX</td>
+    <td>{this.state.donumber}</td>
                 <td colspan="3">Items</td>
               </tr>
               <tr>

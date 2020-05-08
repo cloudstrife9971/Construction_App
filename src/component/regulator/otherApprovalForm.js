@@ -5,7 +5,8 @@ export default class otherApprovalForm extends Component {
   state = {
     items: ["Cement", "Pipe"],
     input: null,
-    density:null
+    density:null,
+    ccorder:this.props.ForemenUpdate[0].ccorder
   };
   handleChange = (e) => {
     this.setState({ input: e.target.value });
@@ -20,15 +21,16 @@ export default class otherApprovalForm extends Component {
         po : this.props.PONumber,
         ccorder : "ready to be poured",
         density : "2.03",
-        conum : "0001",
+        conum : this.props.ForemenUpdate[0].conum,
          futs : "1540340000"
     };
 
     axios
-      .post(`http://localhost:4000/api/consumptionApprovalForPouring `, { user })
+      .post(`http://localhost:4000/api/consumptionApprovalForPouring `, { ...user })
       .then((res) => {
         // console.log(res);
         // console.log(res.data);
+        this.setState({ccorder : "ready to be poured",})
       });
   };
   conditionDisplay = () => {
@@ -109,11 +111,11 @@ export default class otherApprovalForm extends Component {
             <tr>
               <td>Consumption Order number</td>
               <td colspan="4">
-                CO status: Expecting confirmation from regulator
+                {`CO status:  ${this.state.ccorder}`}
               </td>
             </tr>
             <tr>
-              <td>XXX</td>
+    <td>{this.props.ForemenUpdate[0].conum}</td>
               <td colspan="4">items to be consumed</td>
             </tr>
             <tr>

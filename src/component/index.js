@@ -30,32 +30,34 @@ export default class index extends Component {
           <a href="/Regulator Logistics approval">
             Regulator Logistics approval
           </a>
+          <a href="/Regulator Create goods receipt">
+            Inventory Manger Create goods receipt
+          </a>
           <a href="Regulator Inventory approval">
             Regulator Inventory approval{" "}
           </a>
-          <a href="/Inventory Manger Stock release">
-            Regulator consumption Approval
-          </a>
-          <a href="Other Regulator Inventory approval">
-            Other Regulator Inventory approval{" "}
-          </a>
-       
-          <a href="/Regulator Create goods receipt">
-            Inventory Manger Create goods receipt
+          
+          <a href="/Regulator consumption Approval">
+            Foreman create consumption order
           </a>
           <a href="/Inventory Manger Create goods receipt">
             Inventory Manger Stock release
           </a>
-
-          <a href="/Regulator consumption Approval">
-            Foreman create consumption order
+          <a href="/Inventory Manger Stock release">
+            Regulator consumption Approval
           </a>
           <a href="/Foremen Create Consumption Order">
             Foremen Display orders status
           </a>
+          <a href="Other Regulator Inventory approval">
+            Other Regulator Inventory approval{" "}
+          </a>
+         
+          
+         
           <a href="/Customer">Customer</a>
           <a href="/GeneralManager">GeneralManager</a>
-          
+
           <a href="/Homepage">Homepage</a>
           {/* <a href="/Foremen Display orders status">
             Foremen Display orders status
@@ -64,7 +66,7 @@ export default class index extends Component {
         <div class="main">
           <BrowserRouter>
             <Switch>
-            <Route exact path="/Homepage" component={Homepage} />
+              <Route exact path="/Homepage" component={Homepage} />
               <Route exact path="/" component={Create} />
               <Route path="/BuyerDisplayOrderStatus" component={Status} />
               {/* <Route path="/CreateNewOrder" component={Create} /> */}

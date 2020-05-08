@@ -3,36 +3,43 @@ import "../assets/common.css";
 import axios from "axios";
 export default class CreateConsumptionOrder extends Component {
   state = {
-    po:null,
+    po: null,
     current: null,
-    what_for:null,
-    desc:null
+    purps: null,
+    fdec: null,
+    pquanty: null,
+    conum: "XXX",
+    ccorder: "New Order",
+    invmngid: ["IM001", "IM002", "IM003", "IM004"],
   };
-  handleType =(e)=>{
-this.setState({[e.target.id]:e.target.value})
-console.log(this.state.what_for,this.state.desc )
-  }
-  handleChange=(e)=>{
-var value = e.target.value;
-var current = this.state.data.data.find((data)=>{
-  return data.PONumber === value
-})
-this.setState({current  })
-  }
+  handleType = (e) => {
+    this.setState({ [e.target.id]: e.target.value });
+    console.log(this.state.what_for, this.state.desc);
+  };
+  handleChange = (e) => {
+    var value = e.target.value;
+    var current = this.state.data.data.find((data) => {
+      return data.PONumber === value;
+    });
+    this.setState({ current });
+  };
   handleSubmit = (e) => {
     e.preventDefault();
     const user = {
       po: this.state.current.PONumber,
-      dosts: "arrived",
-      posts: "inStock",
-      grsts: "received",
-      uts: "1540343442",
+      foreid: "FOOO1",
+      purps: this.state.purps,
+      fdec: this.state.fdec,
+      ccorder: "created",
+      pquanty: this.state.null,
+      futs: "1540343442",
     };
     axios
-      .post(`https://jsonplaceholder.typicode.com/users`, { user })
+      .post(`http://localhost:4000/api/foremenConsumtion`, { ...user })
       .then((res) => {
         // console.log(res);
         // console.log(res.data);
+        this.setState({conum:res.data.data.conum ,ccorder:"created"})
       });
   };
   componentDidMount = () => {
@@ -48,24 +55,31 @@ this.setState({current  })
   };
   render() {
     // console.log(this.state)
-    var a  = this.state.data ? (
+    var a = this.state.data ? (
       <tr>
         <td>{this.state.current.ItemNumber}</td>
         <td>{this.state.current.GTIN}</td>
         <td>{this.state.current.Description}</td>
         <td>
-          <input className="gtin-box col"/>
+          <input
+            className="gtin-box col"
+            onChange={this.handleType}
+            id="pquanty"
+          />
         </td>
       </tr>
     ) : null;
-    var po_number = this.state.data ? ( this.state.data.data.map((data)=>{
-    return   <option>{data.PONumber}</option>
-    })):null
-    var InventoryManagerId = this.state.data ? ( this.state.data.data.map((data)=>{
-      return   <option>{data.InvMngId}</option>
-      
-      })):null
-      
+    var po_number = this.state.data
+      ? this.state.data.data.map((data) => {
+          return <option>{data.PONumber}</option>;
+        })
+      : null;
+    var InventoryManagerId = this.state.data
+      ? this.state.data.data.map((data) => {
+          return <option>{data.InvMngId}</option>;
+        })
+      : null;
+
     return (
       <div className="container box_margin">
         <div className="row form-group">
@@ -73,7 +87,12 @@ this.setState({current  })
             What for:
           </label>
           <div className="col-sm-6">
-            <input type="text" onChange={this.handleType} id="what_for" className="form-control" />
+            <input
+              type="text"
+              onChange={this.handleType}
+              id="purps"
+              className="form-control"
+            />
           </div>
         </div>
         <div className="row form-group">
@@ -81,7 +100,12 @@ this.setState({current  })
             Description:
           </label>
           <div className="col-sm-6">
-            <input type="text" onChange={this.handleType} id="desc" className="form-control" />
+            <input
+              type="text"
+              onChange={this.handleType}
+              id="fdec"
+              className="form-control"
+            />
           </div>
         </div>
         <div className="row form-group">
@@ -102,8 +126,8 @@ this.setState({current  })
               <th>Date</th>
             </tr>
             <tr>
-              <td colspan="2">XXX</td>
-              <td>New order</td>
+              <td colspan="2">{this.state.conum}</td>
+              <td>{this.state.ccorder}</td>
               <td>Date and time</td>
             </tr>
             <tr>
@@ -111,7 +135,7 @@ this.setState({current  })
               <th>GTIN:</th>
               <th>
                 <select class="form-control" onChange={this.handleChange}>
-               {po_number}
+                  {po_number}
                 </select>
               </th>
               <th>

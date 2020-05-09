@@ -42,6 +42,7 @@ export default class stockRealeaseForm extends Component {
             onChange={this.handleType}
             id="batchid"
             className="gtin-box col"
+            required="true"
           />
         </td>
       </tr>
@@ -53,6 +54,7 @@ export default class stockRealeaseForm extends Component {
     //   : null;
     return (
       <div className="container box">
+         <form action="" onSubmit={this.handleSubmit}>
         <div className="row form-group">
           <label htmlFor="" className="col-sm-2 col-form-label">
             Regulator ID:
@@ -81,11 +83,12 @@ export default class stockRealeaseForm extends Component {
         </div>
         <button
           class="btn btn-primary"
-          onClick={this.handleSubmit}
+        
           type="submit"
         >
           release
         </button>
+        </form>
       </div>
     );
   }

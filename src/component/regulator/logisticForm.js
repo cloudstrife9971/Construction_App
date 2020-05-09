@@ -45,7 +45,7 @@ export default class logisticForm extends Component {
               Batch weight:
             </label>
             <div className="col-sm-3">
-              <input type="text" className="form-control" />
+              <input type="text" className="form-control" required="true"/>
             </div>
           </div>
         );
@@ -57,7 +57,7 @@ export default class logisticForm extends Component {
                 actual outside diameter:
               </label>
               <div className="col-sm-3">
-                <input type="text" className="form-control" />
+                <input type="text" className="form-control" required="true"/>
               </div>
             </div>
             <div className="row form-group">
@@ -65,7 +65,7 @@ export default class logisticForm extends Component {
                 average inside diameter:
               </label>
               <div className="col-sm-3">
-                <input type="text" className="form-control" />
+                <input type="text" className="form-control" required="true"/>
               </div>
             </div>
             <div className="row form-group">
@@ -73,7 +73,7 @@ export default class logisticForm extends Component {
                 pipe wall width thickness:
               </label>
               <div className="col-sm-3">
-                <input type="text" className="form-control" />
+                <input type="text" className="form-control" required="true"/>
               </div>
             </div>
             <div className="row form-group">
@@ -81,7 +81,7 @@ export default class logisticForm extends Component {
                 pipe weight:
               </label>
               <div className="col-sm-3">
-                <input type="text" className="form-control" />
+                <input type="text" className="form-control" required="true"/>
               </div>
             </div>
           </div>
@@ -118,6 +118,7 @@ export default class logisticForm extends Component {
     ) : null;
     return (
       <div className="container box">
+        <form action="" onSubmit={this.handleSubmit}>
         <div class="table-responsive-md my-table">
           <table className="table table-bordered">
             <tr>
@@ -151,10 +152,11 @@ export default class logisticForm extends Component {
         <div className="row">
           <div className="col-sm-2">
             <button
-              type="button"
-              onClick={this.handleSubmit}
+            
+              // onClick={this.handleSubmit}
               id="Confirm"
               class="btn btn-primary col"
+              type="submit"
             >
               Confirm
             </button>
@@ -162,13 +164,15 @@ export default class logisticForm extends Component {
           <div className="col-sm-2">
             <button
               class="btn btn-light col"
-              onClick={this.handleSubmit}
+              // onClick={this.handleSubmit}
               type="submit"
             >
               Dispute
             </button>
           </div>
         </div>
+      
+        </form>
         {alert}
       </div>
     );

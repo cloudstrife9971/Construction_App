@@ -33,6 +33,7 @@ export default class displayStatusForm extends Component {
  
     return (
       <div className="container box">
+         <form action="" onSubmit={this.handleSubmit}>
         <div className="row form-group">
           <label htmlFor="" className="col-sm-2 col-form-label">
             Regulator ID:
@@ -66,17 +67,18 @@ export default class displayStatusForm extends Component {
             Status:
           </label>
           <div className="col-sm-6">
-            <input type="text" className="form-control" />
+            <input type="text" className="form-control" required="true" />
             {/* {this.state.current ? this.state.current.PoStatus : null} */}
           </div>
         </div>
         <button
           class="btn btn-primary"
-          onClick={this.handleSubmit}
+         
           type="submit"
         >
           submit
         </button>
+        </form>
       </div>
     );
   }

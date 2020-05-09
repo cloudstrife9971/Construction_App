@@ -141,6 +141,7 @@ export default class Create extends Component {
               this.handleChange(e);
               this.totalPrice(e);
             }}
+            required="true"
             // onClick={this.totalPrice}
           />
         </td>
@@ -178,6 +179,7 @@ export default class Create extends Component {
                 class="form-control"
                 onChange={this.handleChange}
                 id="suppid"
+                
               >
                 <option>S0001</option>
                 <option>S0002</option>
@@ -196,6 +198,7 @@ export default class Create extends Component {
                 id="addr"
                 onChange={this.handleChange}
                 className="form-control"
+                required="true"
               />
             </div>
           </div>

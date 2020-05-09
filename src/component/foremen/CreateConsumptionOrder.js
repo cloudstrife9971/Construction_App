@@ -66,6 +66,7 @@ export default class CreateConsumptionOrder extends Component {
             className="gtin-box col"
             onChange={this.handleType}
             id="pquanty"
+            required="true"
           />
         </td>
       </tr>
@@ -83,6 +84,7 @@ export default class CreateConsumptionOrder extends Component {
 
     return (
       <div className="container box_margin">
+         <form action="" onSubmit={this.handleSubmit}>
         <div className="row form-group">
           <label htmlFor="" className="col-sm-2 col-form-label">
             What for:
@@ -93,6 +95,7 @@ export default class CreateConsumptionOrder extends Component {
               onChange={this.handleType}
               id="purps"
               className="form-control"
+              required="true"
             />
           </div>
         </div>
@@ -106,6 +109,7 @@ export default class CreateConsumptionOrder extends Component {
               onChange={this.handleType}
               id="fdec"
               className="form-control"
+              required="true"
             />
           </div>
         </div>
@@ -150,11 +154,12 @@ export default class CreateConsumptionOrder extends Component {
         </div>
         <button
           class="btn btn-primary"
-          onClick={this.handleSubmit}
+         
           type="submit"
         >
           Submit
         </button>
+        </form>
       </div>
     );
   }

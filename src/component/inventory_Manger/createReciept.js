@@ -93,7 +93,7 @@ this.setState({[e.target.id]:e.target.value})
     ) : null;
     return (
       <div className="container box">
-        <form action="">
+        <form action=""  onSubmit={this.handleSubmit}>
           <div className="row form-group">
             <label htmlFor="" className="col-sm-2 col-form-label">
               PO number:
@@ -222,7 +222,7 @@ this.setState({[e.target.id]:e.target.value})
               In stock location (GIS):
             </label>
             <div className="col-sm-6">
-              <input type="text" onChange={this.handleChange} id="gis"  className="form-control" />
+              <input type="text" onChange={this.handleChange} id="gis"  className="form-control" required="true" />
             </div>
           </div>
           <div className="table-responsive-md my-table">
@@ -244,7 +244,7 @@ this.setState({[e.target.id]:e.target.value})
               {a}
             </table>
           </div>
-          <button class="btn btn-primary" onClick={this.handleSubmit} id="Confirm" type="submit">
+          <button class="btn btn-primary" id="Confirm" type="submit">
             Button
           </button>
         </form>

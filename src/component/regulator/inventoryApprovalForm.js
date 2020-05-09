@@ -43,7 +43,7 @@ export default class inventoryApprovalForm extends Component {
               Batch weight:
             </label>
             <div className="col-sm-3">
-              <input type="text" className="form-control" />
+              <input type="text" className="form-control" required="true"/>
             </div>
           </div>
         );
@@ -55,7 +55,7 @@ export default class inventoryApprovalForm extends Component {
                 actual outside diameter:
               </label>
               <div className="col-sm-3">
-                <input type="text" className="form-control" />
+                <input type="text" className="form-control" required="true"/>
               </div>
             </div>
             <div className="row form-group">
@@ -63,7 +63,7 @@ export default class inventoryApprovalForm extends Component {
                 average inside diameter:
               </label>
               <div className="col-sm-3">
-                <input type="text" className="form-control" />
+                <input type="text" className="form-control" required="true"/>
               </div>
             </div>
             <div className="row form-group">
@@ -71,7 +71,7 @@ export default class inventoryApprovalForm extends Component {
                 pipe wall width thickness:
               </label>
               <div className="col-sm-3">
-                <input type="text" className="form-control" />
+                <input type="text" className="form-control" required="true"/>
               </div>
             </div>
             <div className="row form-group">
@@ -79,7 +79,7 @@ export default class inventoryApprovalForm extends Component {
                 pipe weight:
               </label>
               <div className="col-sm-3">
-                <input type="text" className="form-control" />
+                <input type="text" className="form-control" required="true"/>
               </div>
             </div>
           </div>
@@ -118,6 +118,7 @@ export default class inventoryApprovalForm extends Component {
     ) : null;
     return (
       <div className="container box">
+          <form action="" onSubmit={this.handleSubmit}>
         <div className="table-responsive-md my-table">
           <table className="table table-bordered">
             <tr>  
@@ -193,8 +194,8 @@ export default class inventoryApprovalForm extends Component {
         <div className="row">
           <div className="col-sm-2">
             <button
-              type="button"
-              onClick={this.handleSubmit}
+              type="submit"
+        
               id="Confirm"
               class="btn btn-light col"
             >
@@ -204,13 +205,14 @@ export default class inventoryApprovalForm extends Component {
           <div className="col-sm-2">
             <button
               class="btn btn-primary col"
-              onClick={this.handleSubmit}
+         
               type="submit"
             >
               Dispute
             </button>
           </div>
         </div>
+        </form>
         {alert}
       </div>
     );

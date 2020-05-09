@@ -89,6 +89,7 @@ export default class CreateOrder extends Component {
             onChange={this.handleChange}
             id="gtin"
             className="gtin-box"
+            required="true"
           />
         </td>
         {/* </td> */}

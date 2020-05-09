@@ -10,7 +10,9 @@ export default class CreateReciept extends Component {
     gis:null,
     startDate: new Date(),
     grept:"XXX",
-    grst:"new order"
+    grst:"new order",
+    alert: false,
+    success: null,
   };
   handleDate = (date) => {
     // console.log(this.state.startDate);
@@ -47,18 +49,19 @@ this.setState({[e.target.id]:e.target.value})
       .then(res => {
         console.log(res);
         console.log(res.data);
-        this.setState({grept:res.data.data.grept ,grst:"expecting conformation from regulator" })
+        this.setState({grept:res.data.data.grept ,grst:"expecting conformation from regulator",alert: true, success: true })
       })
   }
   componentDidMount = () => {
     axios.get(`http://localhost:4000/api/alldata`).then((res) => {
       const persons = res.data;
+      if(persons.data[0]){
       this.setState({
         data: persons,
         current: persons.data[0],
         po: persons.data[0].PONumber,
 
-      });
+      })}
     });
   };
   render() {
@@ -77,6 +80,17 @@ this.setState({[e.target.id]:e.target.value})
         <td>{this.state.current.GTIN}</td>
       </tr>
     ):null
+    var alert = this.state.alert ? (
+      this.state.success ? (
+        <div class="alert alert-success" role="alert">
+          Goods Reciept Generated
+        </div>
+      ) : (
+        <div class="alert alert-danger" role="alert">
+          You have Rejected the order
+        </div>
+      )
+    ) : null;
     return (
       <div className="container box">
         <form action="">
@@ -230,10 +244,11 @@ this.setState({[e.target.id]:e.target.value})
               {a}
             </table>
           </div>
-          <button class="btn btn-primary" onClick={this.handleSubmit} type="submit">
+          <button class="btn btn-primary" onClick={this.handleSubmit} id="Confirm" type="submit">
             Button
           </button>
         </form>
+        {alert}
       </div>
     );
   }

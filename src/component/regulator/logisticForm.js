@@ -121,8 +121,8 @@ export default class logisticForm extends Component {
         <div class="table-responsive-md my-table">
           <table className="table table-bordered">
             <tr>
-              <td colspan="2">Delivery Order number</td>
-              <td colspan="2">{`DO status: ${this.state.dosts}`}</td>
+              <th colspan="2">Delivery Order number</th>
+              <th colspan="2">{`DO status: ${this.state.dosts}`}</th>
             </tr>
             <tr>
               <td colspan="2"> {this.props.DoNumber}</td>

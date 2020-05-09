@@ -6,7 +6,7 @@ export default class otherApprovalForm extends Component {
     items: ["Cement", "Pipe"],
     input: null,
     density:null,
-    ccorder:this.props.ForemenUpdate[0].ccorder
+    ccorder:this.props.ForemenUpdate[0]?(this.props.ForemenUpdate[0].ccorder):null
   };
   handleChange = (e) => {
     this.setState({ input: e.target.value });
@@ -115,7 +115,7 @@ export default class otherApprovalForm extends Component {
               </td>
             </tr>
             <tr>
-    <td>{this.props.ForemenUpdate[0].conum}</td>
+    <td>{this.props.ForemenUpdate[0]?(this.props.ForemenUpdate[0].conum):null}</td>
               <td colspan="4">items to be consumed</td>
             </tr>
             <tr>

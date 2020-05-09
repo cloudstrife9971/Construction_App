@@ -46,11 +46,12 @@ export default class CreateConsumptionOrder extends Component {
     axios.get(`http://localhost:4000/api/alldata`).then((res) => {
       const persons = res.data;
       // console.log(persons.data[0]);
+      if(persons.data[0]){
       this.setState({
         data: persons,
         current: persons.data[0],
         po: persons.data[0].PONumber,
-      });
+      })}
     });
   };
   render() {

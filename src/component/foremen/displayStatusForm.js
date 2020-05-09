@@ -4,7 +4,7 @@ import axios from "axios";
 export default class displayStatusForm extends Component {
   state = {
     po: null,
-    ccorder:this.props.ForemenUpdate[0].ccorder
+    ccorder:this.props.ForemenUpdate[0]?(this.props.ForemenUpdate[0].ccorder):null
   };
   handleSubmit = (e) => {
     e.preventDefault();
@@ -23,16 +23,16 @@ export default class displayStatusForm extends Component {
       });
   };
   render() {
-    var a = this.state.data ? (
+    var a = (
       <tr>
-        <td>{this.state.current.ItemNumber}</td>
-        <td>{this.state.current.Description}</td>
-        <td>{this.state.current.Amount}</td>
+        <td>{this.props.ItemNumber}</td>
+        <td>{this.props.Description}</td>
+        <td>{this.props.Amount}</td>
       </tr>
-    ) : null;
+    ) 
  
     return (
-      <div className="container box_margin">
+      <div className="container box">
         <div className="row form-group">
           <label htmlFor="" className="col-sm-2 col-form-label">
             Regulator ID:
@@ -50,7 +50,7 @@ export default class displayStatusForm extends Component {
     <td colspan="2">{`CO status: ${this.state.ccorder}`}</td>
             </tr>
             <tr>
-              <td>{this.props.ForemenUpdate[0].conum}</td>
+              <td>{this.props.ForemenUpdate[0]?(this.props.ForemenUpdate[0].conum):null}</td>
               <td colspan="2">items to be consumed</td>
             </tr>
             <tr>

@@ -26,7 +26,8 @@ export default class CreateOrder extends Component {
     axios.get(`http://localhost:4000/api/alldata`).then((res) => {
       const persons = res.data;
       // console.log(persons);
-      this.setState({
+      if(persons.data[0]){
+      this.setState({ 
         data: persons,
         current: persons.data[0],
         po: persons.data[0].PONumber,
@@ -35,7 +36,7 @@ export default class CreateOrder extends Component {
         trno:this.state.Truck_no[0],
         regid:this.state.regulatorID[0],
         
-      });
+      })}
     });
   };
   handleChange = (e) => {

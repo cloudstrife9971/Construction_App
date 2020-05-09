@@ -36,8 +36,12 @@ export default class Create extends Component {
   handleChange = (e) => {
     // console.log(e.target.value);
     if(e.target.id==="quan"){
-      var value = parseInt(e.target.value)
+      let value = parseInt(e.target.value)
     return  this.setState({ quan: value })
+    }
+    else if(e.target.id==="amt"){
+      let value = (e.target.value).toString()
+    return  this.setState({ amt: value });
     }
     this.setState({ [e.target.id]: e.target.value });
   };
@@ -76,12 +80,12 @@ export default class Create extends Component {
       addr: this.state.addr,
       delvry: this.state.startDate,
       buyerid: "B0001",
-      suppid: "S0001",
+      suppid: this.state.suppid,
       cts: "1503412332",
       uts: "1503412332",
       amt: this.state.amt,
     };
-    console.log(data);
+    // console.log(data);
     axios
       .post(`http://localhost:4000/api/purchaseOrder`, { ...data })
       .then((res) => {
@@ -112,11 +116,12 @@ export default class Create extends Component {
         dd,
         mm,
         yyyy,
+        suppid:"S0001"
       });
     });
   };
   render() {
-    // console.log(this.state.po);
+    // console.log(this.state);
     // const [startDate, setStartDate] = useState(new Date());
     // console.log(this.state.materials);
 
@@ -174,11 +179,10 @@ export default class Create extends Component {
                 onChange={this.handleChange}
                 id="suppid"
               >
-                <option>6360326261</option>
-                <option>0573584006</option>
-                <option>8178861433</option>
-                <option>8680432575</option>
-                <option>3725272610</option>
+                <option>S0001</option>
+                <option>S0002</option>
+                <option>S0003</option>
+                <option>S0004</option>
               </select>
             </div>
           </div>

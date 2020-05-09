@@ -17,7 +17,7 @@ export default class Status extends Component {
       return <StatuTable {...data} />;
     })): null;
     return (
-      <div className="container box">
+      <div className="container">
        {list}
       </div>
     )

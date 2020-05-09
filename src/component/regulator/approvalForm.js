@@ -6,7 +6,7 @@ export default class approvalForm extends Component {
     items: ["Cement", "Pipe"],
     input: null,
     bweght: null,
-    ccorder: this.props.ForemenUpdate[0].ccorder,
+    ccorder: this.props.ForemenUpdate[0]?(this.props.ForemenUpdate[0].ccorder):null,
   };
   handleChange = (e) => {
     this.setState({ input: e.target.value });
@@ -97,7 +97,7 @@ export default class approvalForm extends Component {
         <td>{this.props.Description}</td>
         <td>{this.props.Amount}</td>
         <td>{this.props.GTIN}</td>
-        <td>{this.props.batchid}</td>
+        <td>{this.props.ForemenUpdate[0]?(this.props.ForemenUpdate[0].batchid):null}</td>
       </tr>
     );
     var itemOptions = this.state.items.map((data) => {
@@ -115,7 +115,7 @@ export default class approvalForm extends Component {
               </td>
             </tr>
             <tr>
-              <td>{this.props.ForemenUpdate[0].conum}</td>
+              <td>{this.props.ForemenUpdate[0]?(this.props.ForemenUpdate[0].conum):null}</td>
               <td colspan="4">items to be consumed</td>
             </tr>
             <tr>

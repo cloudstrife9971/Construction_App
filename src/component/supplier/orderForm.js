@@ -13,7 +13,7 @@ export default class OrderForm extends Component {
       return null
     }
     if (e.target.id === "confirm") {
-      this.handleSubmit("inProgress");
+      this.handleSubmit("Inprocess");
     } else {
       this.setState({ confirm:false });
       this.handleSubmit("rejected");

@@ -14,7 +14,7 @@ export default class stockRealeaseForm extends Component {
       ccorder: "expecting confirmation from regulator",
       batchid: "b001",
       futs: "1540340000",
-      // conum:this.props.conum
+      conum:this.props.ForemenUpdate[0].conum
     };
     axios
       .post(`http://localhost:4000/api/stockRelease`, { ...user })
@@ -66,7 +66,7 @@ export default class stockRealeaseForm extends Component {
     <th colspan="4">{`CO status: ${this.state.ccorder}`}</th>
             </tr>
             <tr>
-    <td>{this.props.ForemenUpdate[0].conum}</td>
+    <td>{this.props.ForemenUpdate[0]?(this.props.ForemenUpdate[0].conum):null}</td>
               <td colspan="4">items to be consumed</td>
             </tr>
             <tr>

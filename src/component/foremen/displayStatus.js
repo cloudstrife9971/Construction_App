@@ -20,11 +20,12 @@ export default class displayStatus extends Component {
       const persons = res.data;
       // console.log(persons);
       // this.setState({ data: persons });
+      if(persons.data[0]){
       this.setState({
         data: persons,
         current: persons.data[0],
         po: persons.data[0].PONumber,
-      });
+      })}
     });
   };
   render() {

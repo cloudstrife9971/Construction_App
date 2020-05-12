@@ -1,27 +1,52 @@
 import React, { Component } from "react";
-import OtherApprovalForm from "./otherApprovalForm"
-import axios from "axios";;
+import OtherApprovalForm from "./otherApprovalForm";
+import axios from "axios";
 
 export default class otherApproval extends Component {
-  
-  state = {};
+  state = {
+    empty: false,
+  };
   componentDidMount = () => {
     axios.get(`http://localhost:4000/api/alldata`).then((res) => {
-      const persons = res.data;
-      // console.log(persons);
-      // this.setState({ data: persons });
-      this.setState({data:persons})
-  })
-}
-render() {
-  console.log(this.state);
-  var list = this.state.data  ?( this.state.data.data.map((data) => {
-        return <OtherApprovalForm {...data} />;
-      })): null;
-    return (
-      <div className="container box">
-      {list}
-     </div>
-    );
+      const response = res.data;
+      if (response.data) {
+        let length = response.data.length;
+        if (length > 0) {
+          var filterData = response.data.filter((data) => {
+            return data.ForemenUpdate[0]
+              ? data.ForemenUpdate[0].ccorder ===
+                  "expecting confirmation from regulator for pouring"
+              : false;
+          });
+          if (filterData.length > 0) {
+            this.setState({
+              data: filterData,
+              empty: false,
+            });
+          } else {
+            this.setState({ empty: true });
+          }
+        } else {
+          this.setState({ empty: true });
+        }
+      } else {
+        this.setState({ empty: true });
+      }
+    });
+  };
+  render() {
+    if (this.state.empty === true) {
+      return (
+        <div>
+          <h1>Empty</h1>
+        </div>
+      );
+    }
+    var list = this.state.data
+      ? this.state.data.map((data) => {
+          return <OtherApprovalForm {...data} />;
+        })
+      : null;
+    return <div className="container box">{list}</div>;
   }
 }

@@ -11,9 +11,9 @@ export default class logisticForm extends Component {
   };
   handleSubmit = (e) => {
     e.preventDefault();
+
     var dost = e.target.id === "Confirm" ? "shipped" : "inDispute";
 
-    // console.log(dost);
     const user = {
       po: this.props.PONumber,
       dosts: dost,
@@ -25,7 +25,11 @@ export default class logisticForm extends Component {
       .then((res) => {
         // console.log(res);
         // console.log(res.data);
-        this.setState({ dosts: res.data.data.dosts, alert: true, success: true });
+        this.setState({
+          dosts: res.data.data.dosts,
+          alert: true,
+          success: true,
+        });
       })
       .catch(this.setState({ alert: true, success: false }));
   };
@@ -34,7 +38,7 @@ export default class logisticForm extends Component {
     // console.log(this.state.input);
   };
   componentDidMount = () => {
-    this.setState({ input: this.state.items[0],dosts:this.props.DoStatus });
+    this.setState({ input: this.state.items[0], dosts: this.props.DoStatus });
   };
   conditionDisplay = () => {
     switch (this.state.input) {
@@ -45,7 +49,7 @@ export default class logisticForm extends Component {
               Batch weight:
             </label>
             <div className="col-sm-3">
-              <input type="text" className="form-control" required="true"/>
+              {/* <input type="text" className="form-control" required="true"/> */}
             </div>
           </div>
         );
@@ -57,7 +61,7 @@ export default class logisticForm extends Component {
                 actual outside diameter:
               </label>
               <div className="col-sm-3">
-                <input type="text" className="form-control" required="true"/>
+                <input type="text" className="form-control" required="true" />
               </div>
             </div>
             <div className="row form-group">
@@ -65,7 +69,7 @@ export default class logisticForm extends Component {
                 average inside diameter:
               </label>
               <div className="col-sm-3">
-                <input type="text" className="form-control" required="true"/>
+                <input type="text" className="form-control" required="true" />
               </div>
             </div>
             <div className="row form-group">
@@ -73,7 +77,7 @@ export default class logisticForm extends Component {
                 pipe wall width thickness:
               </label>
               <div className="col-sm-3">
-                <input type="text" className="form-control" required="true"/>
+                <input type="text" className="form-control" required="true" />
               </div>
             </div>
             <div className="row form-group">
@@ -81,7 +85,7 @@ export default class logisticForm extends Component {
                 pipe weight:
               </label>
               <div className="col-sm-3">
-                <input type="text" className="form-control" required="true"/>
+                <input type="text" className="form-control" required="true" />
               </div>
             </div>
           </div>
@@ -118,60 +122,58 @@ export default class logisticForm extends Component {
     ) : null;
     return (
       <div className="container box">
-        <form action="" onSubmit={this.handleSubmit}>
-        <div class="table-responsive-md my-table">
-          <table className="table table-bordered">
-            <tr>
-              <th colspan="2">Delivery Order number</th>
-              <th colspan="2">{`DO status: ${this.state.dosts}`}</th>
-            </tr>
-            <tr>
-              <td colspan="2"> {this.props.DoNumber}</td>
-              <td colspan="2">Items</td>
-            </tr>
-            <tr>
-              <th>Item number</th>
-              <th>Description</th>
-              <th>Quantity</th>
-              <th>GTIN</th>
-            </tr>
-            {a}
-          </table>
-        </div>
-        <div className="row form-group">
-          <label htmlFor="" className="col-sm-3 col-form-label">
-            select Item to be inspected:
-          </label>
-          <div className="col-sm-3">
-            <select class="form-control" onChange={this.handleChange}>
-              {itemOptions}
-            </select>
+        <form action="">
+          <div class="table-responsive-md my-table">
+            <table className="table table-bordered">
+              <tr>
+                <th colspan="2">Delivery Order number</th>
+                <th colspan="2">{`DO status: ${this.state.dosts}`}</th>
+              </tr>
+              <tr>
+                <td colspan="2"> {this.props.DoNumber}</td>
+                <td colspan="2">Items</td>
+              </tr>
+              <tr>
+                <th>Item number</th>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>GTIN</th>
+              </tr>
+              {a}
+            </table>
           </div>
-        </div>
-        <div>{this.conditionDisplay()}</div>
-        <div className="row">
-          <div className="col-sm-2">
-            <button
-            
-              // onClick={this.handleSubmit}
-              id="Confirm"
-              class="btn btn-primary col"
-              type="submit"
-            >
-              Confirm
-            </button>
+          <div className="row form-group">
+            <label htmlFor="" className="col-sm-3 col-form-label">
+              select Item to be inspected:
+            </label>
+            <div className="col-sm-3">
+              <select class="form-control" onChange={this.handleChange}>
+                {itemOptions}
+              </select>
+            </div>
           </div>
-          <div className="col-sm-2">
-            <button
-              class="btn btn-light col"
-              // onClick={this.handleSubmit}
-              type="submit"
-            >
-              Dispute
-            </button>
+          <div>{this.conditionDisplay()}</div>
+          <div className="row">
+            <div className="col-sm-2">
+              <button
+                onClick={this.handleSubmit}
+                id="Confirm"
+                class="btn btn-primary col"
+                type="submit"
+              >
+                Confirm
+              </button>
+            </div>
+            <div className="col-sm-2">
+              <button
+                class="btn btn-light col"
+                onClick={this.handleSubmit}
+                type="submit"
+              >
+                Dispute
+              </button>
+            </div>
           </div>
-        </div>
-      
         </form>
         {alert}
       </div>

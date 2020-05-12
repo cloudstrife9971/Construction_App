@@ -5,12 +5,12 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 export default class CreateReciept extends Component {
   state = {
-    po:null,
+    po: null,
     current: null,
-    gis:null,
+    gis: null,
     startDate: new Date(),
-    grept:"XXX",
-    grst:"new order",
+    grept: "XXX",
+    grst: "new order",
     alert: false,
     success: null,
   };
@@ -20,54 +20,82 @@ export default class CreateReciept extends Component {
       startDate: date,
     });
   };
-  handleChange=(e)=>{
-this.setState({[e.target.id]:e.target.value})
-// console.log(this.state.gis)
-  }
+  handleChange = (e) => {
+    this.setState({ [e.target.id]: e.target.value });
+    // console.log(this.state.gis)
+  };
   handlePoChange = (e) => {
     // console.log(e.target.value);
     var item = this.state.data.data.find((data) => {
       return data.PONumber === e.target.value;
     });
     // console.log(item);
-    this.setState({ [e.target.id]: e.target.value, current: item});
+    this.setState({ [e.target.id]: e.target.value, current: item });
   };
-  handleSubmit=(e)=>{
+  handleSubmit = (e) => {
     e.preventDefault();
 
     const user = {
-      po:this.state.po,
-      invmngid:"IM001",
-      expdate : this.state.startDate,
-      gis : this.state.gis,
-      grept : "GRxxxxxx",
-      grsts : "expecting conformation from regulator",
-      uts : "1540343442"
+      po: this.state.po,
+      invmngid: "IM001",
+      expdate: this.state.startDate,
+      gis: this.state.gis,
+      grept: "GRxxxxxx",
+      grsts: "expecting conformation from regulator",
+      uts: "1540343442",
     };
 
-    axios.post(`http://localhost:4000/api/invManagerReceipt`, { ...user })
-      .then(res => {
+    axios
+      .post(`http://localhost:4000/api/invManagerReceipt`, { ...user })
+      .then((res) => {
         console.log(res);
         console.log(res.data);
-        this.setState({grept:res.data.data.grept ,grst:"expecting conformation from regulator",alert: true, success: true })
-      })
-  }
+        this.setState({
+          grept: res.data.data.grept,
+          grst: "expecting conformation from regulator",
+          alert: true,
+          success: true,
+        });
+      });
+  };
   componentDidMount = () => {
     axios.get(`http://localhost:4000/api/alldata`).then((res) => {
-      const persons = res.data;
-      if(persons.data[0]){
-      this.setState({
-        data: persons,
-        current: persons.data[0],
-        po: persons.data[0].PONumber,
-
-      })}
+      const response = res.data;
+      if (response.data) {
+        let length = response.data.length;
+        if (length > 0) {
+          var filterData = response.data.filter((data) => {
+            return data.DoStatus === "shipped" && !data.GoodReceipt;
+          });
+          if (filterData.length > 0) {
+            this.setState({
+              data: filterData,
+              current: filterData[0],
+              po: filterData[0].PONumber,
+              empty: false,
+            });
+          } else {
+            this.setState({ empty: true });
+          }
+        } else {
+          this.setState({ empty: true });
+        }
+      } else {
+        this.setState({ empty: true });
+      }
     });
   };
   render() {
     // console.log(this.state)
+    if (this.state.empty) {
+      return (
+        <div>
+          <h1>empty</h1>
+        </div>
+      );
+    }
     var po_numbers = this.state.data
-      ? this.state.data.data.map((data) => {
+      ? this.state.data.map((data) => {
           return <option>{data.PONumber}</option>;
         })
       : null;
@@ -79,7 +107,7 @@ this.setState({[e.target.id]:e.target.value})
         <td>{this.state.current.Amount}</td>
         <td>{this.state.current.GTIN}</td>
       </tr>
-    ):null
+    ) : null;
     var alert = this.state.alert ? (
       this.state.success ? (
         <div class="alert alert-success" role="alert">
@@ -93,7 +121,7 @@ this.setState({[e.target.id]:e.target.value})
     ) : null;
     return (
       <div className="container box">
-        <form action=""  onSubmit={this.handleSubmit}>
+        <form action="" onSubmit={this.handleSubmit}>
           <div className="row form-group">
             <label htmlFor="" className="col-sm-2 col-form-label">
               PO number:
@@ -120,7 +148,7 @@ this.setState({[e.target.id]:e.target.value})
                 <option>4</option>
                 <option>5</option>
               </select> */}
-              {this.state.current? this.state.current.PONumber:null}
+              {this.state.current ? this.state.current.PONumber : null}
             </div>
           </div>
           <div className="row form-group">
@@ -129,7 +157,7 @@ this.setState({[e.target.id]:e.target.value})
             </label>
             <div className="col-sm-6">
               {/* <input type="text" className="form-control" /> */}
-              {this.state.current? this.state.current.CarrierId:null}
+              {this.state.current ? this.state.current.CarrierId : null}
             </div>
           </div>
           <div className="row form-group">
@@ -138,7 +166,7 @@ this.setState({[e.target.id]:e.target.value})
             </label>
             <div className="col-sm-6">
               {/* <input type="text" className="form-control" /> */}
-              {this.state.current? this.state.current.ShipTo:null}
+              {this.state.current ? this.state.current.ShipTo : null}
             </div>
           </div>{" "}
           <div className="row form-group">
@@ -147,7 +175,7 @@ this.setState({[e.target.id]:e.target.value})
             </label>
             <div className="col-sm-6">
               {/* <input type="text" className="form-control" /> */}
-              {this.state.current? this.state.current.DeliveryDue:null}
+              {this.state.current ? this.state.current.DeliveryDue : null}
             </div>
           </div>{" "}
           <div className="row form-group">
@@ -155,7 +183,7 @@ this.setState({[e.target.id]:e.target.value})
               Expected delivery data (same as delivery due at time of purchase):
             </label>
             <div className="col-sm-6">
-            <DatePicker
+              <DatePicker
                 className="col"
                 placeholderText="Click to select a date"
                 selected={this.state.startDate}
@@ -175,7 +203,7 @@ this.setState({[e.target.id]:e.target.value})
                 <option>4</option>
                 <option>5</option>
               </select> */}
-               {this.state.current? this.state.current.BuyerID:null}
+              {this.state.current ? this.state.current.BuyerID : null}
             </div>
           </div>
           <div className="row form-group">
@@ -190,7 +218,7 @@ this.setState({[e.target.id]:e.target.value})
                 <option>4</option>
                 <option>5</option>
               </select> */}
-               {this.state.current? this.state.current.ShipmentId:null}
+              {this.state.current ? this.state.current.ShipmentId : null}
             </div>
           </div>
           <div className="row form-group">
@@ -199,7 +227,7 @@ this.setState({[e.target.id]:e.target.value})
             </label>
             <div className="col-sm-6">
               {/* <input type="text" className="form-control" /> */}
-              {this.state.current? this.state.current.Truckno:null}
+              {this.state.current ? this.state.current.Truckno : null}
             </div>
           </div>
           <div className="row form-group">
@@ -214,7 +242,7 @@ this.setState({[e.target.id]:e.target.value})
                 <option>4</option>
                 <option>5</option>
               </select> */}
-               {this.state.current? this.state.current.RegulatorId:null}
+              {this.state.current ? this.state.current.RegulatorId : null}
             </div>
           </div>
           <div className="row form-group">
@@ -222,17 +250,23 @@ this.setState({[e.target.id]:e.target.value})
               In stock location (GIS):
             </label>
             <div className="col-sm-6">
-              <input type="text" onChange={this.handleChange} id="gis"  className="form-control" required="true" />
+              <input
+                type="text"
+                onChange={this.handleChange}
+                id="gis"
+                className="form-control"
+                required="true"
+              />
             </div>
           </div>
           <div className="table-responsive-md my-table">
             <table className="table table-bordered">
               <tr>
                 <td colspan="2">Goods Receipt number</td>
-            <td colspan="2">{`GR status: ${this.state.grst}`}</td>
+                <td colspan="2">{`GR status: ${this.state.grst}`}</td>
               </tr>
               <tr>
-            <td colspan="2">{this.state.grept}</td>
+                <td colspan="2">{this.state.grept}</td>
                 <td colspan="2">Items receipt</td>
               </tr>
               <tr>

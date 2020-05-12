@@ -4,6 +4,7 @@ import axios from "axios";
 
 export default class CreateOrder extends Component {
   state = {
+    empty: false,
     po: null,
     carrierID: ["S7138", "S8572", "S0671", "S8701"],
     ShipmentID: ["DO7119", "DO2884", "DO8425", "DO0873"],
@@ -11,7 +12,7 @@ export default class CreateOrder extends Component {
     regulatorID: ["R001", "S001", "W001", "V001"],
     cid: null,
     shid: null,
-    trno:null,
+    trno: null,
     regid: null,
     gtin: null,
     target: null,
@@ -19,24 +20,39 @@ export default class CreateOrder extends Component {
     current: null,
     alert: false,
     success: null,
-    dosts:"New Order",
-    donumber:"XXX"
+    dosts: "New Order",
+    donumber: "XXX",
   };
   componentDidMount = () => {
     axios.get(`http://localhost:4000/api/alldata`).then((res) => {
-      const persons = res.data;
-      // console.log(persons);
-      if(persons.data[0]){
-      this.setState({ 
-        data: persons,
-        current: persons.data[0],
-        po: persons.data[0].PONumber,
-        cid:this.state.carrierID[0],
-        shid:this.state.ShipmentID[0],
-        trno:this.state.Truck_no[0],
-        regid:this.state.regulatorID[0],
-        
-      })}
+      var response = res.data;
+      // console.log(data.data)
+      if (response.data) {
+        let length = response.data.length;
+        if (length > 0) {
+          var filterData = response.data.filter((data) => {
+            return data.PoStatus === "Inprocess" && !data.DoNumber;
+          });
+          if (filterData.length > 0) {
+            this.setState({
+              data: filterData,
+              current: filterData[0],
+              po: filterData[0].PONumber,
+              cid: this.state.carrierID[0],
+              shid: this.state.ShipmentID[0],
+              trno: this.state.Truck_no[0],
+              regid: this.state.regulatorID[0],
+              empty: false,
+            });
+          } else {
+            this.setState({ empty: true });
+          }
+        } else {
+          this.setState({ empty: true });
+        }
+      } else {
+        this.setState({ empty: true });
+      }
     });
   };
   handleChange = (e) => {
@@ -48,8 +64,14 @@ export default class CreateOrder extends Component {
     var item = this.state.data.data.find((data) => {
       return data.PONumber === e.target.value;
     });
-    // console.log(item); 
-    this.setState({ [e.target.id]: e.target.value, current: item,dosts:"New Order",donumber:"XXX", alert: false });
+    // console.log(item);
+    this.setState({
+      [e.target.id]: e.target.value,
+      current: item,
+      dosts: "New Order",
+      donumber: "XXX",
+      alert: false,
+    });
   };
   handleSubmit = (e) => {
     e.preventDefault();
@@ -70,13 +92,24 @@ export default class CreateOrder extends Component {
       .then((res) => {
         // console.log(res);
         console.log(res.data);
-        this.setState({ alert: true, success: true,dosts:"expecting confirmation from regulator",donumber:res.data.data.donumber });
-      }).catch(
-        this.setState({ alert: true, success: false })
-        )
+        this.setState({
+          alert: true,
+          success: true,
+          dosts: "expecting confirmation from regulator",
+          donumber: res.data.data.donumber,
+        });
+      })
+      .catch(this.setState({ alert: true, success: false }));
   };
   render() {
-    // console.log(this.state);
+    if (this.state.empty === true) {
+      return (
+        <div>
+          <h1>Nothing to show</h1>
+        </div>
+      );
+    }
+    console.log(this.state);
     var a = this.state.current ? (
       <tr>
         <td>{this.state.current.ItemNumber}</td>
@@ -107,25 +140,34 @@ export default class CreateOrder extends Component {
     var Truck_no_ids = this.state.Truck_no.map((data) => {
       return <option>{data}</option>;
     });
-    var po_numbers = this.state.data
-      ? this.state.data.data.map((data) => {
+
+    var po_numbers = this.state.data ? (
+      this.state.data.length === 1 ? (
+        <option>{this.state.po}</option>
+      ) : (
+        this.state.data.map((data) => {
           return <option>{data.PONumber}</option>;
         })
-      : null;
-      var alert = this.state.alert ? (
-        this.state.success ? (
-          <div class="alert alert-success" role="alert">
-            Thank you your submission has been received
-          </div>
-        ) : (
-          <div class="alert alert-danger" role="alert">
-            Error - your submission has not been received
-          </div>
-        )
-      ) : null;
-  var DO_status = this.state.current ? (this.state.current.DoStatus ? this.state.current.DoStatus : this.state.dosts):this.state.dosts
+      )
+    ) : null;
+
+    var alert = this.state.alert ? (
+      this.state.success ? (
+        <div class="alert alert-success" role="alert">
+          Thank you your submission has been received
+        </div>
+      ) : (
+        <div class="alert alert-danger" role="alert">
+          Error - your submission has not been received
+        </div>
+      )
+    ) : null;
+    var DO_status = this.state.current
+      ? this.state.current.DoStatus
+        ? this.state.current.DoStatus
+        : this.state.dosts
+      : this.state.dosts;
     return (
-      
       <div className="container box_margin">
         <form action="" onSubmit={this.handleSubmit}>
           <div className="row form-group">
@@ -229,7 +271,7 @@ export default class CreateOrder extends Component {
                 <th colspan="3">{`DO status: ${DO_status}`}</th>
               </tr>
               <tr>
-    <td>{this.state.donumber}</td>
+                <td>{this.state.donumber}</td>
                 <td colspan="3">Items</td>
               </tr>
               <tr>

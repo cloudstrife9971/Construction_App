@@ -25,13 +25,14 @@ export default class logisticForm extends Component {
       .then((res) => {
         // console.log(res);
         // console.log(res.data);
-        this.setState({
+        (dost==="shipped")?(this.setState({
           dosts: res.data.data.dosts,
           alert: true,
           success: true,
-        });
+        })):(this.setState({ alert: true, success: false }))
+        
       })
-      .catch(this.setState({ alert: true, success: false }));
+      .catch((e)=>{console.log(e)});
   };
   handleChange = (e) => {
     this.setState({ input: e.target.value });

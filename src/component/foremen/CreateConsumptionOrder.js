@@ -12,6 +12,8 @@ export default class CreateConsumptionOrder extends Component {
     ccorder: "New Order",
     invmngid: ["IM001", "IM002", "IM003", "IM004"],
     empty: false,
+    alert: false,
+    success: null,
   };
   handleType = (e) => {
     this.setState({ [e.target.id]: e.target.value });
@@ -40,8 +42,11 @@ export default class CreateConsumptionOrder extends Component {
       .then((res) => {
         // console.log(res);
         // console.log(res.data);
-        this.setState({ conum: res.data.data.conum, ccorder: "created" });
-      });
+        this.setState({ conum: res.data.data.conum, ccorder: "created", alert: true,
+        success: true });
+      }).catch((e)=>{
+console.log(e)
+      })
   };
   componentDidMount = () => {
     axios.get(`http://localhost:4000/api/alldata`).then((res) => {
@@ -51,8 +56,8 @@ export default class CreateConsumptionOrder extends Component {
         let length = response.data.length;
         if (length > 0) {
           var filterData = response.data.filter((data) => {
-            return (
-              data.DoStatus === "arrived" &&
+            return ( 
+              data.DoStatus === "arrived" && (data.GRStatus!=="backorder") &&
               (data.ForemenUpdate[0] ? !data.ForemenUpdate[0].conum : true)
             );
           });
@@ -108,10 +113,20 @@ export default class CreateConsumptionOrder extends Component {
           return <option>{data.InvMngId}</option>;
         })
       : null;
-
+      var alert = this.state.alert ? (
+        this.state.success ? (
+          <div class="alert alert-success" role="alert">
+            You have Confirmed the order
+          </div>
+        ) : (
+          <div class="alert alert-danger" role="alert">
+            You have Disputed the order
+          </div>
+        )
+      ) : null;
     return (
       <div className="container box_margin">
-        <form action="" onSubmit={this.handleSubmit}>
+        <form action="" >
           <div className="row form-group">
             <label htmlFor="" className="col-sm-2 col-form-label">
               What for:
@@ -179,10 +194,12 @@ export default class CreateConsumptionOrder extends Component {
               {a}
             </table>
           </div>
-          <button class="btn btn-primary" type="submit">
+          <button class="btn btn-primary" type="submit"
+          onClick={this.handleSubmit}>
             Submit
           </button>
         </form>
+        {alert}
       </div>
     );
   }

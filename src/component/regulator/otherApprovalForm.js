@@ -5,8 +5,12 @@ export default class otherApprovalForm extends Component {
   state = {
     items: ["Cement", "Pipe"],
     input: null,
-    density:null,
-    ccorder:this.props.ForemenUpdate[0]?(this.props.ForemenUpdate[0].ccorder):null
+    density: null,
+    ccorder: this.props.ForemenUpdate[0]
+      ? this.props.ForemenUpdate[0].ccorder
+      : null,
+    alert: false,
+    success: null,
   };
   handleChange = (e) => {
     this.setState({ input: e.target.value });
@@ -14,23 +18,32 @@ export default class otherApprovalForm extends Component {
   };
   handleSubmit = (e) => {
     e.preventDefault();
-    // var dost = e.target.id === "Confirm" ? "shipped" : "inDispute";
+    var dost =
+      e.target.id === "Confirm"
+        ? "ready to be poured"
+        : "foremen shall redo the work";
 
     // console.log(dost);
     const user = {
-        po : this.props.PONumber,
-        ccorder : "ready to be poured",
-        density : "2.03",
-        conum : this.props.ForemenUpdate[0].conum,
-         futs : "1540340000"
+      po: this.props.PONumber,
+      ccorder: dost,
+      density: "2.03",
+      conum: this.props.ForemenUpdate[0].conum,
+      futs: "1540340000",
     };
 
     axios
-      .post(`http://localhost:4000/api/consumptionApprovalForPouring `, { ...user })
+      .post(`http://localhost:4000/api/consumptionApprovalForPouring `, {
+        ...user,
+      })
       .then((res) => {
         // console.log(res);
         // console.log(res.data);
-        this.setState({ccorder : "ready to be poured",})
+        dost === "ready to be poured"
+          ? this.setState({ ccorder: "ready to be poured", alert: true,
+          success: true })
+          : this.setState({ ccorder: "foremen shall redo the work", alert: true,
+          success: false });
       });
   };
   conditionDisplay = () => {
@@ -104,18 +117,31 @@ export default class otherApprovalForm extends Component {
     var itemOptions = this.state.items.map((data) => {
       return <option>{data}</option>;
     });
+    var alert = this.state.alert ? (
+      this.state.success ? (
+        <div class="alert alert-success" role="alert">
+          You have Confirmed the order
+        </div>
+      ) : (
+        <div class="alert alert-danger" role="alert">
+          You have Disputed the order
+        </div>
+      )
+    ) : null;
     return (
       <div className="container box">
         <div class="table-responsive-md my-table">
           <table className="table table-bordered">
             <tr>
               <td>Consumption Order number</td>
-              <td colspan="4">
-                {`CO status:  ${this.state.ccorder}`}
-              </td>
+              <td colspan="4">{`CO status:  ${this.state.ccorder}`}</td>
             </tr>
             <tr>
-    <td>{this.props.ForemenUpdate[0]?(this.props.ForemenUpdate[0].conum):null}</td>
+              <td>
+                {this.props.ForemenUpdate[0]
+                  ? this.props.ForemenUpdate[0].conum
+                  : null}
+              </td>
               <td colspan="4">items to be consumed</td>
             </tr>
             <tr>
@@ -160,6 +186,7 @@ export default class otherApprovalForm extends Component {
             </button>
           </div>
         </div>
+        {alert}
       </div>
     );
   }

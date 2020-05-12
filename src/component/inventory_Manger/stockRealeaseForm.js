@@ -5,7 +5,9 @@ export default class stockRealeaseForm extends Component {
   state = {
     batchid: null,
     conum:"XXX",
-    ccorder:"created"
+    ccorder:"created",
+    alert: false,
+    success: null,
   };
   handleSubmit = (e) => {
     e.preventDefault();
@@ -21,7 +23,7 @@ export default class stockRealeaseForm extends Component {
       .then((res) => {
         // console.log(res);
         // console.log(res.data);
-        this.setState({  ccorder : "expecting confirmation from regulator"})
+        this.setState({  ccorder : "expecting confirmation from regulator", alert: true, success: true})
  
       });
   };
@@ -47,6 +49,17 @@ export default class stockRealeaseForm extends Component {
         </td>
       </tr>
     );
+    var alert = this.state.alert ? (
+      this.state.success ? (
+        <div class="alert alert-success" role="alert">
+          You have released the order
+        </div>
+      ) : (
+        <div class="alert alert-danger" role="alert">
+          You have Rejected the order
+        </div>
+      )
+    ) : null;
     // var RegulatorID = this.state.data
     //   ? this.state.data.data.map((data) => {
     //       return <option>{data.RegulatorId}</option>;
@@ -54,7 +67,7 @@ export default class stockRealeaseForm extends Component {
     //   : null;
     return (
       <div className="container box">
-         <form action="" onSubmit={this.handleSubmit}>
+         <form action="">
         <div className="row form-group">
           <label htmlFor="" className="col-sm-2 col-form-label">
             Regulator ID:
@@ -83,12 +96,14 @@ export default class stockRealeaseForm extends Component {
         </div>
         <button
           class="btn btn-primary"
-        
+          onClick={this.handleSubmit}
+          id="Confirm"
           type="submit"
         >
           release
         </button>
         </form>
+        {alert}
       </div>
     );
   }

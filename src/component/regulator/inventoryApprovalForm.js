@@ -21,8 +21,8 @@ export default class inventoryApprovalForm extends Component {
     const user = {
       po: this.props.PONumber,
       dosts: "arrived",
-      posts : "inStock",
-      grsts : grsts,
+      posts: "inStock",
+      grsts: grsts,
       uts: "1540343442",
     };
 
@@ -31,8 +31,16 @@ export default class inventoryApprovalForm extends Component {
       .then((res) => {
         // console.log(res);
         // console.log(res.data);
-        this.setState({ dosts: res.data.dosts, alert: true, success: true,GRStatus:grsts });
-      }).catch(this.setState({ alert: true, success: false }))
+        grsts === "received"
+          ? this.setState({
+              dosts: res.data.dosts,
+              alert: true,
+              success: true,
+              GRStatus: grsts,
+            })
+          : this.setState({ alert: true, success: false });
+      })
+      .catch((e)=>{console.log(e)});
   };
   conditionDisplay = () => {
     switch (this.state.input) {
@@ -43,7 +51,7 @@ export default class inventoryApprovalForm extends Component {
               Batch weight:
             </label>
             <div className="col-sm-3">
-              <input type="text" className="form-control" required="true"/>
+              <input type="text" className="form-control" required="true" />
             </div>
           </div>
         );
@@ -55,7 +63,7 @@ export default class inventoryApprovalForm extends Component {
                 actual outside diameter:
               </label>
               <div className="col-sm-3">
-                <input type="text" className="form-control" required="true"/>
+                <input type="text" className="form-control" required="true" />
               </div>
             </div>
             <div className="row form-group">
@@ -63,7 +71,7 @@ export default class inventoryApprovalForm extends Component {
                 average inside diameter:
               </label>
               <div className="col-sm-3">
-                <input type="text" className="form-control" required="true"/>
+                <input type="text" className="form-control" required="true" />
               </div>
             </div>
             <div className="row form-group">
@@ -71,7 +79,7 @@ export default class inventoryApprovalForm extends Component {
                 pipe wall width thickness:
               </label>
               <div className="col-sm-3">
-                <input type="text" className="form-control" required="true"/>
+                <input type="text" className="form-control" required="true" />
               </div>
             </div>
             <div className="row form-group">
@@ -79,7 +87,7 @@ export default class inventoryApprovalForm extends Component {
                 pipe weight:
               </label>
               <div className="col-sm-3">
-                <input type="text" className="form-control" required="true"/>
+                <input type="text" className="form-control" required="true" />
               </div>
             </div>
           </div>
@@ -91,7 +99,10 @@ export default class inventoryApprovalForm extends Component {
   };
   componentDidMount = () => {
     // console.log(this.props.DoStatus)
-    this.setState({ input: this.state.items[0],GRStatus:this.props.GRStatus  });
+    this.setState({
+      input: this.state.items[0],
+      GRStatus: this.props.GRStatus,
+    });
   };
   render() {
     var a = (
@@ -118,40 +129,38 @@ export default class inventoryApprovalForm extends Component {
     ) : null;
     return (
       <div className="container box">
-          <form action="" onSubmit={this.handleSubmit}>
-        <div className="table-responsive-md my-table">
-          <table className="table table-bordered">
-            <tr>  
-              <td colspan="2">Goods Receipt number</td>
-              <td colspan="2">
-              {`GO status: ${this.state.GRStatus}`}
-              </td>
-            </tr>
-            <tr>
-    <td colspan="2">{this.props.GoodReceipt}</td>
-              <td colspan="2">Items receipt</td>
-            </tr>
-            <tr>
-              <th>Item number</th>
-              <th>Description</th>
-              <th>Quantity</th>
-              <th>GTIN</th>
-            </tr>
-            {a}
-          </table>
-        </div>
-        <div className="row form-group">
-          <label htmlFor="" className="col-sm-2 col-form-label">
-            select Item to be inspected:
-          </label>
-          <div className="col-sm-6">
-            <select class="form-control" onChange={this.handleChange}>
-              {itemOptions}
-            </select>
+        <form action="" >
+          <div className="table-responsive-md my-table">
+            <table className="table table-bordered">
+              <tr>
+                <td colspan="2">Goods Receipt number</td>
+                <td colspan="2">{`GO status: ${this.state.GRStatus}`}</td>
+              </tr>
+              <tr>
+                <td colspan="2">{this.props.GoodReceipt}</td>
+                <td colspan="2">Items receipt</td>
+              </tr>
+              <tr>
+                <th>Item number</th>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>GTIN</th>
+              </tr>
+              {a}
+            </table>
           </div>
-        </div>
-        <div>{this.conditionDisplay()}</div>
-        {/* <div className="row form-group">
+          <div className="row form-group">
+            <label htmlFor="" className="col-sm-2 col-form-label">
+              select Item to be inspected:
+            </label>
+            <div className="col-sm-6">
+              <select class="form-control" onChange={this.handleChange}>
+                {itemOptions}
+              </select>
+            </div>
+          </div>
+          <div>{this.conditionDisplay()}</div>
+          {/* <div className="row form-group">
               <label htmlFor="" className="col-sm-3 col-form-label">
                 Batch weight:
               </label>
@@ -191,27 +200,20 @@ export default class inventoryApprovalForm extends Component {
                 <input type="text" className="form-control" />
               </div>
             </div> */}
-        <div className="row">
-          <div className="col-sm-2">
-            <button
-              type="submit"
-        
-              id="Confirm"
-              class="btn btn-light col"
-            >
-              Confirm
-            </button>
+          <div className="row">
+            <div className="col-sm-2">
+              <button type="submit" id="Confirm" class="btn btn-primary col"
+              onClick={this.handleSubmit}>
+                Confirm
+              </button>
+            </div>
+            <div className="col-sm-2">
+              <button class="btn btn-light col" type="submit"
+              onClick={this.handleSubmit}>
+                Dispute
+              </button>
+            </div>
           </div>
-          <div className="col-sm-2">
-            <button
-              class="btn btn-primary col"
-         
-              type="submit"
-            >
-              Dispute
-            </button>
-          </div>
-        </div>
         </form>
         {alert}
       </div>

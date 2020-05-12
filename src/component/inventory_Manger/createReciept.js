@@ -56,7 +56,7 @@ export default class CreateReciept extends Component {
           alert: true,
           success: true,
         });
-      });
+      }).catch((e)=>{console.log(e)});
   };
   componentDidMount = () => {
     axios.get(`http://localhost:4000/api/alldata`).then((res) => {
@@ -279,7 +279,7 @@ export default class CreateReciept extends Component {
             </table>
           </div>
           <button class="btn btn-primary" id="Confirm" type="submit">
-            Button
+            Submit
           </button>
         </form>
         {alert}

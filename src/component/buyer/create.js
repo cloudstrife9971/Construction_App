@@ -91,6 +91,7 @@ export default class Create extends Component {
       .then((res) => {
         // console.log(res);
         // console.log(res.data);
+        
         this.setState({
           alert: true,
           success: true,
@@ -99,7 +100,7 @@ export default class Create extends Component {
           empty:false
         });
       })
-      .catch(this.setState({ alert: true, success: false }));
+      .catch((e)=>{console.log(e)});
   };
   componentDidMount = () => {
     var today = new Date();
@@ -265,11 +266,11 @@ export default class Create extends Component {
             </table>
           </div>
           <div className="row">
-            <div className="col-lg-2">
+            {/* <div className="col-lg-2">
               <button type="button" class="btn btn-light col">
                 Cancel
               </button>
-            </div>
+            </div> */}
             <div className="col-lg-2">
               <button class="btn btn-primary col" type="submit">
                 Submit

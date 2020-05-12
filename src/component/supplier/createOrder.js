@@ -91,7 +91,8 @@ export default class CreateOrder extends Component {
       .post(`http://localhost:4000/api/createOrderBySupplier`, { ...user })
       .then((res) => {
         // console.log(res);
-        console.log(res.data);
+        // console.log(res.data);
+
         this.setState({
           alert: true,
           success: true,
@@ -99,7 +100,7 @@ export default class CreateOrder extends Component {
           donumber: res.data.data.donumber,
         });
       })
-      .catch(this.setState({ alert: true, success: false }));
+      .catch((e)=>{console.log(e)});
   };
   render() {
     if (this.state.empty === true) {

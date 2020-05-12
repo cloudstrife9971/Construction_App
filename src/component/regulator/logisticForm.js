@@ -23,18 +23,24 @@ export default class logisticForm extends Component {
     axios
       .post(`http://localhost:4000/api/logisticApproval`, { ...user })
       .then((res) => {
-        // console.log(res);
-        // console.log(res.data);
-        this.setState({ dosts: res.data.data.dosts, alert: true, success: true });
+        dost === "shipped"
+          ? this.setState({
+              dosts: res.data.data.dosts,
+              alert: true,
+              success: true,
+            })
+          : this.setState({ alert: true, success: false });
       })
-      .catch(this.setState({ alert: true, success: false }));
+      .catch(() => {
+        console.log("hello");
+      });
   };
   handleChange = (e) => {
     this.setState({ input: e.target.value });
     // console.log(this.state.input);
   };
   componentDidMount = () => {
-    this.setState({ input: this.state.items[0],dosts:this.props.DoStatus });
+    this.setState({ input: this.state.items[0], dosts: this.props.DoStatus });
   };
   conditionDisplay = () => {
     switch (this.state.input) {
@@ -112,7 +118,7 @@ export default class logisticForm extends Component {
         </div>
       ) : (
         <div class="alert alert-danger" role="alert">
-          You have Rejected the order
+          You have Disputed the order
         </div>
       )
     ) : null;
@@ -151,21 +157,21 @@ export default class logisticForm extends Component {
         <div className="row">
           <div className="col-sm-2">
             <button
+              class="btn btn-light col"
+              onClick={this.handleSubmit}
+              type="submit"
+            >
+              Dispute
+            </button>
+          </div>
+          <div className="col-sm-2">
+            <button
               type="button"
               onClick={this.handleSubmit}
               id="Confirm"
               class="btn btn-primary col"
             >
               Confirm
-            </button>
-          </div>
-          <div className="col-sm-2">
-            <button
-              class="btn btn-light col"
-              onClick={this.handleSubmit}
-              type="submit"
-            >
-              Dispute
             </button>
           </div>
         </div>

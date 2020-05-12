@@ -72,7 +72,7 @@ export default class CreateOrder extends Component {
         console.log(res.data);
         this.setState({ alert: true, success: true,dosts:"expecting confirmation from regulator",donumber:res.data.data.donumber });
       }).catch(
-        this.setState({ alert: true, success: false })
+        (e)=>{console.log(e)}
         )
   };
   render() {

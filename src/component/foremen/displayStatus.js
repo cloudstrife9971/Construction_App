@@ -37,8 +37,8 @@ export default class displayStatus extends Component {
   render() {
     if (this.state.empty === true) {
       return (
-        <div>
-          <h1>Empty</h1>
+        <div className="status-message text-secondary bg-light">
+          <h1>Waiting For Out-Of-Stock Inspection From Regulator...</h1>
         </div>
       );
     }

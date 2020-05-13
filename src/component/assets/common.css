@@ -176,3 +176,7 @@
 .alert {
   margin-top: 20px;
 }
+.status-message {
+  margin-top: 200px;
+  text-align: center;
+}

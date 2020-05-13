@@ -89,8 +89,8 @@ export default class CreateReciept extends Component {
     // console.log(this.state)
     if (this.state.empty) {
       return (
-        <div>
-          <h1>empty</h1>
+        <div className="status-message text-secondary bg-light">
+          <h1>Waiting For Pre Delivery Inspection From Regulator...</h1>
         </div>
       );
     }

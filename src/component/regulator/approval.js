@@ -37,8 +37,8 @@ export default class approval extends Component {
   render() {
     if (this.state.empty === true) {
       return (
-        <div>
-          <h1>Empty</h1>
+        <div className="status-message text-secondary bg-light">
+          <h1>Waiting for Inventory manager To Release The Stock...</h1>
         </div>
       );
     }

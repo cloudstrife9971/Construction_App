@@ -83,8 +83,8 @@ console.log(e)
     // console.log(this.state)
     if (this.state.empty) {
       return (
-        <div>
-          <h1>Empty</h1>
+        <div className="status-message text-secondary bg-light">
+          <h1>Waiting For Pick Up Inspection From Regulator...</h1>
         </div>
       );
     }

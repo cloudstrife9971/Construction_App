@@ -37,8 +37,8 @@ export default class logistic extends Component {
     console.log(this.state);
     if (this.state.empty === true) {
       return (
-        <div>
-          <h1>Nothing to show</h1>
+        <div className="status-message text-secondary bg-light">
+          <h1>No Orders From Supplier</h1>
         </div>
       );
     }

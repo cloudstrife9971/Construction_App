@@ -50,9 +50,9 @@ export default class Order extends Component {
   render() {
     if (this.state.empty){
       return (
-        <div>
+        <div className="status-message text-secondary bg-light">
           <h1>
-            Empty
+            No Orders From Buyer
           </h1>
         </div>
       )

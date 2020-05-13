@@ -37,8 +37,8 @@ export default class otherApproval extends Component {
   render() {
     if (this.state.empty === true) {
       return (
-        <div>
-          <h1>Empty</h1>
+        <div className="status-message text-secondary bg-light">
+          <h1>Waiting For Order Submission By Foreman...</h1>
         </div>
       );
     }

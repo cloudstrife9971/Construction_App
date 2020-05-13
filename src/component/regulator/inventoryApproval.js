@@ -38,8 +38,8 @@ export default class inventoryApproval extends Component {
   render() {
     if (this.state.empty === true) {
       return (
-        <div>
-          <h1>Empty</h1>
+        <div className="status-message text-secondary bg-light">
+          <h1>Waiting For Inventory Manager To Create Good Reciept...</h1>
         </div>
       );
     }

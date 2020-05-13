@@ -105,8 +105,8 @@ export default class CreateOrder extends Component {
   render() {
     if (this.state.empty === true) {
       return (
-        <div>
-          <h1>Nothing to show</h1>
+        <div className="status-message text-secondary bg-light">
+          <h1>Waiting For Confirmation From Supplier...</h1>
         </div>
       );
     }

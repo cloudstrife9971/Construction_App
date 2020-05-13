@@ -45,8 +45,8 @@ export default class stockRealease extends Component {
   render() {
     if (this.state.empty) {
       return (
-        <div>
-          <h1>Empty</h1>
+        <div className="status-message text-secondary bg-light">
+          <h1>No Consumption Orders From Foreman</h1>
         </div>
       );
     }

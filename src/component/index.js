@@ -21,7 +21,7 @@ export default class index extends Component {
     return (
       <div>
         <div class="sidenav">
-          <a href="/">Buyer Create New Order</a>
+          <a href="/Homepage">Buyer Create New Order</a>
           <a href="/BuyerDisplayOrderStatus">Buyer Display Order Status</a>
           <a href="/SupplierReceivedOrders">Supplier Received Orders </a>
           <a href="/Supplier Create delivery Order">
@@ -58,7 +58,7 @@ export default class index extends Component {
           <a href="/Customer">Customer</a>
           <a href="/GeneralManager">GeneralManager</a>
 
-          <a href="/Homepage">Homepage</a>
+          <a href="/">Homepage</a>
           {/* <a href="/Foremen Display orders status">
             Foremen Display orders status
           </a> */}
@@ -66,8 +66,8 @@ export default class index extends Component {
         <div class="main">
           <BrowserRouter>
             <Switch>
-              <Route exact path="/Homepage" component={Homepage} />
-              <Route exact path="/" component={Create} />
+              <Route exact path="/" component={Homepage} />
+              <Route exact path="/Homepage" component={Create} />
               <Route path="/BuyerDisplayOrderStatus" component={Status} />
               {/* <Route path="/CreateNewOrder" component={Create} /> */}
 

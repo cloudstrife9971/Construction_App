@@ -46,7 +46,7 @@ export default class homepage extends Component {
                 </a>
                 <ul className="dropdown">
                   <li>
-                    <a href="/CreateNewOrder">Create New Order</a>
+                    <a href="/Homepage">Create New Order</a>
                   </li>
                   <li>
                     <a href="/BuyerDisplayOrderStatus">Display Order Status</a>
@@ -71,10 +71,10 @@ export default class homepage extends Component {
                 </a>
                 <ul className="dropdown">
                   <li>
-                    <a href="/Inventory Manger Create goods receipt"> Inventory Manger Create goods receipt</a>
+                    <a href="/Regulator Create goods receipt"> Inventory Manger Create goods receipt</a>
                   </li>
                   <li>
-                    <a href="/Inventory Manger Stock release"> Inventory Manger Stock release</a>
+                    <a href="/Inventory Manger Create goods receipt"> Inventory Manger Stock release</a>
                   </li>
                 </ul>
               </li>
@@ -85,10 +85,10 @@ export default class homepage extends Component {
                 </a>
                 <ul className="dropdown">
                   <li>
-                    <a href="/Foremen Create Consumption Order">Foremen Create Consumption Order</a>
+                    <a href="/Regulator consumption Approval">Foremen Create Consumption Order</a>
                   </li>
                   <li>
-                    <a href="">Foremen Display orders status</a>
+                    <a href="/Foremen Create Consumption Order">Foremen Display orders status</a>
                   </li>
                 </ul>
               </li>
@@ -98,19 +98,19 @@ export default class homepage extends Component {
         <div className="down-nav-container">
           <div className="top-nav">
             <h2>Regulator</h2>
-            <a href="">
+            <a href="/Regulator Logistics approval">
               <img src={icon} className="icon" alt="" />
               go to pre-delivery inspection
             </a>
-            <a href="">
+            <a href="/Regulator Inventory approval">
               <img src={icon} className="icon" alt="" />
               go to pick up inspection
             </a>
-            <a href="">
+            <a href="/Inventory Manger Stock release">
               <img src={icon} className="icon" alt="" />
               go to out-of-stock inspection
             </a>
-            <a href="">
+            <a href="/Other Regulator Inventory approval">
               <img src={icon} className="icon" alt="" />
               go to consumption inspection
             </a>

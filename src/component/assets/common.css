@@ -37,6 +37,7 @@
   background-color: #111;
   overflow-x: hidden;
   padding-top: 20px;
+  display: none;
 }
 
 .sidenav a {
@@ -52,7 +53,7 @@
 }
 
 .main {
-  margin-left: 278px; /* Same as the width of the sidenav */
+  /* margin-left: 278px; Same as the width of the sidenav */
   /* font-size: 28px; Increased text to enable scrolling */
   padding: 0px 10px;
 }

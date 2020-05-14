@@ -13,7 +13,7 @@ export default class inventoryApproval extends Component {
         if (length > 0) {
           var filterData = response.data.filter((data) => {
             return ( 
-              data.GRStatus === "expecting conformation from regulator" &&
+              data.GRStatus === "pending" &&
               !(data.DoStatus === "arrived")
             );
           });

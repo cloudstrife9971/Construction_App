@@ -13,8 +13,8 @@ export default class stockRealeaseForm extends Component {
     e.preventDefault();
     const user = {
       po: this.props.PONumber,
-      ccorder: "expecting confirmation from regulator",
-      batchid: "b001",
+      ccorder: "expecting confirmation from regulato",
+      batchid: this.state.batchid,
       futs: "1540340000",
       conum:this.props.ForemenUpdate[0].conum
     };
@@ -37,7 +37,7 @@ export default class stockRealeaseForm extends Component {
       <tr>
         <td>{this.props.ItemNumber}</td>
         <td>{this.props.Description}</td>
-        <td>{this.props.Amount}</td>
+        <td>{this.props.Quantity}</td>
         <td>{this.props.GTIN}</td>
         <td>
           <input

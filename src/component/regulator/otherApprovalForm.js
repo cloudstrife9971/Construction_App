@@ -109,9 +109,9 @@ export default class otherApprovalForm extends Component {
       <tr>
         <td>{this.props.ItemNumber}</td>
         <td>{this.props.Description}</td>
-        <td>{this.props.Amount}</td>
+        <td>{this.props.Quantity}</td>
         <td>{this.props.GTIN}</td>
-        <td>{this.props.batchid}</td>
+        <td>{this.props.ForemenUpdate[0].batchid}</td>
       </tr>
     );
     var itemOptions = this.state.items.map((data) => {

@@ -40,8 +40,7 @@ export default class CreateReciept extends Component {
       invmngid: "IM001",
       expdate: this.state.startDate,
       gis: this.state.gis,
-      grept: "GRxxxxxx",
-      grsts: "expecting conformation from regulator",
+      grsts: "pending",
       uts: "1540343442",
     };
 
@@ -56,7 +55,10 @@ export default class CreateReciept extends Component {
           alert: true,
           success: true,
         });
-      }).catch((e)=>{console.log(e)});
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
   componentDidMount = () => {
     axios.get(`http://localhost:4000/api/alldata`).then((res) => {
@@ -104,7 +106,7 @@ export default class CreateReciept extends Component {
       <tr>
         <td>{this.state.current.ItemNumber}</td>
         <td>{this.state.current.Description}</td>
-        <td>{this.state.current.Amount}</td>
+        <td>{this.state.current.Quantity}</td>
         <td>{this.state.current.GTIN}</td>
       </tr>
     ) : null;

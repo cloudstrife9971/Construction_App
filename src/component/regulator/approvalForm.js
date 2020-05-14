@@ -4,7 +4,7 @@ import axios from "axios";
 export default class approvalForm extends Component {
   state = {
     items: ["Cement", "Pipe"],
-    input: null,
+    input: "Cement",
     bweght: null,
     ccorder: this.props.ForemenUpdate[0]
       ? this.props.ForemenUpdate[0].ccorder
@@ -25,7 +25,7 @@ export default class approvalForm extends Component {
       po: this.props.PONumber,
       ccorder: dost,
       conum: this.props.ForemenUpdate[0].conum,
-      bweght: "1000",
+      bweght: this.state.bweght,
       futs: "1540340000",
     };
 
@@ -108,7 +108,7 @@ export default class approvalForm extends Component {
       <tr>
         <td>{this.props.ItemNumber}</td>
         <td>{this.props.Description}</td>
-        <td>{this.props.Amount}</td>
+        <td>{this.props.Quantity}</td>
         <td>{this.props.GTIN}</td>
         <td>
           {this.props.ForemenUpdate[0]

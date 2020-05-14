@@ -34,7 +34,7 @@ export default class CreateConsumptionOrder extends Component {
       purps: this.state.purps,
       fdec: this.state.fdec,
       ccorder: "created",
-      pquanty: this.state.null,
+      pquanty: this.state.pquanty,
       futs: "1540343442",
     };
     axios

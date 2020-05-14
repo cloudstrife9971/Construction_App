@@ -35,7 +35,7 @@ export default class displayStatusForm extends Component {
       <tr>
         <td>{this.props.ItemNumber}</td>
         <td>{this.props.Description}</td>
-        <td>{this.props.Amount}</td>
+        <td>{this.props.Quantity}</td>
       </tr>
     );
     var alert = this.state.alert ? (
@@ -84,15 +84,15 @@ export default class displayStatusForm extends Component {
               {a}
             </table>
           </div>
-          <div className="row form-group">
+          {/* <div className="row form-group">
             <label htmlFor="" className="col-sm-2 col-form-label">
               Status:
             </label>
             <div className="col-sm-6">
-              <input type="text" className="form-control" required="true" />
+              <input type="text" className="form-control" required="true" /> */}
               {/* {this.state.current ? this.state.current.PoStatus : null} */}
-            </div>
-          </div>
+            {/* </div>
+          </div> */}
           <button
             class="btn btn-primary"
             onClick={this.handleSubmit}

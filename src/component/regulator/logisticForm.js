@@ -50,7 +50,7 @@ export default class logisticForm extends Component {
               Batch weight:
             </label>
             <div className="col-sm-3">
-              {/* <input type="text" className="form-control" required="true"/> */}
+              <input type="text" className="form-control" required="true"/>
             </div>
           </div>
         );

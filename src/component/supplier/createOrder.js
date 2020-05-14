@@ -31,7 +31,7 @@ export default class CreateOrder extends Component {
         let length = response.data.length;
         if (length > 0) {
           var filterData = response.data.filter((data) => {
-            return data.PoStatus === "Inprocess" && !data.DoNumber;
+            return data.PoStatus === "inProgress" && !data.DoNumber;
           });
           if (filterData.length > 0) {
             this.setState({

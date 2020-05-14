@@ -76,7 +76,6 @@ export default class Create extends Component {
       desc: this.state.material.desc,
       quan: this.state.quan,
       uprice: this.state.material.uprice,
-      state: "Created",
       addr: this.state.addr,
       delvry: this.state.startDate,
       buyerid: "B0001",

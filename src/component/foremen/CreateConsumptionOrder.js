@@ -14,6 +14,9 @@ export default class CreateConsumptionOrder extends Component {
     empty: false,
     alert: false,
     success: null,
+    dd: null,
+    mm: null,
+    yyyy: null,
   };
   handleType = (e) => {
     this.setState({ [e.target.id]: e.target.value });
@@ -49,6 +52,10 @@ console.log(e)
       })
   };
   componentDidMount = () => {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, "0");
+    var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    var yyyy = today.getFullYear();
     axios.get(`http://localhost:4000/api/alldata`).then((res) => {
       const response = res.data;
 
@@ -56,9 +63,9 @@ console.log(e)
         let length = response.data.length;
         if (length > 0) {
           var filterData = response.data.filter((data) => {
-            return ( 
-              data.DoStatus === "arrived" && (data.GRStatus!=="backorder") &&
-              (data.ForemenUpdate[0] ? !data.ForemenUpdate[0].conum : true)
+            return ( true
+              // data.DoStatus === "arrived" && (data.GRStatus!=="backorder") &&
+              // (data.ForemenUpdate[0] ? !data.ForemenUpdate[0].conum : true)
             );
           });
           if (filterData.length > 0) {
@@ -67,6 +74,9 @@ console.log(e)
               current: filterData[0],
               po: filterData[0].PONumber,
               empty: false,
+              dd,
+              mm,
+              yyyy,
             });
           } else {
             this.setState({ empty: true });
@@ -116,7 +126,7 @@ console.log(e)
       var alert = this.state.alert ? (
         this.state.success ? (
           <div class="alert alert-success" role="alert">
-            You have Confirmed the order
+            You have Submitted
           </div>
         ) : (
           <div class="alert alert-danger" role="alert">
@@ -126,7 +136,7 @@ console.log(e)
       ) : null;
     return (
       <div className="container box_margin">
-        <form action="" >
+        <form action=""  onSubmit={this.handleSubmit}>
           <div className="row form-group">
             <label htmlFor="" className="col-sm-2 col-form-label">
               What for:
@@ -175,7 +185,7 @@ console.log(e)
               <tr>
                 <td colspan="2">{this.state.conum}</td>
                 <td>{this.state.ccorder}</td>
-                <td>Date and time</td>
+                <td>{`${this.state.dd} /${this.state.mm} /${this.state.yyyy}`}</td>
               </tr>
               <tr>
                 <th>Select Item</th>
@@ -195,7 +205,7 @@ console.log(e)
             </table>
           </div>
           <button class="btn btn-primary" type="submit"
-          onClick={this.handleSubmit}>
+         >
             Submit
           </button>
         </form>

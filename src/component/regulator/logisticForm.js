@@ -4,15 +4,17 @@ import axios from "axios";
 export default class logisticForm extends Component {
   state = {
     items: ["Cement", "Pipe"],
-    input: null,
+    input: "Cement",
     dosts: null,
     alert: false,
     success: null,
+
   };
+
   handleSubmit = (e) => {
     e.preventDefault();
-
-    var dost = e.target.id === "Confirm" ? "shipped" : "inDispute";
+console.log(e.target.id)
+    var dost = e.target.id === "confirm" ? "shipped" : "dispute";
 
     const user = {
       po: this.props.PONumber,
@@ -117,13 +119,13 @@ export default class logisticForm extends Component {
         </div>
       ) : (
         <div class="alert alert-danger" role="alert">
-          You have Rejected the order
+          You have Disputed the order
         </div>
       )
     ) : null;
     return (
       <div className="container box">
-        <form action="">
+        <form action="" >
           <div class="table-responsive-md my-table">
             <table className="table table-bordered">
               <tr>
@@ -158,7 +160,9 @@ export default class logisticForm extends Component {
             <div className="col-sm-2">
               <button
                 onClick={this.handleSubmit}
-                id="Confirm"
+                // name="action"
+                // value="Update"
+                id="con firm"
                 class="btn btn-primary col"
                 type="submit"
               >
@@ -169,7 +173,10 @@ export default class logisticForm extends Component {
               <button
                 class="btn btn-light col"
                 onClick={this.handleSubmit}
+                // name="action"
+                // value="Delete"
                 type="submit"
+                
               >
                 Dispute
               </button>

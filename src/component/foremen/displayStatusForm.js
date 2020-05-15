@@ -41,7 +41,7 @@ export default class displayStatusForm extends Component {
     var alert = this.state.alert ? (
       this.state.success ? (
         <div class="alert alert-success" role="alert">
-          You have Confirmed the order
+          You have Submitted the order
         </div>
       ) : (
         <div class="alert alert-danger" role="alert">

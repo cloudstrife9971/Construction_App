@@ -15,7 +15,7 @@ export default class Create extends Component {
     dd: null,
     mm: null,
     yyyy: null,
-    quan: 1,
+    quan: null,
     addr: null,
     delvry: null,
     buyerid: "null",
@@ -35,13 +35,20 @@ export default class Create extends Component {
   };
   handleChange = (e) => {
     // console.log(e.target.value);
-    if(e.target.id==="quan"){
-      let value = parseInt(e.target.value)
-    return  this.setState({ quan: value })
-    }
-    else if(e.target.id==="amt"){
-      let value = (e.target.value).toString()
-    return  this.setState({ amt: value });
+    if (e.target.id === "quan") {
+      let value = parseInt(e.target.value);
+      // var checkPositivity = Math.sign(value);
+      // console.log(checkPositivity)
+      // if (checkPositivity === 1) {
+      this.setState({ quan: value });
+      // }
+      // else {
+
+      //   return
+      // }
+    } else if (e.target.id === "amt") {
+      let value = e.target.value.toString();
+      return this.setState({ amt: value });
     }
     this.setState({ [e.target.id]: e.target.value });
   };
@@ -58,7 +65,7 @@ export default class Create extends Component {
   totalPrice = (e) => {
     var value = parseFloat(this.state.material.uprice);
     // console.log(value);
-    var totalPrice = Math.ceil(e.target.value * value) ;
+    var totalPrice = Math.ceil(e.target.value * value);
     // var numToString = Number.String(totalPrice)
 
     this.setState({ amt: totalPrice });
@@ -66,9 +73,9 @@ export default class Create extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     if (this.state.material === null) {
-      return this.setState({empty:true})
+      return this.setState({ empty: true });
     }
-   
+
     var data = {
       posts: "create",
       itemno: this.state.material.itemNo,
@@ -90,16 +97,18 @@ export default class Create extends Component {
       .then((res) => {
         // console.log(res);
         // console.log(res.data);
-        
+
         this.setState({
           alert: true,
           success: true,
           po: res.data.data.po,
           state: res.data.data.posts,
-          empty:false
+          empty: false,
         });
       })
-      .catch((e)=>{console.log(e)});
+      .catch((e) => {
+        // console.log(e);
+      });
   };
   componentDidMount = () => {
     var today = new Date();
@@ -116,7 +125,7 @@ export default class Create extends Component {
         dd,
         mm,
         yyyy,
-        suppid:"S0001"
+        suppid: "S0001",
       });
     });
   };
@@ -137,12 +146,14 @@ export default class Create extends Component {
             type="number"
             className="form-control"
             id="quan"
+            min="1"
             onChange={(e) => {
               this.handleChange(e);
               this.totalPrice(e);
             }}
             required="true"
             // onClick={this.totalPrice}
+            // value={this.state.quan}
           />
         </td>
         <td>${this.state.material.uprice}</td>
@@ -160,6 +171,7 @@ export default class Create extends Component {
         </div>
       )
     ) : null;
+
     var empty =
       this.state.empty === true ? (
         <div class="alert alert-danger" role="alert">
@@ -179,7 +191,6 @@ export default class Create extends Component {
                 class="form-control"
                 onChange={this.handleChange}
                 id="suppid"
-                
               >
                 <option>S0001</option>
                 <option>S0002</option>
@@ -258,7 +269,7 @@ export default class Create extends Component {
                     Add Item
                   </button>
                 </th>
-                <th>Unite price</th>
+                <th>Unit price</th>
                 {/* <th>price</th> */}
               </tr>
               {addRow}
@@ -279,7 +290,6 @@ export default class Create extends Component {
         </form>
         {alert}
         {empty}
-        
       </div>
     );
   }

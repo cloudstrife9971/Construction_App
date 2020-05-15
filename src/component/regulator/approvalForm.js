@@ -18,7 +18,7 @@ export default class approvalForm extends Component {
   };
   handleSubmit = (e) => {
     e.preventDefault();
-    var dost = e.target.id === "Confirm" ? "ready to use" : "inDispute";
+    var dost = e.target.id === "Confirm" ? "ready to use" : "dispute";
 
     // console.log(dost);
     const user = {

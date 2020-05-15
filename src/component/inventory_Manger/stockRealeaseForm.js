@@ -13,7 +13,7 @@ export default class stockRealeaseForm extends Component {
     e.preventDefault();
     const user = {
       po: this.props.PONumber,
-      ccorder: "expecting confirmation from regulato",
+      ccorder: "expecting confirmation from regulator",
       batchid: this.state.batchid,
       futs: "1540340000",
       conum:this.props.ForemenUpdate[0].conum
@@ -67,7 +67,7 @@ export default class stockRealeaseForm extends Component {
     //   : null;
     return (
       <div className="container box">
-         <form action="">
+         <form action=""  onSubmit={this.handleSubmit}>
         <div className="row form-group">
           <label htmlFor="" className="col-sm-2 col-form-label">
             Regulator ID:
@@ -96,7 +96,7 @@ export default class stockRealeaseForm extends Component {
         </div>
         <button
           class="btn btn-primary"
-          onClick={this.handleSubmit}
+         
           id="Confirm"
           type="submit"
         >

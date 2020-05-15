@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-export default class OrderForm extends Component {
+export default class OrderForm extends Component {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
   state = {
     postsShow:null,
     uts: "1540343442",
@@ -42,7 +42,7 @@ export default class OrderForm extends Component {
         <td>{this.props.ItemNumber}</td>
         <td>{this.props.Description}</td>
         <td>{this.props.Quantity}</td>
-        <td>{`$${this.props.Amount}`}</td>
+        <td>{`$${this.props.UnitPrice}`}</td>
         <td>
           <button
             type="button"
@@ -103,7 +103,7 @@ export default class OrderForm extends Component {
               <th>Item number</th>
               <th>Description</th>
               <th>Quantity</th>
-              <th>Price</th>
+              <th>Unit Price</th>
               <th>Decision</th>
               <th>Message</th>
             </tr>

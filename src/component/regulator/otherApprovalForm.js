@@ -21,7 +21,7 @@ export default class otherApprovalForm extends Component {
     var dost =
       e.target.id === "Confirm"
         ? "ready to be poured"
-        : "foremen shall redo the work";
+        : "dispute";
 
     // console.log(dost);
     const user = {

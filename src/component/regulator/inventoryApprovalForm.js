@@ -123,7 +123,7 @@ export default class inventoryApprovalForm extends Component {
         </div>
       ) : (
         <div class="alert alert-danger" role="alert">
-          You have Rejected the order
+          You have Disputed the order
         </div>
       )
     ) : null;

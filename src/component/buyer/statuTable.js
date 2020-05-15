@@ -8,7 +8,7 @@ export default class statuTable extends Component {
         <td>{this.props.ItemNumber}</td>
         <td>{this.props.Description}</td>
         <td>{this.props.Quantity}</td>
-        <td>{this.props.Amount}</td>
+        <td>{`$${this.props.UnitPrice}`}</td>
       </tr>
     );
     return (
@@ -29,7 +29,7 @@ export default class statuTable extends Component {
               <th>Item number</th>
               <th>Description</th>
               <th>Quantity</th>
-              <th>Price</th>
+              <th>Unit Price</th>
             </tr>
             {a}
           </table>

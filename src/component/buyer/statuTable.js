@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "../assets/common.css";
 export default class statuTable extends Component {
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     var a = (
       <tr>
         <td>{this.props.ItemNumber}</td>

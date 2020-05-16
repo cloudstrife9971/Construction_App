@@ -8,7 +8,7 @@ export default class logisticForm extends Component {
     dosts: null,
     alert: false,
     success: null,
-
+    BatchWeight:null
   };
 
   handleSubmit = (e) => {
@@ -20,6 +20,7 @@ console.log(e.target.id)
       po: this.props.PONumber,
       dosts: dost,
       uts: "1540343442",
+      weght:this.state.BatchWeight
     };
 
     axios
@@ -37,8 +38,9 @@ console.log(e.target.id)
       .catch((e)=>{console.log(e)});
   };
   handleChange = (e) => {
-    this.setState({ input: e.target.value });
-    // console.log(this.state.input);
+    console.log(e.target.id);
+    this.setState({  [e.target.id]: e.target.value });
+    
   };
   componentDidMount = () => {
     this.setState({ input: this.state.items[0], dosts: this.props.DoStatus });
@@ -52,7 +54,7 @@ console.log(e.target.id)
               Batch weight:
             </label>
             <div className="col-sm-3">
-              <input type="text" className="form-control" required="true"/>
+              <input type="text" className="form-control" required="true" onChange={this.handleChange} id="BatchWeight"/>
             </div>
           </div>
         );
@@ -150,7 +152,7 @@ console.log(e.target.id)
               select Item to be inspected:
             </label>
             <div className="col-sm-3">
-              <select class="form-control" onChange={this.handleChange}>
+              <select class="form-control" onChange={this.handleChange} id="input">
                 {itemOptions}
               </select>
             </div>
@@ -162,7 +164,7 @@ console.log(e.target.id)
                 onClick={this.handleSubmit}
                 // name="action"
                 // value="Update"
-                id="con firm"
+                id="confirm"
                 class="btn btn-primary col"
                 type="submit"
               >

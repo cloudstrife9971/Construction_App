@@ -28,7 +28,7 @@ export default class Create extends Component {
     empty: false,
   };
   handleDate = (date) => {
-    // console.log(this.state.startDate);
+    console.log(date);
     this.setState({
       startDate: date,
     });
@@ -229,6 +229,7 @@ export default class Create extends Component {
                 placeholderText="Click to select a date"
                 selected={this.state.startDate}
                 onChange={this.handleDate}
+                dateFormat="MM/dd/yyyy"
               />
             </div>
           </div>

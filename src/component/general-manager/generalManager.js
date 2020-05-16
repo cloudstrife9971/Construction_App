@@ -97,18 +97,22 @@ export default class GeneralManager extends Component {
     var list = this.state.data
       ? this.state.data.map((data, key) => {
           //   console.log(key)
+          var value = {key}
           return (
             <GeneralManagerTable
               click={this.handleClick}
               filter={this.handleFilter}
               {...data}
+              id={value.key}
             />
           );
         })
       : null;
 
     return (
+
       <div className="container box_margin">
+      
         {list}
         <GeneralManagerPopup
           data={this.state.current}

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "../assets/common.css";
 
-export default class generalManagerPopup extends Component {
+export default class customerPopup extends Component {
   render() {
     // console.log(this.props);
     if (this.props.data) {

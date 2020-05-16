@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "../assets/common.css";
-export default class generalManagerTable extends Component {
+export default class customertable extends Component {
   state = {
     hover: false,
   };
@@ -11,7 +11,7 @@ export default class generalManagerTable extends Component {
     this.setState({ hover: false });
   };
   render() {
-    console.log(this.props)
+    // console.log(this.props)
     return (
       <div
         onClick={() => {

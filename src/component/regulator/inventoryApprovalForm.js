@@ -8,6 +8,14 @@ export default class inventoryApprovalForm extends Component {
     GRStatus: null,
     alert: false,
     success: null,
+  };  confirm = null;
+  handleConfirm = () => {
+    console.log("true")
+    this.confirm = true;
+  };
+  handleDispute = () => {
+    console.log("false")
+    this.confirm = false;
   };
   handleChange = (e) => {
     this.setState({ input: e.target.value });
@@ -15,7 +23,7 @@ export default class inventoryApprovalForm extends Component {
   };
   handleSubmit = (e) => {
     e.preventDefault();
-    var grsts = e.target.id === "Confirm" ? "received" : "backorder";
+    var grsts = (this.confirm) ? "received" : "backorder";
 
     // console.log(dost);
     const user = {
@@ -129,7 +137,7 @@ export default class inventoryApprovalForm extends Component {
     ) : null;
     return (
       <div className="container box">
-        <form action="" >
+        <form action="" onSubmit={this.handleSubmit}>
           <div className="table-responsive-md my-table">
             <table className="table table-bordered">
               <tr>
@@ -202,14 +210,14 @@ export default class inventoryApprovalForm extends Component {
             </div> */}
           <div className="row">
             <div className="col-sm-2">
-              <button type="submit" id="Confirm" class="btn btn-primary col"
-              onClick={this.handleSubmit}>
+              <button type="submit"  class="btn btn-primary col"
+              onClick={this.handleConfirm}>
                 Confirm
               </button>
             </div>
             <div className="col-sm-2">
               <button class="btn btn-light col" type="submit"
-              onClick={this.handleSubmit}>
+             onClick={this.handleDispute}>
                 Dispute
               </button>
             </div>

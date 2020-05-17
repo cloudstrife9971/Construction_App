@@ -3,7 +3,7 @@ import "../assets/common.css";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-const timestamp = require('time-stamp');
+
 
 export default class Create extends Component {
   state = {

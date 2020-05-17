@@ -12,6 +12,15 @@ export default class otherApprovalForm extends Component {
     alert: false,
     success: null,
   };
+    confirm = null;
+  handleConfirm = () => {
+    console.log("true")
+    this.confirm = true;
+  };
+  handleDispute = () => {
+    console.log("false")
+    this.confirm = false;
+  };
   handleChange = (e) => {
     this.setState({ input: e.target.value });
     // console.log(this.state.input);
@@ -19,7 +28,7 @@ export default class otherApprovalForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     var dost =
-      e.target.id === "Confirm"
+    (this.confirm)
         ? "ready to be poured"
         : "dispute";
 
@@ -130,6 +139,7 @@ export default class otherApprovalForm extends Component {
     ) : null;
     return (
       <div className="container box">
+            <form action="" onSubmit={this.handleSubmit}>
         <div class="table-responsive-md my-table">
           <table className="table table-bordered">
             <tr>
@@ -169,8 +179,8 @@ export default class otherApprovalForm extends Component {
           <div className="col-sm-2">
             <button
               class="btn btn-primary col"
-              onClick={this.handleSubmit}
-              id="Confirm"
+              onClick={this.handleConfirm}
+              
               type="submit"
             >
               Confirm
@@ -179,13 +189,14 @@ export default class otherApprovalForm extends Component {
           <div className="col-sm-2">
             <button
               type="button"
-              onClick={this.handleSubmit}
+              onClick={this.handleDispute}
               class="btn btn-light col"
             >
               Dispute
             </button>
           </div>
         </div>
+        </form>
         {alert}
       </div>
     );

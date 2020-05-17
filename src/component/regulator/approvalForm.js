@@ -12,13 +12,22 @@ export default class approvalForm extends Component {
     alert: false,
     success: null,
   };
+  confirm = null;
+  handleConfirm = () => {
+    console.log("true")
+    this.confirm = true;
+  };
+  handleDispute = () => {
+    console.log("false")
+    this.confirm = false;
+  };
   handleChange = (e) => {
     this.setState({ input: e.target.value });
     // console.log(this.state.input);
   };
   handleSubmit = (e) => {
     e.preventDefault();
-    var dost = e.target.id === "Confirm" ? "ready to use" : "dispute";
+    var dost = (this.confirm) ? "ready to use" : "dispute";
 
     // console.log(dost);
     const user = {
@@ -133,7 +142,7 @@ export default class approvalForm extends Component {
     ) : null;
     return (
       <div className="container box">
-        <form action="">
+        <form action="" onSubmit={this.handleSubmit}>
           <div class="table-responsive-md my-table">
             <table className="table table-bordered">
               <tr>
@@ -176,8 +185,8 @@ export default class approvalForm extends Component {
             <div className="col-sm-2">
               <button
                 class="btn btn-primary col"
-                onClick={this.handleSubmit}
-                id="Confirm"
+                onClick={this.handleConfirm}
+            
                 type="submit"
               >
                 Confirm
@@ -185,7 +194,7 @@ export default class approvalForm extends Component {
             </div>
             <div className="col-sm-2">
               <button
-                onClick={this.handleSubmit}
+                onClick={this.handleDispute}
                 type="submit"
                 class="btn btn-light col"
               >

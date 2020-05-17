@@ -8,19 +8,28 @@ export default class logisticForm extends Component {
     dosts: null,
     alert: false,
     success: null,
-    BatchWeight:null
+    BatchWeight: null,
   };
-
+  confirm = null;
+  handleConfirm = () => {
+    console.log("true")
+    this.confirm = true;
+  };
+  handleDispute = () => {
+    console.log("false")
+    this.confirm = false;
+  };
   handleSubmit = (e) => {
+    // console.log("handleSubmit")
     e.preventDefault();
-console.log(e.target.id)
-    var dost = e.target.id === "confirm" ? "shipped" : "dispute";
+    // console.log(e.target);
+    var dost = (this.confirm) ? "shipped" : "dispute";
 
     const user = {
       po: this.props.PONumber,
       dosts: dost,
       uts: "1540343442",
-      weght:this.state.BatchWeight
+      weght: this.state.BatchWeight,
     };
 
     axios
@@ -28,19 +37,21 @@ console.log(e.target.id)
       .then((res) => {
         // console.log(res);
         // console.log(res.data);
-        (dost==="shipped")?(this.setState({
-          dosts: res.data.data.dosts,
-          alert: true,
-          success: true,
-        })):(this.setState({ alert: true, success: false }))
-        
+        dost === "shipped"
+          ? this.setState({
+              dosts: res.data.data.dosts,
+              alert: true,
+              success: true,
+            })
+          : this.setState({ alert: true, success: false });
       })
-      .catch((e)=>{console.log(e)});
+      .catch((e) => {
+        console.log(e);
+      });
   };
   handleChange = (e) => {
     console.log(e.target.id);
-    this.setState({  [e.target.id]: e.target.value });
-    
+    this.setState({ [e.target.id]: e.target.value });
   };
   componentDidMount = () => {
     this.setState({ input: this.state.items[0], dosts: this.props.DoStatus });
@@ -54,7 +65,13 @@ console.log(e.target.id)
               Batch weight:
             </label>
             <div className="col-sm-3">
-              <input type="text" className="form-control" required="true" onChange={this.handleChange} id="BatchWeight"/>
+              <input
+                type="text"
+                className="form-control"
+                required="true"
+                onChange={this.handleChange}
+                id="BatchWeight"
+              />
             </div>
           </div>
         );
@@ -127,7 +144,7 @@ console.log(e.target.id)
     ) : null;
     return (
       <div className="container box">
-        <form action="" >
+        <form action="" onSubmit={this.handleSubmit}>
           <div class="table-responsive-md my-table">
             <table className="table table-bordered">
               <tr>
@@ -152,7 +169,11 @@ console.log(e.target.id)
               select Item to be inspected:
             </label>
             <div className="col-sm-3">
-              <select class="form-control" onChange={this.handleChange} id="input">
+              <select
+                class="form-control"
+                onChange={this.handleChange}
+                id="input"
+              >
                 {itemOptions}
               </select>
             </div>
@@ -161,10 +182,8 @@ console.log(e.target.id)
           <div className="row">
             <div className="col-sm-2">
               <button
-                onClick={this.handleSubmit}
-                // name="action"
-                // value="Update"
-                id="confirm"
+                onClick={this.handleConfirm}
+               
                 class="btn btn-primary col"
                 type="submit"
               >
@@ -174,11 +193,9 @@ console.log(e.target.id)
             <div className="col-sm-2">
               <button
                 class="btn btn-light col"
-                onClick={this.handleSubmit}
-                // name="action"
-                // value="Delete"
+                onClick={this.handleDispute}
+               
                 type="submit"
-                
               >
                 Dispute
               </button>

@@ -61,7 +61,7 @@ export default class CreateOrder extends Component {
   };
   handlePoChange = (e) => {
     // console.log(e.target.value);
-    var item = this.state.data.data.find((data) => {
+    var item = this.state.data.find((data) => {
       return data.PONumber === e.target.value;
     });
     // console.log(item);
@@ -103,6 +103,7 @@ export default class CreateOrder extends Component {
       .catch((e)=>{console.log(e)});
   };
   render() {
+    // console.log(this.state)
     if (this.state.empty === true) {
       return (
         <div className="status-message text-secondary bg-light">
@@ -110,7 +111,7 @@ export default class CreateOrder extends Component {
         </div>
       );
     }
-    console.log(this.state);
+  
     var a = this.state.current ? (
       <tr>
         <td>{this.state.current.ItemNumber}</td>

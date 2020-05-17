@@ -3,6 +3,7 @@ import "../assets/common.css";
 import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+const timestamp = require('time-stamp');
 
 export default class Create extends Component {
   state = {
@@ -75,7 +76,7 @@ export default class Create extends Component {
     if (this.state.material === null) {
       return this.setState({ empty: true });
     }
-
+var timestamp = Math.floor(new Date() / 1000)
     var data = {
       posts: "create",
       itemno: this.state.material.itemNo,
@@ -87,8 +88,8 @@ export default class Create extends Component {
       delvry: this.state.startDate,
       buyerid: "B0001",
       suppid: this.state.suppid,
-      cts: "1503412332",
-      uts: "1503412332",
+      cts: timestamp,
+      uts: timestamp,
       amt: this.state.amt,
     };
     // console.log(data);
@@ -111,6 +112,7 @@ export default class Create extends Component {
       });
   };
   componentDidMount = () => {
+    // console.log(timestamp('DD-MM-YYYY'));
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, "0");
     var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!

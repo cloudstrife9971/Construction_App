@@ -26,7 +26,7 @@ export default class CreateReciept extends Component {
   };
   handlePoChange = (e) => {
     // console.log(e.target.value);
-    var item = this.state.data.data.find((data) => {
+    var item = this.state.data.find((data) => {
       return data.PONumber === e.target.value;
     });
     // console.log(item);

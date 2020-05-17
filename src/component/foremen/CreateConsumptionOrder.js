@@ -63,9 +63,9 @@ console.log(e)
         let length = response.data.length;
         if (length > 0) {
           var filterData = response.data.filter((data) => {
-            return ( true
-              // data.DoStatus === "arrived" && (data.GRStatus!=="backorder") &&
-              // (data.ForemenUpdate[0] ? !data.ForemenUpdate[0].conum : true)
+            return (
+              data.DoStatus === "arrived" && (data.GRStatus!=="backorder") &&
+              (data.ForemenUpdate[0] ? !data.ForemenUpdate[0].conum : true)
             );
           });
           if (filterData.length > 0) {

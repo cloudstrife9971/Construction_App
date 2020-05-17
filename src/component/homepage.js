@@ -31,7 +31,7 @@ export default class homepage extends Component {
         <div className="two-box-flex">
           <div className="top-nav">
             <h2>Customer</h2>
-            <a href="">
+            <a href="/Customer">
               <img src={icon} className="icon" alt="" />
               Customer
             </a>
@@ -60,7 +60,7 @@ export default class homepage extends Component {
                 </a>
                 <ul className="dropdown">
                   <li>
-                    <a href="">Create New Order</a>
+                    <a href="/GeneralManager">Create New Order</a>
                   </li>
                 </ul>
               </li>

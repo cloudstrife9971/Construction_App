@@ -10,6 +10,19 @@ export default class customertable extends Component {
   removeShadow = () => {
     this.setState({ hover: false });
   };
+  getDtae=()=>{
+    // console.log(this.props);
+    var cts = this.props.CreateTs;
+    var date = new Date(cts * 1000);
+    var todayDate = date.getDate();
+    var month =  date.getMonth();
+    var year =  date.getFullYear();
+    var formattedTime =
+    todayDate + "-" + month + "-" + year;
+
+return formattedTime
+
+  }
   render() {
     // console.log(this.props)
     return (
@@ -32,7 +45,7 @@ export default class customertable extends Component {
         </div>
         <div className="row">
           <div className="col-4">{`00${this.props.id}`}</div>
-          <div className="col-4">order created 2017-10</div>
+          <div className="col-4">{`order created ${this.getDtae()}`}</div>
           <div className="col-4">{`$${this.props.Amount}`}</div>
         </div>
       </div>

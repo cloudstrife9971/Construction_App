@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./assets/common.css";
-import { Route, BrowserRouter, Switch } from "react-router-dom";
+import { Route, BrowserRouter, Switch, Link } from "react-router-dom";
 import Create from "./buyer/create";
 import Status from "./buyer/status";
 import Order from "./supplier/order";
@@ -16,61 +16,73 @@ import DisplayStatus from "./foremen/displayStatus";
 import Customer from "./customer/customer";
 import GeneralManager from "./general-manager/generalManager";
 import Homepage from "./homepage";
+// import 'bootstrap/dist/css/bootstrap.min.css';
 export default class index extends Component {
+  state = {
+    show: false,
+  };
+  handleClick = () => {
+    this.state.show
+      ? this.setState({ show: false })
+      : this.setState({ show: true });
+  };
   render() {
     return (
-      <div>
-        <div class="sidenav">
-          <a href="/Homepage">Buyer Create New Order</a>
-          <a href="/BuyerDisplayOrderStatus">Buyer Display Order Status</a>
-          <a href="/SupplierReceivedOrders">Supplier Received Orders </a>
-          <a href="/Supplier Create delivery Order">
-            Supplier Create delivery Order
-          </a>
-          <a href="/Regulator Logistics approval">
-            Regulator Logistics approval
-          </a>
-          <a href="/Regulator Create goods receipt">
-            Inventory Manger Create goods receipt
-          </a>
-          <a href="Regulator Inventory approval">
-            Regulator Inventory approval{" "}
-          </a>
-          
-          <a href="/Regulator consumption Approval">
-            Foreman create consumption order
-          </a>
-          <a href="/Inventory Manger Create goods receipt">
-            Inventory Manger Stock release
-          </a>
-          <a href="/Inventory Manger Stock release">
-            Regulator consumption Approval
-          </a>
-          <a href="/Foremen Create Consumption Order">
-            Foremen Display orders status
-          </a>
-          <a href="Other Regulator Inventory approval">
-            Other Regulator Inventory approval{" "}
-          </a>
-         
-          
-         
-          <a href="/Customer">Customer</a>
-          <a href="/GeneralManager">GeneralManager</a>
-
-          <a href="/">Homepage</a>
-          {/* <a href="/Foremen Display orders status">
-            Foremen Display orders status
-          </a> */}
-        </div>
-        <div class="main">
-          <BrowserRouter>
+      <BrowserRouter>
+        <div>
+          <div class={`sidenav ${this.state.show ? "width" : null}`}>
+            {/* <BrowserRouter> */}
+            <Link to="/">Homepage</Link>
+            <Link to="/CreateNewOrder">Buyer Create New Order</Link>
+            <Link to="/BuyerDisplayOrderStatus">
+              Buyer Display Order Status
+            </Link>
+            <Link to="/GeneralManager">GeneralManager</Link>
+            <Link to="/SupplierReceivedOrders">Supplier Received Orders </Link>
+            <Link to="/Supplier Create delivery Order">
+              Supplier Create delivery Order
+            </Link>
+            <Link to="/Regulator Logistics approval">
+              Regulator Logistics approval
+            </Link>
+            <Link to="/Regulator Create goods receipt">
+              Inventory Manger Create goods receipt
+            </Link>
+            <Link to="Regulator Inventory approval">
+              Regulator Inventory approval{" "}
+            </Link>
+            <Link to="/Regulator consumption Approval">
+              Foreman create consumption order
+            </Link>
+            <Link to="/Inventory Manger Create goods receipt">
+              Inventory Manger Stock release
+            </Link>
+            <Link to="/Inventory Manger Stock release">
+              Regulator consumption Approval
+            </Link>
+            <Link to="/Foremen Create Consumption Order">
+              Foremen Display orders status
+            </Link>
+            <Link to="Other Regulator Inventory approval">
+              Other Regulator Inventory approval{" "}
+            </Link>
+            <Link to="/Customer">Customer</Link>
+          </div>
+          <div class={`main ${this.state.show ? "width" : null}`}>
+            <div className="sidnavbtn">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                onClick={this.handleClick}
+              >
+                {this.state.show ? "Close Sidenav" : "Open Sidenav"}
+              </button>
+            </div>
             <Switch>
               <Route exact path="/" component={Homepage} />
-              <Route exact path="/Homepage" component={Create} />
+              <Route path="/CreateNewOrder" component={Create} />
               <Route path="/BuyerDisplayOrderStatus" component={Status} />
-              {/* <Route path="/CreateNewOrder" component={Create} /> */}
-
+              <Route path="/GeneralManager" component={GeneralManager} />
               <Route path="/SupplierReceivedOrders" component={Order} />
               <Route
                 path="/Supplier Create delivery Order"
@@ -92,7 +104,6 @@ export default class index extends Component {
                 path="/Regulator Create goods receipt"
                 component={CreateReciept}
               />
-
               <Route
                 path="/Regulator consumption Approval"
                 component={CreateConsumptionOrder}
@@ -110,25 +121,10 @@ export default class index extends Component {
                 component={DisplayStatus}
               />
               <Route path="/Customer" component={Customer} />
-              <Route path="/GeneralManager" component={GeneralManager} />
-              {/* <Route path="Foremen Display orders status" /> */}
             </Switch>
-          </BrowserRouter>
-          {/* <Homepage/> */}
-          {/* <Test/> */}
-          {/* <Create /> */}
-          {/* <Status /> */}
-          {/* <Order /> */}
-          {/* <CreateOrder /> */}
-          {/* <Logistic /> */}
-          {/* <CreateReciept /> */}
-          {/* <InventoryApproval /> */}
-          {/* <CreateConsumptionOrder /> */}
-          {/* <StockRelease /> */}
-          {/* <Approval /> */}
-          {/* <DisplayStatus /> */}
+          </div>
         </div>
-      </div>
+      </BrowserRouter>
     );
   }
 }

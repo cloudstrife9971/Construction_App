@@ -153,7 +153,7 @@ export default class logisticForm extends Component {
               </tr>
               <tr>
                 <td colspan="2"> {this.props.DoNumber}</td>
-                <td colspan="2">Items</td>
+                <th colspan="2">Items</th>
               </tr>
               <tr>
                 <th>Item number</th>

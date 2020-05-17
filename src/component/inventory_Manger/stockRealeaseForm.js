@@ -82,7 +82,7 @@ export default class stockRealeaseForm extends Component {
             </tr>
             <tr>
     <td>{this.props.ForemenUpdate[0]?(this.props.ForemenUpdate[0].conum):null}</td>
-              <td colspan="4">items to be consumed</td>
+              <th colspan="4">items to be consumed</th>
             </tr>
             <tr>
               <th>Item number</th>

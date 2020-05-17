@@ -60,7 +60,7 @@ export default class approvalForm extends Component {
       case "Cement":
         return (
           <div className="row form-group">
-            <label htmlFor="" className="col-sm-3 col-form-label">
+            <label htmlFor="" className="col-sm-2 col-form-label">
               Batch weight:
             </label>
             <div className="col-sm-3">
@@ -146,11 +146,11 @@ export default class approvalForm extends Component {
           <div class="table-responsive-md my-table">
             <table className="table table-bordered">
               <tr>
-                <td>Consumption Order number</td>
-                <td colspan="4">
+                <th>Consumption Order number</th>
+                <th colspan="4">
                   {` CO status: ${this.state.ccorder}`}
                   {/* {this.props.ForemenUpdate[0].conum} */}
-                </td>
+                </th>
               </tr>
               <tr>
                 <td>
@@ -158,7 +158,7 @@ export default class approvalForm extends Component {
                     ? this.props.ForemenUpdate[0].conum
                     : null}
                 </td>
-                <td colspan="4">items to be consumed</td>
+                <th colspan="4">items to be consumed</th>
               </tr>
               <tr>
                 <th>Item number</th>

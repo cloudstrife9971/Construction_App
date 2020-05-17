@@ -55,7 +55,7 @@ export default class inventoryApprovalForm extends Component {
       case "Cement":
         return (
           <div className="row form-group">
-            <label htmlFor="" className="col-sm-3 col-form-label">
+            <label htmlFor="" className="col-sm-2 col-form-label">
               Batch weight:
             </label>
             <div className="col-sm-3">
@@ -146,7 +146,7 @@ export default class inventoryApprovalForm extends Component {
               </tr>
               <tr>
                 <td colspan="2">{this.props.GoodReceipt}</td>
-                <td colspan="2">Items receipt</td>
+                <th colspan="2">Items receipt</th>
               </tr>
               <tr>
                 <th>Item number</th>

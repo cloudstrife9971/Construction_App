@@ -243,7 +243,7 @@ export default class CreateOrder extends Component {
             </div>
           </div>
           <div className="row form-group">
-            <label htmlFor="" className="col-sm-2 col-form-label">
+            <label htmlFor="" className="col-sm-2 ">
               Buyer ID:
             </label>
             <div className="col-sm-6">
@@ -251,7 +251,7 @@ export default class CreateOrder extends Component {
             </div>
           </div>
           <div className="row form-group">
-            <label htmlFor="" className="col-sm-2 col-form-label">
+            <label htmlFor="" className="col-sm-2 ">
               Location:
             </label>
             <div className="col-sm-6">
@@ -259,7 +259,7 @@ export default class CreateOrder extends Component {
             </div>
           </div>
           <div className="row form-group">
-            <label htmlFor="" className="col-sm-2 col-form-label">
+            <label htmlFor="" className="col-sm-2 ">
               Delivery date:
             </label>
             <div className="col-sm-6">
@@ -274,7 +274,7 @@ export default class CreateOrder extends Component {
               </tr>
               <tr>
                 <td>{this.state.donumber}</td>
-                <td colspan="3">Items</td>
+                <th colspan="3">Items</th>
               </tr>
               <tr>
                 <th>Item number</th>

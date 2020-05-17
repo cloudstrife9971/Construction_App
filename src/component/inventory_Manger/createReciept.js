@@ -139,7 +139,7 @@ export default class CreateReciept extends Component {
             </div>
           </div>
           <div className="row form-group">
-            <label htmlFor="" className="col-sm-2 col-form-label">
+            <label htmlFor="" className="col-sm-2">
               DO number:
             </label>
             <div className="col-sm-6">
@@ -154,7 +154,7 @@ export default class CreateReciept extends Component {
             </div>
           </div>
           <div className="row form-group">
-            <label htmlFor="" className="col-sm-2 col-form-label">
+            <label htmlFor="" className="col-sm-2">
               Carrier ID:
             </label>
             <div className="col-sm-6">
@@ -163,7 +163,7 @@ export default class CreateReciept extends Component {
             </div>
           </div>
           <div className="row form-group">
-            <label htmlFor="" className="col-sm-2 col-form-label">
+            <label htmlFor="" className="col-sm-2">
               Location:
             </label>
             <div className="col-sm-6">
@@ -172,7 +172,7 @@ export default class CreateReciept extends Component {
             </div>
           </div>{" "}
           <div className="row form-group">
-            <label htmlFor="" className="col-sm-2 col-form-label">
+            <label htmlFor="" className="col-sm-2">
               Delivery date:
             </label>
             <div className="col-sm-6">
@@ -181,7 +181,7 @@ export default class CreateReciept extends Component {
             </div>
           </div>{" "}
           <div className="row form-group">
-            <label htmlFor="" className="col-sm-2 col-form-label">
+            <label htmlFor="" className="col-sm-2 ">
               Expected delivery data (same as delivery due at time of purchase):
             </label>
             <div className="col-sm-6">
@@ -194,7 +194,7 @@ export default class CreateReciept extends Component {
             </div>
           </div>
           <div className="row form-group">
-            <label htmlFor="" className="col-sm-2 col-form-label">
+            <label htmlFor="" className="col-sm-2">
               Buyer ID:
             </label>
             <div className="col-sm-6">
@@ -209,7 +209,7 @@ export default class CreateReciept extends Component {
             </div>
           </div>
           <div className="row form-group">
-            <label htmlFor="" className="col-sm-2 col-form-label">
+            <label htmlFor="" className="col-sm-2">
               Shipment ID:
             </label>
             <div className="col-sm-6">
@@ -224,7 +224,7 @@ export default class CreateReciept extends Component {
             </div>
           </div>
           <div className="row form-group">
-            <label htmlFor="" className="col-sm-2 col-form-label">
+            <label htmlFor="" className="col-sm-2">
               Truck no:
             </label>
             <div className="col-sm-6">
@@ -233,7 +233,7 @@ export default class CreateReciept extends Component {
             </div>
           </div>
           <div className="row form-group">
-            <label htmlFor="" className="col-sm-2 col-form-label">
+            <label htmlFor="" className="col-sm-2">
               Regulator ID:
             </label>
             <div className="col-sm-6">
@@ -269,7 +269,7 @@ export default class CreateReciept extends Component {
               </tr>
               <tr>
                 <td colspan="2">{this.state.grept}</td>
-                <td colspan="2">Items receipt</td>
+                <th colspan="2">Items receipt</th>
               </tr>
               <tr>
                 <th>Item number</th>

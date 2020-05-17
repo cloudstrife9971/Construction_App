@@ -53,7 +53,7 @@ export default class displayStatusForm extends Component {
       <div className="container box">
         <form action="">
           <div className="row form-group">
-            <label htmlFor="" className="col-sm-2 col-form-label">
+            <label htmlFor="" className="col-sm-2 ">
               Regulator ID:
             </label>
             <div className="col-sm-6">
@@ -65,8 +65,8 @@ export default class displayStatusForm extends Component {
           <div class="table-responsive-md my-table">
             <table className="table table-bordered">
               <tr>
-                <td>Consumption Order number</td>
-                <td colspan="2">{`CO status: ${this.state.ccorder}`}</td>
+                <th>Consumption Order number</th>
+                <th colspan="2">{`CO status: ${this.state.ccorder}`}</th>
               </tr>
               <tr>
                 <td>
@@ -74,7 +74,7 @@ export default class displayStatusForm extends Component {
                     ? this.props.ForemenUpdate[0].conum
                     : null}
                 </td>
-                <td colspan="2">items to be consumed</td>
+                <th colspan="2">items to be consumed</th>
               </tr>
               <tr>
                 <th>Item number</th>

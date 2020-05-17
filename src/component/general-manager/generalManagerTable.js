@@ -40,7 +40,7 @@ return formattedTime
         {/* <div className="container gmContainer my-table shadow-sm "  onMouseEnter={this.toggleHover}>  */}
         <div className="row">
           <div className="col-4">Order No</div>
-          <div className="col-4">Status</div>
+          <div className="col-4">{`Status:${this.props.PoStatus}`}</div>
           <div className="col-4">Total</div>
         </div>
         <div className="row">

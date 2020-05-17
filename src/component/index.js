@@ -43,13 +43,13 @@ export default class index extends Component {
               Supplier Create delivery Order
             </Link>
             <Link to="/Regulator Logistics approval">
-              Regulator Logistics approval
+            go to pre-delivery inspection
             </Link>
             <Link to="/Regulator Create goods receipt">
               Inventory Manger Create goods receipt
             </Link>
             <Link to="Regulator Inventory approval">
-              Regulator Inventory approval{" "}
+            go to pick up inspection
             </Link>
             <Link to="/Regulator consumption Approval">
               Foreman create consumption order
@@ -58,13 +58,13 @@ export default class index extends Component {
               Inventory Manger Stock release
             </Link>
             <Link to="/Inventory Manger Stock release">
-              Regulator consumption Approval
+            go to out-of-stock inspection
             </Link>
             <Link to="/Foremen Create Consumption Order">
               Foremen Display orders status
             </Link>
             <Link to="Other Regulator Inventory approval">
-              Other Regulator Inventory approval{" "}
+            go to consumption inspection
             </Link>
             <Link to="/Customer">Customer</Link>
           </div>

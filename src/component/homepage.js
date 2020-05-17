@@ -46,7 +46,7 @@ export default class homepage extends Component {
                 </a>
                 <ul className="dropdown">
                   <li>
-                    <a href="/Homepage">Create New Order</a>
+                    <a href="/CreateNewOrder">Create New Order</a>
                   </li>
                   <li>
                     <a href="/BuyerDisplayOrderStatus">Display Order Status</a>
@@ -54,15 +54,15 @@ export default class homepage extends Component {
                 </ul>
               </li>
               <li>
-                <a href="">
+                <a href="GeneralManager">
                   <img src={icon} className="icon" alt="" />
                   General Manage
                 </a>
-                <ul className="dropdown">
+                {/* <ul className="dropdown">
                   <li>
                     <a href="/GeneralManager">Create New Order</a>
                   </li>
-                </ul>
+                </ul> */}
               </li>
               <li>
                 <a href="">

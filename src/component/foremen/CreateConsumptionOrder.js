@@ -24,7 +24,7 @@ export default class CreateConsumptionOrder extends Component {
   };
   handleChange = (e) => {
     var value = e.target.value;
-    var current = this.state.data.data.find((data) => {
+    var current = this.state.data.find((data) => {
       return data.PONumber === value;
     });
     this.setState({ current });
@@ -189,7 +189,7 @@ console.log(e)
               </tr>
               <tr>
                 <th>Select Item</th>
-                <th>GTIN:</th>
+                <th>GTIN</th>
                 <th>
                   <select class="form-control" onChange={this.handleChange}>
                     {po_number}

@@ -35,7 +35,7 @@ export default class displayStatusForm extends Component {
       <tr>
         <td>{this.props.ItemNumber}</td>
         <td>{this.props.Description}</td>
-        <td>{this.props.Quantity}</td>
+        <td>{this.props.ForemenUpdate[0].pquanty}</td>
       </tr>
     );
     var alert = this.state.alert ? (

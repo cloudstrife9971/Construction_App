@@ -117,7 +117,7 @@ export default class approvalForm extends Component {
       <tr>
         <td>{this.props.ItemNumber}</td>
         <td>{this.props.Description}</td>
-        <td>{this.props.Quantity}</td>
+        <td>{this.props.ForemenUpdate[0].pquanty}</td>
         <td>{this.props.GTIN}</td>
         <td>
           {this.props.ForemenUpdate[0]

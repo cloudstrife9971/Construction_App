@@ -15,7 +15,7 @@ import Approval from "./regulator/approval";
 import DisplayStatus from "./foremen/displayStatus";
 import Customer from "./customer/customer";
 import GeneralManager from "./general-manager/generalManager";
-import Homepage from "./homepage";
+import Homepage from "./homepage/homepage";
 // import 'bootstrap/dist/css/bootstrap.min.css';
 export default class index extends Component {
   state = {

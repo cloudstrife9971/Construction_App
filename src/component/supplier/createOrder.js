@@ -75,7 +75,7 @@ export default class CreateOrder extends Component {
   };
   handleSubmit = (e) => {
     e.preventDefault();
-
+    var timestamp = Math.floor(new Date() / 1000)
     const user = {
       po: this.state.po,
       cid: this.state.cid,
@@ -84,7 +84,7 @@ export default class CreateOrder extends Component {
       regid: this.state.regid,
       dosts: "expecting confirmation from regulator",
       gtin: this.state.gtin,
-      uts: "1540343442",
+      uts: timestamp,
     };
 
     axios

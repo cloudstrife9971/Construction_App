@@ -20,10 +20,11 @@ export default class OrderForm extends Component {
     }
   };
   handleSubmit = (data) => {
+    var timestamp = Math.floor(new Date() / 1000)
     const user = {
       po: this.props.PONumber,
       posts: data,
-      uts: "1540343442",
+      uts: timestamp,
     };
     // console.log(user)
     axios

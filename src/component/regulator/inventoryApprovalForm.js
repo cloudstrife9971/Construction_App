@@ -8,31 +8,51 @@ export default class inventoryApprovalForm extends Component {
     GRStatus: null,
     alert: false,
     success: null,
-  };  confirm = null;
+    weght: null,
+    innerdia: null,
+    outerdia: null,
+    wallwidth: null,
+  };
+  confirm = null;
   handleConfirm = () => {
-    console.log("true")
+    console.log("true");
     this.confirm = true;
   };
   handleDispute = () => {
-    console.log("false")
+    console.log("false");
     this.confirm = false;
   };
   handleChange = (e) => {
-    this.setState({ input: e.target.value });
+    this.setState({ [e.target.id]: e.target.value });
     // console.log(this.state.input);
   };
   handleSubmit = (e) => {
     e.preventDefault();
-    var grsts = (this.confirm) ? "received" : "backorder";
+    var timestamp = Math.floor(new Date() / 1000)
+    var grsts = this.confirm ? "received" : "backorder";
 
     // console.log(dost);
-    const user = {
-      po: this.props.PONumber,
-      dosts: "arrived",
-      posts: "inStock",
-      grsts: grsts,
-      uts: "1540343442",
-    };
+    const user =
+      this.state.input === "Cement"
+        ? {
+            po: this.props.PONumber,
+            dosts: "arrived",
+            posts: "inStock",
+            grsts: grsts,
+            uts: timestamp,
+            weght: this.state.weght,
+          }
+        : {
+            po: this.props.PONumber,
+            dosts: "arrived",
+            posts: "inStock",
+            grsts: grsts,
+            uts: timestamp,
+            weght: this.state.weght,
+            innerdia: this.state.innerdia,
+            outerdia: this.state.outerdia,
+            wallwidth: this.state.wallwidth,
+          };
 
     axios
       .post(`http://localhost:4000/api/inventoryApproval`, { ...user })
@@ -48,7 +68,9 @@ export default class inventoryApprovalForm extends Component {
             })
           : this.setState({ alert: true, success: false });
       })
-      .catch((e)=>{console.log(e)});
+      .catch((e) => {
+        console.log(e);
+      });
   };
   conditionDisplay = () => {
     switch (this.state.input) {
@@ -59,7 +81,13 @@ export default class inventoryApprovalForm extends Component {
               Batch weight:
             </label>
             <div className="col-sm-3">
-              <input type="text" className="form-control" required="true" />
+              <input
+                type="text"
+                className="form-control"
+                required="true"
+                onChange={this.handleChange}
+                id="weght"
+              />
             </div>
           </div>
         );
@@ -71,7 +99,13 @@ export default class inventoryApprovalForm extends Component {
                 actual outside diameter:
               </label>
               <div className="col-sm-3">
-                <input type="text" className="form-control" required="true" />
+                <input
+                  type="text"
+                  className="form-control"
+                  required="true"
+                  onChange={this.handleChange}
+                  id="outerdia"
+                />
               </div>
             </div>
             <div className="row form-group">
@@ -79,7 +113,13 @@ export default class inventoryApprovalForm extends Component {
                 average inside diameter:
               </label>
               <div className="col-sm-3">
-                <input type="text" className="form-control" required="true" />
+                <input
+                  type="text"
+                  className="form-control"
+                  required="true"
+                  onChange={this.handleChange}
+                  id="innerdia"
+                />
               </div>
             </div>
             <div className="row form-group">
@@ -87,7 +127,13 @@ export default class inventoryApprovalForm extends Component {
                 pipe wall width thickness:
               </label>
               <div className="col-sm-3">
-                <input type="text" className="form-control" required="true" />
+                <input
+                  type="text"
+                  className="form-control"
+                  required="true"
+                  onChange={this.handleChange}
+                  id="wallwidth"
+                />
               </div>
             </div>
             <div className="row form-group">
@@ -95,7 +141,13 @@ export default class inventoryApprovalForm extends Component {
                 pipe weight:
               </label>
               <div className="col-sm-3">
-                <input type="text" className="form-control" required="true" />
+                <input
+                  type="text"
+                  className="form-control"
+                  required="true"
+                  onChange={this.handleChange}
+                  id="weght"
+                />
               </div>
             </div>
           </div>
@@ -162,7 +214,7 @@ export default class inventoryApprovalForm extends Component {
               select Item to be inspected:
             </label>
             <div className="col-sm-6">
-              <select class="form-control" onChange={this.handleChange}>
+              <select class="form-control" id="input" onChange={this.handleChange}>
                 {itemOptions}
               </select>
             </div>
@@ -210,14 +262,20 @@ export default class inventoryApprovalForm extends Component {
             </div> */}
           <div className="row">
             <div className="col-sm-2">
-              <button type="submit"  class="btn btn-primary col"
-              onClick={this.handleConfirm}>
+              <button
+                type="submit"
+                class="btn btn-primary col"
+                onClick={this.handleConfirm}
+              >
                 Confirm
               </button>
             </div>
             <div className="col-sm-2">
-              <button class="btn btn-light col" type="submit"
-             onClick={this.handleDispute}>
+              <button
+                class="btn btn-light col"
+                type="submit"
+                onClick={this.handleDispute}
+              >
                 Dispute
               </button>
             </div>

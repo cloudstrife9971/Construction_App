@@ -34,14 +34,14 @@ export default class CreateReciept extends Component {
   };
   handleSubmit = (e) => {
     e.preventDefault();
-
+    var timestamp = Math.floor(new Date() / 1000)
     const user = {
       po: this.state.po,
       invmngid: "IM001",
       expdate: this.state.startDate,
       gis: this.state.gis,
       grsts: "pending",
-      uts: "1540343442",
+      uts: timestamp,
     };
 
     axios

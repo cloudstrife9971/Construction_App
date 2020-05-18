@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./assets/common.css";
+import "../assets/common.css";
 import icon from "./next.png";
 export default class homepage extends Component {
   render() {

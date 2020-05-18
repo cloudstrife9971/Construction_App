@@ -8,29 +8,43 @@ export default class logisticForm extends Component {
     dosts: null,
     alert: false,
     success: null,
-    BatchWeight: null,
+    weght: null,
+    innerdia: null,
+    outerdia: null,
+    wallwidth: null,
   };
   confirm = null;
   handleConfirm = () => {
-    console.log("true")
+    // console.log("true");
     this.confirm = true;
   };
   handleDispute = () => {
-    console.log("false")
+    // console.log("false");
     this.confirm = false;
   };
   handleSubmit = (e) => {
     // console.log("handleSubmit")
     e.preventDefault();
     // console.log(e.target);
-    var dost = (this.confirm) ? "shipped" : "dispute";
-
-    const user = {
-      po: this.props.PONumber,
-      dosts: dost,
-      uts: "1540343442",
-      weght: this.state.BatchWeight,
-    };
+    var dost = this.confirm ? "shipped" : "dispute";
+    var timestamp = Math.floor(new Date() / 1000)
+    const user =
+      this.state.input === "Cement"
+        ? {
+            po: this.props.PONumber,
+            dosts: dost,
+            uts: timestamp,
+            weght: this.state.weght,
+          }
+        : {
+            po: this.props.PONumber,
+            dosts: dost,
+            uts: timestamp,
+            weght: this.state.weght,
+            innerdia: this.state.innerdia,
+            outerdia: this.state.outerdia,
+            wallwidth: this.state.wallwidth,
+          };
 
     axios
       .post(`http://localhost:4000/api/logisticApproval`, { ...user })
@@ -50,7 +64,8 @@ export default class logisticForm extends Component {
       });
   };
   handleChange = (e) => {
-    console.log(e.target.id);
+    // console.log(e.target.id);
+
     this.setState({ [e.target.id]: e.target.value });
   };
   componentDidMount = () => {
@@ -70,7 +85,7 @@ export default class logisticForm extends Component {
                 className="form-control"
                 required="true"
                 onChange={this.handleChange}
-                id="BatchWeight"
+                id="weght"
               />
             </div>
           </div>
@@ -83,7 +98,13 @@ export default class logisticForm extends Component {
                 actual outside diameter:
               </label>
               <div className="col-sm-3">
-                <input type="text" className="form-control" required="true" />
+                <input
+                  type="text"
+                  className="form-control"
+                  required="true"
+                  onChange={this.handleChange}
+                  id="outerdia"
+                />
               </div>
             </div>
             <div className="row form-group">
@@ -91,7 +112,13 @@ export default class logisticForm extends Component {
                 average inside diameter:
               </label>
               <div className="col-sm-3">
-                <input type="text" className="form-control" required="true" />
+                <input
+                  type="text"
+                  className="form-control"
+                  required="true"
+                  onChange={this.handleChange}
+                  id="innerdia"
+                />
               </div>
             </div>
             <div className="row form-group">
@@ -99,7 +126,13 @@ export default class logisticForm extends Component {
                 pipe wall width thickness:
               </label>
               <div className="col-sm-3">
-                <input type="text" className="form-control" required="true" />
+                <input
+                  type="text"
+                  className="form-control"
+                  required="true"
+                  onChange={this.handleChange}
+                  id="wallwidth"
+                />
               </div>
             </div>
             <div className="row form-group">
@@ -107,7 +140,13 @@ export default class logisticForm extends Component {
                 pipe weight:
               </label>
               <div className="col-sm-3">
-                <input type="text" className="form-control" required="true" />
+                <input
+                  type="text"
+                  className="form-control"
+                  required="true"
+                  onChange={this.handleChange}
+                  id="weght"
+                />
               </div>
             </div>
           </div>
@@ -119,7 +158,7 @@ export default class logisticForm extends Component {
   };
   render() {
     //   console.log(this.props)
-    // console.log(this.state.input)
+    console.log(this.state.input);
     var itemOptions = this.state.items.map((data) => {
       return <option>{data}</option>;
     });
@@ -183,7 +222,6 @@ export default class logisticForm extends Component {
             <div className="col-sm-2">
               <button
                 onClick={this.handleConfirm}
-               
                 class="btn btn-primary col"
                 type="submit"
               >
@@ -194,7 +232,6 @@ export default class logisticForm extends Component {
               <button
                 class="btn btn-light col"
                 onClick={this.handleDispute}
-               
                 type="submit"
               >
                 Dispute

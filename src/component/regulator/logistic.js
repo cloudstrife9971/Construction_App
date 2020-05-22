@@ -34,7 +34,7 @@ export default class logistic extends Component {
     });
   };
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     if (this.state.empty === true) {
       return (
         <div className="status-message text-secondary bg-light">

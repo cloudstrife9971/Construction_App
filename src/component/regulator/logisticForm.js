@@ -12,6 +12,7 @@ export default class logisticForm extends Component {
     innerdia: null,
     outerdia: null,
     wallwidth: null,
+    dispute:false
   };
   confirm = null;
   handleConfirm = () => {
@@ -61,6 +62,7 @@ export default class logisticForm extends Component {
       })
       .catch((e) => {
         console.log(e);
+        this.setState({dispute:true})
       });
   };
   handleChange = (e) => {
@@ -158,7 +160,14 @@ export default class logisticForm extends Component {
   };
   render() {
     //   console.log(this.props)
-    console.log(this.state.input);
+    if (this.state.dispute === true) {
+      return (
+        <div className="status-message text-danger bg-light">
+          <h1>500 Error</h1>
+        </div>
+      );
+    }
+    // console.log(this.state.input);
     var itemOptions = this.state.items.map((data) => {
       return <option>{data}</option>;
     });

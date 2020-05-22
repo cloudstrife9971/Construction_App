@@ -25,6 +25,9 @@ export default class approvalForm extends Component {
     this.setState({ input: e.target.value });
     // console.log(this.state.input);
   };
+  handlebweght=(e)=>{
+this.setState({bweght:e.target.value})
+  }
   handleSubmit = (e) => {
     e.preventDefault();
     var dost = (this.confirm) ? "ready to use" : "dispute";
@@ -64,7 +67,7 @@ export default class approvalForm extends Component {
               Batch weight:
             </label>
             <div className="col-sm-3">
-              <input type="text" className="form-control" required="true" />
+              <input type="text" className="form-control" id="bweght" onChange={this.handlebweght} required="true" />
             </div>
           </div>
         );

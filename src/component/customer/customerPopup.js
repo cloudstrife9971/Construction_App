@@ -35,7 +35,9 @@ export default class customerPopup extends Component {
         if (data[0] === "_id") {
           return null;
         }
-
+        if (data[1] == null) {
+          return null;
+        }
         return (
           <tr key={key}>
             <td>{data[0]}</td>

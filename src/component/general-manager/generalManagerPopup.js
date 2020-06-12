@@ -15,9 +15,9 @@ export default class generalManagerPopup extends Component {
           // console.log(ForemenUpdateData)
           var ForemenUpdateDataArray = Object.entries(ForemenUpdateData);
           // console.log(ForemenUpdateDataArray);
-          var b = ForemenUpdateDataArray.map((data,key) => {
-            if(data[0] === "_id") {
-              return null
+          var b = ForemenUpdateDataArray.map((data, key) => {
+            if (data[0] === "_id") {
+              return null;
             }
             return (
               <tr key={key}>
@@ -33,6 +33,9 @@ export default class generalManagerPopup extends Component {
           return null;
         }
         if (data[0] === "_id") {
+          return null;
+        }
+        if (data[1] == null) {
           return null;
         }
 

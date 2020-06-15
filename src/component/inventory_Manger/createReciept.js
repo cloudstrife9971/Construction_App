@@ -34,7 +34,7 @@ export default class CreateReciept extends Component {
   };
   handleSubmit = (e) => {
     e.preventDefault();
-    var timestamp = Math.floor(new Date() / 1000)
+    var timestamp = Math.floor(new Date() / 1000);
     const user = {
       po: this.state.po,
       invmngid: "IM001",
@@ -47,8 +47,8 @@ export default class CreateReciept extends Component {
     axios
       .post(`http://localhost:4000/api/invManagerReceipt`, { ...user })
       .then((res) => {
-        console.log(res);
-        console.log(res.data);
+        // console.log(res);
+        // console.log(res.data);
         this.setState({
           grept: res.data.data.grept,
           grst: "expecting conformation from regulator",
@@ -121,6 +121,19 @@ export default class CreateReciept extends Component {
         </div>
       )
     ) : null;
+
+    // this.state.current.DeliveryDue
+    // this.state.startDate
+
+    var dateMessage = this.state.current ? (
+      new Date(this.state.startDate).getTime() >
+      new Date(this.state.current.DeliveryDue).getTime() ? (
+        <div class="alert alert-danger" role="alert">
+          You have passed the expected date
+        </div>
+      ) : null
+    ) : null;
+    // console.log(dateMessage);
     return (
       <div className="container box">
         <form action="" onSubmit={this.handleSubmit}>
@@ -176,21 +189,21 @@ export default class CreateReciept extends Component {
               Delivery date:
             </label>
             <div className="col-sm-6">
-              {/* <input type="text" className="form-control" /> */}
-              {this.state.current ? this.state.current.DeliveryDue : null}
-            </div>
-          </div>{" "}
-          <div className="row form-group">
-            <label htmlFor="" className="col-sm-2 ">
-              Expected delivery data (same as delivery due at time of purchase):
-            </label>
-            <div className="col-sm-6">
               <DatePicker
                 className="col"
                 placeholderText="Click to select a date"
                 selected={this.state.startDate}
                 onChange={this.handleDate}
               />
+            </div>
+          </div>
+          <div className="row form-group">
+            <label htmlFor="" className="col-sm-2 ">
+              Expected delivery data (same as delivery due at time of purchase):
+            </label>
+            <div className="col-sm-6">
+              {/* <input type="text" className="form-control" /> */}
+              {this.state.current ? this.state.current.DeliveryDue : null}
             </div>
           </div>
           <div className="row form-group">
@@ -285,6 +298,7 @@ export default class CreateReciept extends Component {
           </button>
         </form>
         {alert}
+        {dateMessage}
       </div>
     );
   }

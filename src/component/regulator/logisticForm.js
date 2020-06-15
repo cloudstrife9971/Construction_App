@@ -12,34 +12,26 @@ export default class logisticForm extends Component {
     innerdia: null,
     outerdia: null,
     wallwidth: null,
-    dispute:false
+    dispute: false,
+    disputeData: null,
   };
-  confirm = null;
-  handleConfirm = () => {
-    // console.log("true");
-    this.confirm = true;
-  };
-  handleDispute = () => {
-    // console.log("false");
-    this.confirm = false;
-  };
+
   handleSubmit = (e) => {
     // console.log("handleSubmit")
     e.preventDefault();
     // console.log(e.target);
-    var dost = this.confirm ? "shipped" : "dispute";
-    var timestamp = Math.floor(new Date() / 1000)
+    var timestamp = Math.floor(new Date() / 1000);
     const user =
       this.state.input === "Cement"
         ? {
             po: this.props.PONumber,
-            dosts: dost,
+            dosts: "shipped",
             uts: timestamp,
             weght: this.state.weght,
           }
         : {
             po: this.props.PONumber,
-            dosts: dost,
+            dosts: "shipped",
             uts: timestamp,
             weght: this.state.weght,
             innerdia: this.state.innerdia,
@@ -52,17 +44,38 @@ export default class logisticForm extends Component {
       .then((res) => {
         // console.log(res);
         // console.log(res.data);
-        dost === "shipped"
-          ? this.setState({
-              dosts: res.data.data.dosts,
-              alert: true,
-              success: true,
-            })
-          : this.setState({ alert: true, success: false });
+
+        this.setState({
+          dosts: res.data.data.dosts,
+          alert: true,
+          success: true,
+        });
       })
-      .catch((e) => {
-        console.log(e);
-        this.setState({dispute:true})
+      .catch((error) => {
+        console.log(error.response);
+        this.setState({ dispute: true, disputeData: error.response.data.data });
+      });
+  };
+  handleDispute = () => {
+    var data = {
+      po: this.props.PONumber,
+      posts: "create",
+      uts: this.props.UpdateTs,
+    };
+    axios
+      .post(`http://localhost:4000/api/supplierOrderCorrection`, { ...data })
+      .then((res) => {
+        // console.log(res);
+        // console.log(res.data);
+
+        this.setState({
+          dosts: res.data.data.dosts,
+          alert: true,
+          success: false,
+        });
+      })
+      .catch((error) => {
+        // console.log(error.response);
       });
   };
   handleChange = (e) => {
@@ -159,14 +172,30 @@ export default class logisticForm extends Component {
     }
   };
   render() {
-    //   console.log(this.props)
-    if (this.state.dispute === true) {
-      return (
-        <div className="status-message text-danger bg-light">
-          <h1>500 Error</h1>
+    var alert = this.state.alert ? (
+      this.state.success ? (
+        <div class="alert alert-success" role="alert">
+          You have Confirmed the order
         </div>
-      );
-    }
+      ) : (
+        <div class="alert alert-danger" role="alert">
+          You have Disputed the order
+        </div>
+      )
+    ) : null;
+    var errorMsg = this.state.dispute ? (
+      <div className="alert text-danger bg-light">
+        Error 500 : {this.state.disputeData}
+      </div>
+    ) : null;
+    //   console.log(this.props)
+    // if (this.state.dispute === true) {
+    //   return (
+    //     <div className="alert text-danger bg-light">
+    //       500 Error
+    //     </div>
+    //   );
+    // }
     // console.log(this.state.input);
     var itemOptions = this.state.items.map((data) => {
       return <option>{data}</option>;
@@ -179,17 +208,7 @@ export default class logisticForm extends Component {
         <td>{this.props.GTIN}</td>
       </tr>
     );
-    var alert = this.state.alert ? (
-      this.state.success ? (
-        <div class="alert alert-success" role="alert">
-          You have Confirmed the order
-        </div>
-      ) : (
-        <div class="alert alert-danger" role="alert">
-          You have Disputed the order
-        </div>
-      )
-    ) : null;
+
     return (
       <div className="container box">
         <form action="" onSubmit={this.handleSubmit}>
@@ -230,25 +249,22 @@ export default class logisticForm extends Component {
           <div className="row">
             <div className="col-sm-2">
               <button
-                onClick={this.handleConfirm}
+                // onClick={this.handleConfirm}
                 class="btn btn-primary col"
                 type="submit"
               >
                 Confirm
               </button>
             </div>
-            <div className="col-sm-2">
-              <button
-                class="btn btn-light col"
-                onClick={this.handleDispute}
-                type="submit"
-              >
-                Dispute
-              </button>
-            </div>
           </div>
         </form>
+        <div className="col-sm-2 cutom-position-relative">
+          <div class="btn btn-light col" onClick={this.handleDispute}>
+            Dispute
+          </div>
+        </div>
         {alert}
+        {errorMsg}
       </div>
     );
   }

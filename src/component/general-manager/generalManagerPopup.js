@@ -11,23 +11,27 @@ export default class generalManagerPopup extends Component {
       var a = dataArray.map((data, key) => {
         // console.log(data[0] +data[1])
         if (data[0] === "ForemenUpdate") {
-          var ForemenUpdateData = data[1][0];
-          // console.log(ForemenUpdateData)
-          var ForemenUpdateDataArray = Object.entries(ForemenUpdateData);
-          // console.log(ForemenUpdateDataArray);
-          var b = ForemenUpdateDataArray.map((data, key) => {
-            if (data[0] === "_id") {
-              return null;
-            }
-            return (
-              <tr key={key}>
-                <td>{data[0]}</td>
+          //  console.log(data[1])
+          if (data[1].length !== 0) {
+            var ForemenUpdateData = data[1][0];
+            // console.log(ForemenUpdateData)
+            var ForemenUpdateDataArray = Object.entries(ForemenUpdateData);
+            // console.log(ForemenUpdateDataArray);
+            var b = ForemenUpdateDataArray.map((data, key) => {
+              if (data[0] === "_id") {
+                return null;
+              }
+              return (
+                <tr key={key}>
+                  <td>{data[0]}</td>
 
-                <td> {data[1]}</td>
-              </tr>
-            );
-          });
-          return b;
+                  <td> {data[1]}</td>
+                </tr>
+              );
+            });
+            return b;
+          }
+          return null;
         }
         if (data[0] === "__v") {
           return null;

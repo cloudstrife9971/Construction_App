@@ -12,7 +12,8 @@ export default class inventoryApprovalForm extends Component {
     innerdia: null,
     outerdia: null,
     wallwidth: null,
-    dispute:false
+    dispute:false,
+    disputeData:null
   };
   confirm = null;
   handleConfirm = () => {
@@ -69,9 +70,9 @@ export default class inventoryApprovalForm extends Component {
             })
           : this.setState({ alert: true, success: false });
       })
-      .catch((e) => {
-        console.log(e);
-        this.setState({dispute:true})
+      .catch((error) => {
+        // console.log(error.response);
+        this.setState({dispute:true,disputeData:error.response.data.data})
       });
   };
   conditionDisplay = () => {
@@ -167,13 +168,12 @@ export default class inventoryApprovalForm extends Component {
     });
   };
   render() {
-    if (this.state.dispute === true) {
-      return (
-        <div className="status-message text-danger bg-light">
-          <h1>500 Error</h1>
-        </div>
-      );
-    }
+    var errorMsg = this.state.dispute ?( <div className="alert text-danger bg-light">
+    Error 500 : {this.state.disputeData} 
+      </div>):(null)
+
+  
+    
     var a = (
       <tr>
         <td>{this.props.ItemNumber}</td>
@@ -291,6 +291,7 @@ export default class inventoryApprovalForm extends Component {
           </div>
         </form>
         {alert}
+        {errorMsg}
       </div>
     );
   }

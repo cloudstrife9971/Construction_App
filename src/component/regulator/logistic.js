@@ -14,7 +14,7 @@ export default class logistic extends Component {
           var filterData = response.data.filter((data) => {
             return ( 
               data.DoStatus === "expecting confirmation from regulator" &&
-              !data.GoodReceipt
+              !data.GoodReceipt && data.PoStatus !== "create"
             );
           });
           if (filterData.length > 0) {

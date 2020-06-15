@@ -262,3 +262,9 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+.cutom-position-relative {
+  position: relative;
+  left: 131px;
+  bottom: 38px;
+}

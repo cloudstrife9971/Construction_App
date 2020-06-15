@@ -117,7 +117,7 @@ var timestamp = Math.floor(new Date() / 1000)
     var dd = String(today.getDate()).padStart(2, "0");
     var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
     var yyyy = today.getFullYear();
-    axios.get(`http://www.mocky.io/v2/5eb06edb3300006100c68e4d`).then((res) => {
+    axios.get(`https://run.mocky.io/v3/c1b3cbf5-27ba-4246-b989-a12d08c95275`).then((res) => {
       const data = res.data;
       // console.log("data");
       // console.log(data);

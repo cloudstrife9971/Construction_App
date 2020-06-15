@@ -11,6 +11,7 @@ export default class customerPopup extends Component {
       var a = dataArray.map((data, key) => {
         // console.log(data[0] +data[1])
         if (data[0] === "ForemenUpdate") {
+          if (data[1].length !== 0) {
           var ForemenUpdateData = data[1][0];
           // console.log(ForemenUpdateData)
           var ForemenUpdateDataArray = Object.entries(ForemenUpdateData);
@@ -28,6 +29,8 @@ export default class customerPopup extends Component {
             );
           });
           return b;
+        }
+        return null;
         }
         if (data[0] === "__v") {
           return null;
